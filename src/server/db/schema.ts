@@ -9,7 +9,6 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { pgTableCreator } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
 /**
@@ -18,7 +17,7 @@ import { type AdapterAccount } from "next-auth/adapters";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `tunehunter-rework_${name}`);
+// export const createTable = pgTableCreator((name) => `tunehunter-rework_${name}`);
 
 export const posts = pgTable(
   "post",
@@ -37,7 +36,7 @@ export const posts = pgTable(
 );
 
 export const users = pgTable("user", {
-  id: serial("id").notNull().primaryKey(),
+  id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }).default(sql`CURRENT_TIMESTAMP(3)`),
@@ -65,7 +64,7 @@ export const accounts = pgTable(
     session_state: varchar("session_state", { length: 255 }),
   },
   (account) => ({
-    compoundKey: primaryKey(account.provider, account.providerAccountId),
+    compoundKey: primaryKey({ columns: [account.provider, account.providerAccountId] }),
     userIdIdx: index("accounts_userId_idx").on(account.userId),
   }),
 );
@@ -98,6 +97,6 @@ export const verificationTokens = pgTable(
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
   (vt) => ({
-    compoundKey: primaryKey(vt.identifier, vt.token),
+    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   }),
 );

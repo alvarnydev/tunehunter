@@ -6,8 +6,8 @@ import { type Adapter } from "next-auth/adapters";
 import { env } from "@/env";
 
 import { db } from "@/server/db";
-import { createTable } from "@/server/db/schema";
 import SpotifyProvider from "next-auth/providers/spotify";
+import { pgTable } from "drizzle-orm/pg-core";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
-  adapter: DrizzleAdapter(db, createTable) as Adapter,
+  adapter: DrizzleAdapter(db, pgTable) as Adapter,
   providers: [
     SpotifyProvider({
       clientId: env.SPOTIFY_CLIENT_ID,
