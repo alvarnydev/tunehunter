@@ -5,7 +5,7 @@ import { type PropsWithChildren } from "react";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="flex min-h-screen rotate-0 flex-col items-center justify-between overflow-hidden bg-black">
+    <div className="flex min-h-screen rotate-0 flex-col items-center justify-between overflow-hidden bg-background">
       <Particles className="animate-fade-in absolute inset-0 -z-10" quantity={100} />
       <main className="relative flex w-full max-w-5xl flex-1 flex-col items-center justify-center gap-10 py-16">
         <Header />
