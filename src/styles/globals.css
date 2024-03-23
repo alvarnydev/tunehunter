@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: hsl(0, 0%, 100%);
-    --foreground: hsl(224, 71.4%, 4.1%);
+    --background: hsl(318.46, 46.429%, 89.02%);
+    --foreground: hsl(343.64, 38.462%, 28.039%);
 
     --card: hsl(0, 0%, 100%);
     --card-foreground: hsl(224, 71.4%, 4.1%);
@@ -13,16 +13,16 @@
     --popover: hsl(0, 0%, 100%);
     --popover-foreground: hsl(224, 71.4%, 4.1%);
 
-    --primary: hsl(220.9, 39.3%, 11%);
+    --primary: hsl(353.23, 73.81%, 67.059%);
     --primary-foreground: hsl(210, 20%, 98%);
 
     --secondary: hsl(220, 14.3%, 95.9%);
     --secondary-foreground: hsl(220.9, 39.3%, 11%);
 
-    --muted: hsl(220, 14.3%, 95.9%);
+    --muted: hsl(318.46, 46.429%, 80.118%);
     --muted-foreground: hsl(220, 8.9%, 46.1%);
 
-    --accent: hsl(220, 14.3%, 95.9%);
+    --accent: hsl(318.46, 46.429%, 80.118%);
     --accent-foreground: hsl(220.9, 39.3%, 11%);
 
     --destructive: hsl(0, 84.2%, 60.2%);
@@ -36,8 +36,8 @@
   }
 
   .dark {
-    --background: hsl(224, 71.4%, 4.1%);
-    --foreground: hsl(210, 20%, 98%);
+    --background: hsl(253.85, 59.091%, 25.882%);
+    --foreground: hsl(260, 60%, 98.039%);
 
     --card: hsl(224, 71.4%, 4.1%);
     --card-foreground: hsl(210, 20%, 98%);
@@ -45,16 +45,16 @@
     --popover: hsl(224, 71.4%, 4.1%);
     --popover-foreground: hsl(210, 20%, 98%);
 
-    --primary: hsl(210, 20%, 98%);
+    --primary: hsl(320.73, 69.62%, 69.02%);
     --primary-foreground: hsl(220.9, 39.3%, 11%);
 
     --secondary: hsl(215, 27.9%, 16.9%);
     --secondary-foreground: hsl(210, 20%, 98%);
 
-    --muted: hsl(215, 27.9%, 16.9%);
+    --muted: hsl(253.85 59.091% 20.965%);
     --muted-foreground: hsl(217.9, 10.6%, 64.9%);
 
-    --accent: hsl(215, 27.9%, 16.9%);
+    --accent: hsl(253.85 59.091% 20.965%);
     --accent-foreground: hsl(210, 20%, 98%);
 
     --destructive: hsl(0, 62.8%, 30.6%);
