@@ -3,7 +3,6 @@ import Head from "next/head";
 import { api } from "@/utils/api";
 import type { GetStaticProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import AuthShowcase from "@/components/interactive/AuthShowcase";
 
 export const Home: NextPage = () => {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
@@ -19,14 +18,12 @@ export const Home: NextPage = () => {
         <p className="text-2xl ">
           {hello.data ? hello.data.greeting : "Loading tRPC query..."}
         </p>
-        <AuthShowcase />
       </div>
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  console.log("locale", locale);
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", "common")),
