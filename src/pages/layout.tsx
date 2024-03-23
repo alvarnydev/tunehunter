@@ -22,6 +22,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         {/* <Header /> */}
         {children}
       </main>
+
       <Footer />
     </div>
   );

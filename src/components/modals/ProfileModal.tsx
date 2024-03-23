@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import { type FC } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { toast } from "sonner";
 import { Button } from "../ui/button";
 import SignInForm from "../interactive/SignInForm";
+import { toast } from "sonner";
 
 interface IProps {
   open: boolean;
@@ -14,13 +14,13 @@ const ProfileModal: FC<IProps> = ({ open }) => {
   const isLoggedIn = status === "authenticated";
 
   const handleSignOut = async () => {
-    // toast.promise(signOut({ redirect: false }), {
-    //   loading: "Logging out...",
-    //   success: () => {
-    //     return "Successfully logged out";
-    //   },
-    //   error: "Error",
-    // });
+    toast.promise(signOut({ redirect: false }), {
+      loading: "Logging out...",
+      success: () => {
+        return "Successfully logged out";
+      },
+      error: "Error",
+    });
     signOut({ redirect: false });
   };
 
@@ -36,7 +36,10 @@ const ProfileModal: FC<IProps> = ({ open }) => {
           <p className="text-center text-2xl">
             {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
           </p>
-          <Button variant="outline" onClick={handleSignOut}>
+          <Button
+            onClick={handleSignOut}
+            className="px-8 py-6 tracking-widest uppercase font-thin"
+          >
             <p>Sign out</p>
           </Button>
         </div>

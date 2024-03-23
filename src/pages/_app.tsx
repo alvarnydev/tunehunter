@@ -8,12 +8,17 @@ import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "@/styles/globals.css";
 import Layout from "./layout";
+
 import { Toaster } from "sonner";
 
 const toastOptions = {
-  classNames: {
-    toast: "bg-info",
-  },
+  // Figure this out at some later day
+  // classNames: {
+  //   success: "bg-success text-success-foreground",
+  //   error: "bg-error text-error-foreground",
+  //   info: "bg-info text-info-foreground",
+  //   warning: "bg-warning text-warning-foreground",
+  // },
 };
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -21,14 +26,21 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <Layout>
-          <Component {...pageProps} />
-          <Toaster position="bottom-center" toastOptions={toastOptions} />
-        </Layout>
-      </ThemeProvider>
-    </SessionProvider>
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={toastOptions}
+        closeButton
+        richColors
+      />
+      <SessionProvider session={session}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </SessionProvider>
+    </>
   );
 };
 

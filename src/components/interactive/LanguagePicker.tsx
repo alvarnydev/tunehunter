@@ -24,11 +24,11 @@ const LanguagePicker: FC = () => {
   return (
     <Select
       onValueChange={setLanguage}
-      defaultValue={router.locale}
-      value={router.locale}
+      // defaultValue={router.locale}
+      // value={router.locale}
     >
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder={t("lang.language")} />
+      <SelectTrigger className="w-32">
+        <SelectValue placeholder={t(`lang.${router.locale}`)} />
       </SelectTrigger>
       <SelectContent>
         {Locales.map((locale) => (

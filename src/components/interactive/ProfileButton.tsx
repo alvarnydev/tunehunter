@@ -25,26 +25,18 @@ const ProfileButton = () => {
       <ProfileModal open={profileModalOpen} />
       <ProfileBackground open={profileModalOpen} />
       <Button
-        variant="default"
+        variant="primary"
         size="icon"
-        className={cn("z-10 w-12 h-12 bg-primary relative")}
+        className={"z-10 w-12 h-12 relative"}
         onClick={handleProfileButtonClick}
       >
-        {isLoggedIn ? (
-          <User
-            className={cn(
-              "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[1.6rem] w-[1.6rem] transition-all duration-500",
-              profileModalOpen ? "-rotate-90 scale-0" : "rotate-0 scale-100",
-            )}
-          />
-        ) : (
-          <LogIn
-            className={cn(
-              "h-[1.6rem] w-[1.6rem] transition-all duration-500",
-              profileModalOpen ? "-rotate-90 scale-0" : "rotate-0 scale-100",
-            )}
-          />
-        )}
+        <User
+          className={cn(
+            "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[1.6rem] w-[1.6rem] transition-all duration-500",
+            profileModalOpen ? "-rotate-90 scale-0" : "rotate-0 scale-100",
+          )}
+        />
+
         <X
           className={cn(
             "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[1.6rem] w-[1.6rem] transition-all duration-500",
