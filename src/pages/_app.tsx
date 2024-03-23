@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 
 import { api } from "@/utils/api";
+import { appWithTranslation } from "next-i18next";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "@/styles/globals.css";
@@ -14,7 +15,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <Layout>
           <Component {...pageProps} />
         </Layout>
@@ -23,4 +24,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
   );
 };
 
-export default api.withTRPC(MyApp);
+export default api.withTRPC(appWithTranslation(MyApp));

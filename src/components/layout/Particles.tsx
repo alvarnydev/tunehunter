@@ -1,3 +1,4 @@
+"use client"
 /* Credit: https://github.com/chronark/chronark.com */
 /* eslint-disable */
 import { useRef, useEffect } from "react";
