@@ -5,7 +5,7 @@ import type { GetStaticProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export const Home: NextPage = () => {
-  const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  // const hello = api.post.hello.useQuery({ text: "from tRPC" });
 
   return (
     <>
@@ -16,7 +16,8 @@ export const Home: NextPage = () => {
       </Head>
       <div className="flex flex-col items-center gap-2 text-foreground">
         <p className="text-2xl ">
-          {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+          {/* {hello.data ? hello.data.greeting : "Loading tRPC query..."} */}
+          Hi
         </p>
       </div>
     </>

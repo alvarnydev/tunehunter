@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { SyncLoader } from "react-spinners";
+import { ScaleLoader } from "react-spinners";
 
 interface IProps {
   size: number;
@@ -7,12 +7,13 @@ interface IProps {
 
 const LoadingIndicator: FC<IProps> = ({ size }) => {
   return (
-    <SyncLoader
-      size={size / 3}
+    <ScaleLoader
+      height={size}
+      width={size / 5}
       margin={size / 10}
-      color={"hsla(var(--bc))"}
-      speedMultiplier={0.7}
-      className="m-auto"
+      radius={size}
+      speedMultiplier={1}
+      color={"var(--foreground)"}
     />
   );
 };

@@ -8,7 +8,7 @@ interface IPageProps {}
 
 const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   const router = useRouter();
-  toast.success("Successfully logged in!", { duration: 1500 });
+  toast.success("Successfully logged in!", { duration: 1800 });
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,9 +20,9 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   }, [router]);
 
   return (
-    <div className="flex flex-col gap-4">
-      <LoadingIndicator size={24} />
-      <p>Redirecting...</p>
+    <div className="flex items-baseline gap-2">
+      <p className="text-foreground text-lg">Redirecting</p>
+      <LoadingIndicator size={12} />
     </div>
   );
 };

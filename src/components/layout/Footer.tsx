@@ -1,6 +1,12 @@
-import LanguagePicker from "../interactive/LanguagePicker";
 import { ThemeToggle } from "../interactive/ThemeToggle";
 import ProfileButton from "../interactive/ProfileButton";
+import dynamic from "next/dynamic";
+const LanguagePicker = dynamic(
+  () => import("@/components/interactive/LanguagePicker"),
+  {
+    ssr: false,
+  },
+);
 
 const Footer = () => {
   return (
