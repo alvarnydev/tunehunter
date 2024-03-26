@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils";
-import { useState, type FC, useEffect } from "react";
-import { signOut, useSession } from "next-auth/react";
-import { Button } from "../ui/button";
-import SignInForm from "../interactive/SignInForm";
-import { toast } from "sonner";
 import { wait } from "@/helpers/wait";
+import { cn } from "@/lib/utils";
+import { signOut, useSession } from "next-auth/react";
+import { type FC } from "react";
+import { toast } from "sonner";
+import SignInForm from "../interactive/SignInForm";
+import { Button } from "../ui/button";
 
 interface IProps {
   open: boolean;
@@ -14,6 +14,7 @@ interface IProps {
 const ProfileModal: FC<IProps> = ({ open, setOpen }) => {
   const { status, data: sessionData } = useSession();
   const isLoggedIn = status === "authenticated";
+  console.log("sessionData", sessionData);
 
   const handleSignOut = async () => {
     setOpen(false);
@@ -39,9 +40,7 @@ const ProfileModal: FC<IProps> = ({ open, setOpen }) => {
           : "opacity-0 delay-0 pointer-events-none",
       )}
     >
-      {!isLoggedIn ? (
-        <SignInForm />
-      ) : (
+      {isLoggedIn ? (
         <div className="flex flex-col gap-4">
           <p className="text-center text-2xl">
             {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
@@ -53,6 +52,8 @@ const ProfileModal: FC<IProps> = ({ open, setOpen }) => {
             <p>Sign out</p>
           </Button>
         </div>
+      ) : (
+        <SignInForm />
       )}
     </div>
   );
