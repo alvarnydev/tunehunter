@@ -34,6 +34,7 @@ const ProfileButton = () => {
             "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[1.6rem] w-[1.6rem] menu-transition",
             profileModalOpen ? "rotate-0 scale-100" : "rotate-90 scale-0",
           )}
+          strokeWidth="1px"
         />
       </Button>
     </>

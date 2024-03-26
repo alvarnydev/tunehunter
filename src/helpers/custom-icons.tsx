@@ -25,13 +25,15 @@ export const isCustomIcon = (icon: string): icon is CustomIconType =>
 export default customIcons;
 
 export enum CustomIconVariant {
+  foreground,
   primary,
   secondary,
-  tertiary,
-  lightTertiary,
-  white,
-  stone,
-  grey,
+  accent,
+  destructive,
+  info,
+  warn,
+  success,
+  muted,
 }
 
 export type CustomIconType = keyof typeof customIcons;

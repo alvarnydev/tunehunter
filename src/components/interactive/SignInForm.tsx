@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { type FC, useEffect, useState } from "react";
 import CustomIcon from "../CustomIcon";
 import { CustomIconVariant, isCustomIcon } from "@/helpers/custom-icons";
+import { Input } from "../ui/input";
+import { Separator } from "../my-ui/separator";
 
 const SignInForm: FC = ({}) => {
   const [providers, setProviders] = useState<Providers>();
@@ -38,14 +40,25 @@ const SignInForm: FC = ({}) => {
   const OAuthProviders = [providers.spotify];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 ">
+      <Input
+        type="email"
+        placeholder="xyz@gmail.com"
+        className="placeholder:text-foreground/50"
+      />
       <Button
         onClick={handleSignInWithEmail}
-        className="px-8 py-6 tracking-widest uppercase font-thin flex gap-2"
+        className="px-8 py-6 tracking-widest font-light uppercase flex gap-2 group"
       >
-        <CustomIcon icon="mail" height="22px" width="22px" />
+        <CustomIcon
+          icon="mail"
+          height="22px"
+          width="22px"
+          variant={CustomIconVariant.foreground}
+        />
         <p>Sign in with E-Mail</p>
       </Button>
+      <Separator text="or" />
       {OAuthProviders &&
         Object.values(OAuthProviders).map((provider, index) => (
           <div key={provider?.id ?? index}>
@@ -53,11 +66,11 @@ const SignInForm: FC = ({}) => {
               onClick={() =>
                 provider?.id && handleSignInWithProvider(provider.id)
               }
-              className="px-8 py-6 tracking-widest uppercase font-thin flex gap-2"
+              className="px-8 py-6 tracking-widest font-light uppercase flex gap-2 group"
             >
               <CustomIcon
                 icon={isCustomIcon(provider.id) ? provider.id : "fallback"}
-                variant={CustomIconVariant.primary}
+                variant={CustomIconVariant.foreground}
               />
               <p>Sign in with {provider.name}</p>
             </Button>
