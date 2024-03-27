@@ -18,8 +18,8 @@ const ProfileButton = () => {
         className={cn(
           "z-10 w-20 relative menu-transition",
           profileModalOpen
-            ? "bg-muted text-muted-foreground"
-            : "text-foreground",
+            ? "bg-background text-foreground hover:bg-background/80"
+            : "",
         )}
         onClick={() => setProfileModalOpen((open) => !open)}
       >

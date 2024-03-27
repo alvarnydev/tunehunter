@@ -13,7 +13,7 @@ const ProfileBackground: FC<IProps> = ({ open }) => {
         open ? "scale-[150]" : "scale-0",
       )}
     >
-      <div className="absolute inset-0 backdrop-blur-mdrounded-full"></div>
+      <div className="absolute inset-0 backdrop-blur-mdrounded-full" />
     </div>
   );
 };

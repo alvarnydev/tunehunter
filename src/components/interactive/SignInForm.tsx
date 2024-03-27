@@ -41,21 +41,12 @@ const SignInForm: FC = ({}) => {
 
   return (
     <div className="flex flex-col gap-4 ">
-      <Input
-        type="email"
-        placeholder="xyz@gmail.com"
-        className="placeholder:text-foreground/50"
-      />
+      <Input type="email" placeholder="xyz@gmail.com" className="placeholder:text-foreground/50" />
       <Button
         onClick={handleSignInWithEmail}
-        className="px-8 py-6 tracking-widest font-light uppercase flex gap-2 group"
+        className="flex gap-2 px-8 py-6 font-light uppercase tracking-widest"
       >
-        <CustomIcon
-          icon="mail"
-          height="22px"
-          width="22px"
-          variant={CustomIconVariant.foreground}
-        />
+        <CustomIcon icon="mail" height="22px" width="22px" variant={CustomIconVariant.foreground} />
         <p>Sign in with E-Mail</p>
       </Button>
       <Separator text="or" />
@@ -63,10 +54,8 @@ const SignInForm: FC = ({}) => {
         Object.values(OAuthProviders).map((provider, index) => (
           <div key={provider?.id ?? index}>
             <Button
-              onClick={() =>
-                provider?.id && handleSignInWithProvider(provider.id)
-              }
-              className="px-8 py-6 tracking-widest font-light uppercase flex gap-2 group"
+              onClick={() => provider?.id && handleSignInWithProvider(provider.id)}
+              className="flex gap-2 px-8 py-6 font-light  uppercase tracking-widest"
             >
               <CustomIcon
                 icon={isCustomIcon(provider.id) ? provider.id : "fallback"}

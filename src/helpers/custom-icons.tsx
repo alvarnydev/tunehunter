@@ -9,8 +9,6 @@ const customIcons = {
   spotify: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
       preserveAspectRatio="none"
       viewBox="0 0 24 24"
     >

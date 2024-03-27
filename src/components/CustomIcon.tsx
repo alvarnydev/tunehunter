@@ -23,9 +23,9 @@ const CustomIcon: FC<CustomIconProps> = ({
   const classes = (() => {
     switch (variant) {
       case CustomIconVariant.foreground:
-        return "fill-foreground group-hover:fill-accent-foreground";
+        return "fill-foreground";
       case CustomIconVariant.primary:
-        return "fill-primary group-hover:fill-accent-foreground";
+        return "fill-primary";
       case CustomIconVariant.secondary:
         return "fill-secondary";
       case CustomIconVariant.accent:
