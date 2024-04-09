@@ -8,6 +8,7 @@ import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "@/styles/globals.css";
 import Layout from "./layout";
+import nextI18nConfig from "../../next-i18next.config.mjs";
 
 import { Toaster } from "sonner";
 
@@ -44,4 +45,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
   );
 };
 
-export default api.withTRPC(appWithTranslation(MyApp));
+const I18nApp = appWithTranslation(MyApp, nextI18nConfig);
+const TRPCApp = api.withTRPC(I18nApp);
+
+
+export default TRPCApp;

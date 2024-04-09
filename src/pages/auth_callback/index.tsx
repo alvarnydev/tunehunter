@@ -21,7 +21,7 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
 
   return (
     <div className="flex items-baseline gap-2">
-      <p className="text-foreground text-lg">Redirecting</p>
+      <p className="text-lg text-foreground">Redirecting</p>
       <LoadingIndicator size={12} />
     </div>
   );

@@ -2,6 +2,7 @@ import { wait } from "@/helpers/wait";
 import { signOut, useSession } from "next-auth/react";
 import { type FC } from "react";
 import { toast } from "sonner";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 
 interface IProps {
@@ -10,9 +11,6 @@ interface IProps {
 
 const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const { data: sessionData } = useSession();
-  const userName = sessionData?.user.name;
-  const userMail = sessionData?.user.email;
-  const userImg = sessionData?.user.image;
 
   const handleSignOut = async () => {
     setOpen(false);
@@ -29,12 +27,30 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
     );
   };
 
-  return (
-    <div className="flex flex-col gap-4">
-      <p className="text-center text-2xl font-bold">
-        {sessionData && <span>Hi, {sessionData.user?.name}</span>}
-      </p>
+  if (!sessionData)
+    return (
       <Button onClick={handleSignOut} className="px-8 py-6 font-thin uppercase tracking-widest">
+        <p>Sign out</p>
+      </Button>
+    );
+
+  const userName = sessionData.user.name;
+  const userMail = sessionData.user.email;
+  const userImg = sessionData.user.image;
+  const userImgAlt = `Avatar image of ${userName}`;
+
+  return (
+    <div className="flex flex-col items-center gap-16">
+      <div className="flex flex-col items-center gap-4">
+        <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
+        <p className="text-2xl">{userName}</p>
+        <p className="text-2xl">{userMail}</p>
+      </div>
+      <Button
+        onClick={handleSignOut}
+        variant={"destructive"}
+        className="px-8 py-6 font-thin uppercase tracking-widest"
+      >
         <p>Sign out</p>
       </Button>
     </div>

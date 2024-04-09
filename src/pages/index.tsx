@@ -3,6 +3,7 @@ import Head from "next/head";
 import { api } from "@/utils/api";
 import type { GetStaticProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nConfig from "../../next-i18next.config.mjs";
 
 export const Home: NextPage = () => {
   // const hello = api.post.hello.useQuery({ text: "from tRPC" });
@@ -27,7 +28,7 @@ export const Home: NextPage = () => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", "common")),
+      ...(await serverSideTranslations(locale ?? "en", "common", nextI18nConfig)),
     },
   };
 };

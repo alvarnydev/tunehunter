@@ -13,7 +13,7 @@ const LoadingIndicator: FC<IProps> = ({ size }) => {
       margin={size / 10}
       radius={size}
       speedMultiplier={1}
-      color={"var(--foreground)"}
+      color={"hsl(var(--foreground))"}
     />
   );
 };
