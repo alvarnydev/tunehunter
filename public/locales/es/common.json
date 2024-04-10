@@ -5,20 +5,28 @@
   "auth": {
     "userName": "Nombre de usuario",
     "mail": "Correo",
+    "redirecting": "Redirigiendo",
     "signIn": "Iniciar sesión",
     "signInWithEmail": "Iniciar sesión con correo",
     "signInWithProvider": "Iniciar sesión con {{provider}}",
     "signOut": "Cerrar sesión",
     "toast": {
-      "loading": "Iniciando sesión...",
-      "success": "Sesión iniciada correctamente",
-      "error": "Error al intentar iniciar sesión"
+      "login": {
+        "loading": "Iniciando sesión...",
+        "success": "Sesión iniciada correctamente",
+        "error": "Error al intentar iniciar sesión"
+      },
+      "logout": {
+        "loading": "Cerrando sesión...",
+        "success": "Sesión cerrada correctamente",
+        "error": "Error al intentar cerrar sesión"
+      }
     }
   },
   "lang": {
     "language": "Idioma",
-    "en": "Inglés",
-    "de": "Alemán",
+    "en": "English",
+    "de": "Deutsch",
     "es": "Español"
   }
 }

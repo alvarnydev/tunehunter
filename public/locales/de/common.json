@@ -5,20 +5,28 @@
   "auth": {
     "userName": "Nutzername",
     "mail": "E-Mail",
+    "redirecting": "Weiterleiten",
     "signIn": "Einloggen",
     "signInWithEmail": "Mit E-Mail einloggen",
     "signInWithProvider": "Mit {{provider}} einloggen",
     "signOut": "Ausloggen",
     "toast": {
-      "loading": "Einloggen...",
-      "success": "Erfolgreich eingeloggt",
-      "error": "Fehler beim Einloggen"
+      "login": {
+        "loading": "Einloggen...",
+        "success": "Erfolgreich eingeloggt",
+        "error": "Fehler beim Einloggen"
+      },
+      "logout": {
+        "loading": "Ausloggen...",
+        "success": "Erfolgreich ausgeloggt",
+        "error": "Fehler beim Einloggen"
+      }
     }
   },
   "lang": {
     "language": "Sprache",
-    "en": "Englisch",
+    "en": "English",
     "de": "Deutsch",
-    "es": "Spanisch"
+    "es": "Español"
   }
 }

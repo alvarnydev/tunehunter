@@ -16,9 +16,9 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const { t } = useTranslation("");
 
   const signOutText = t("auth.signOut");
-  const toastLoadingText = t("auth.toast.loading");
-  const toastSuccessText = t("auth.toast.success");
-  const toastErrorText = t("auth.toast.error");
+  const logoutLoadingText = t("auth.toast.logout.loading");
+  const logoutSuccessText = t("auth.toast.logout.success");
+  const logoutErrorText = t("auth.toast.logout.error");
 
   const handleSignOut = async () => {
     setOpen(false);
@@ -26,11 +26,11 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
     toast.promise(
       wait(500).then(() => signOut({ redirect: false })),
       {
-        loading: toastLoadingText,
+        loading: logoutLoadingText,
         success: () => {
-          return toastSuccessText;
+          return logoutSuccessText;
         },
-        error: toastErrorText,
+        error: logoutErrorText,
       },
     );
   };
