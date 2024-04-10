@@ -1,9 +1,11 @@
 import LoadingIndicator from "@/components/LoadingIndicator";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import { toast } from "sonner";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nConfig from "../../../next-i18next.config.mjs";
 
 interface IPageProps {}
 
@@ -31,6 +33,14 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
       <LoadingIndicator size={12} />
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", "common", nextI18nConfig)),
+    },
+  };
 };
 
 export default AuthCallbackPage;
