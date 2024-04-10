@@ -1,3 +1,4 @@
 footer:
 - callback restore language
 - profile menu
+- languagepicker styles
