@@ -8,10 +8,12 @@ import CustomIcon from "../CustomIcon";
 import { CustomIconVariant, isCustomIcon } from "@/helpers/custom-icons";
 import { Input } from "../ui/input";
 import { Separator } from "../my-ui/separator";
+import { useTranslation } from "next-i18next";
 
 const SignInForm: FC = ({}) => {
   const [providers, setProviders] = useState<Providers>();
   const router = useRouter();
+  const { t } = useTranslation("");
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -38,6 +40,9 @@ const SignInForm: FC = ({}) => {
   }
 
   const OAuthProviders = [providers.spotify];
+  const orText = t("general.or");
+  const signInWithMailText = t("auth.signInWithEmail");
+  const signInWithProviderText = (provider: string) => t("auth.signInWithProvider", { provider });
 
   return (
     <div className="flex flex-col gap-4 ">
@@ -47,9 +52,9 @@ const SignInForm: FC = ({}) => {
         className="flex gap-2 px-8 py-6 font-light uppercase tracking-widest"
       >
         <CustomIcon icon="mail" height="22px" width="22px" variant={CustomIconVariant.foreground} />
-        <p>Sign in with E-Mail</p>
+        <p>{signInWithMailText}</p>
       </Button>
-      <Separator text="or" />
+      <Separator text={orText} />
       {OAuthProviders &&
         Object.values(OAuthProviders).map((provider, index) => (
           <div key={provider?.id ?? index}>
@@ -61,7 +66,7 @@ const SignInForm: FC = ({}) => {
                 icon={isCustomIcon(provider.id) ? provider.id : "fallback"}
                 variant={CustomIconVariant.foreground}
               />
-              <p>Sign in with {provider.name}</p>
+              <p>{signInWithProviderText(provider.name)}</p>
             </Button>
           </div>
         ))}

@@ -1,4 +1,20 @@
 {
+  "general": {
+    "or": "o"
+  },
+  "auth": {
+    "userName": "Nombre de usuario",
+    "mail": "Correo",
+    "signIn": "Iniciar sesión",
+    "signInWithEmail": "Iniciar sesión con correo",
+    "signInWithProvider": "Iniciar sesión con {{provider}}",
+    "signOut": "Cerrar sesión",
+    "toast": {
+      "loading": "Iniciando sesión...",
+      "success": "Sesión iniciada correctamente",
+      "error": "Error al intentar iniciar sesión"
+    }
+  },
   "lang": {
     "language": "Idioma",
     "en": "Inglés",

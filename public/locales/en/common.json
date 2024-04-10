@@ -1,4 +1,20 @@
 {
+  "general": {
+    "or": "or"
+  },
+  "auth": {
+    "userName": "User name",
+    "mail": "Mail",
+    "signIn": "Sign in",
+    "signInWithEmail": "Sign in with E-Mail",
+    "signInWithProvider": "Sign in with {{provider}}",
+    "signOut": "Log out",
+    "toast": {
+      "loading": "Logging you out...",
+      "success": "Successfully logged out",
+      "error": "Error when trying to log you out"
+    }
+  },
   "lang": {
     "language": "Language",
     "en": "English",

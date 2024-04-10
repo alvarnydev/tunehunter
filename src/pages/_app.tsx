@@ -28,12 +28,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <>
-      <Toaster
-        position="top-right"
-        toastOptions={toastOptions}
-        closeButton
-        richColors
-      />
+      <Toaster position="top-right" toastOptions={toastOptions} closeButton richColors />
       <SessionProvider session={session}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Layout>
@@ -47,6 +42,5 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
 const I18nApp = appWithTranslation(MyApp, nextI18nConfig);
 const TRPCApp = api.withTRPC(I18nApp);
-
 
 export default TRPCApp;

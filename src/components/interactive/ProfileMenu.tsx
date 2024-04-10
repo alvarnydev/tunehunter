@@ -4,6 +4,8 @@ import { type FC } from "react";
 import { toast } from "sonner";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { Table, TableBody, TableCell, TableRow } from "../ui/table";
+import { useTranslation } from "next-i18next";
 
 interface IProps {
   setOpen: (open: boolean) => void;
@@ -11,6 +13,12 @@ interface IProps {
 
 const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const { data: sessionData } = useSession();
+  const { t } = useTranslation("");
+
+  const signOutText = t("auth.signOut");
+  const toastLoadingText = t("auth.toast.loading");
+  const toastSuccessText = t("auth.toast.success");
+  const toastErrorText = t("auth.toast.error");
 
   const handleSignOut = async () => {
     setOpen(false);
@@ -18,11 +26,11 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
     toast.promise(
       wait(500).then(() => signOut({ redirect: false })),
       {
-        loading: "Logging out...",
+        loading: toastLoadingText,
         success: () => {
-          return "Successfully logged out";
+          return toastSuccessText;
         },
-        error: "Error",
+        error: toastErrorText,
       },
     );
   };
@@ -30,7 +38,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   if (!sessionData)
     return (
       <Button onClick={handleSignOut} className="px-8 py-6 font-thin uppercase tracking-widest">
-        <p>Sign out</p>
+        <p>{signOutText}</p>
       </Button>
     );
 
@@ -39,19 +47,32 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 
+  const userNameText = t("auth.userName");
+  const userMailText = t("auth.mail");
+
   return (
-    <div className="flex flex-col items-center gap-16">
+    <div className="flex flex-col items-center gap-10 rounded-[2rem] bg-background p-10">
       <div className="flex flex-col items-center gap-4">
         <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
-        <p className="text-2xl">{userName}</p>
-        <p className="text-2xl">{userMail}</p>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell className="text-lg font-medium">{userNameText}</TableCell>
+              <TableCell className="text-right">{userName}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-lg font-medium">{userMailText}</TableCell>
+              <TableCell className="text-right">{userMail}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </div>
       <Button
         onClick={handleSignOut}
         variant={"destructive"}
         className="px-8 py-6 font-thin uppercase tracking-widest"
       >
-        <p>Sign out</p>
+        <p>{signOutText}</p>
       </Button>
     </div>
   );

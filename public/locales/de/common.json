@@ -1,4 +1,20 @@
 {
+  "general": {
+    "or": "oder"
+  },
+  "auth": {
+    "userName": "Nutzername",
+    "mail": "E-Mail",
+    "signIn": "Einloggen",
+    "signInWithEmail": "Mit E-Mail einloggen",
+    "signInWithProvider": "Mit {{provider}} einloggen",
+    "signOut": "Ausloggen",
+    "toast": {
+      "loading": "Einloggen...",
+      "success": "Erfolgreich eingeloggt",
+      "error": "Fehler beim Einloggen"
+    }
+  },
   "lang": {
     "language": "Sprache",
     "en": "Englisch",
