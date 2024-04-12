@@ -6,17 +6,21 @@ import { useTranslation } from "next-i18next";
 import { toast } from "sonner";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nConfig from "../../../next-i18next.config.mjs";
+import { useSession } from "next-auth/react";
 
 interface IPageProps {}
 
 const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   const router = useRouter();
   const { t } = useTranslation();
+  const { status } = useSession();
 
   const redirectingText = t("auth.redirecting");
   const loginSuccessText = t("auth.toast.login.success");
 
-  toast.success(loginSuccessText, { duration: 1800 });
+  useEffect(() => {
+    if (status === "authenticated") toast.success(loginSuccessText, { duration: 1800 });
+  }, [status]);
 
   useEffect(() => {
     setTimeout(() => {
