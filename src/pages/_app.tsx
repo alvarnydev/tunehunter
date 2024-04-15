@@ -12,6 +12,9 @@ import nextI18nConfig from "../../next-i18next.config.mjs";
 
 import { Toaster } from "sonner";
 
+import SEO from "../../next-seo.config";
+import { DefaultSeo } from "next-seo";
+
 const toastOptions = {
   // Figure this out at some later day
   // classNames: {
@@ -28,6 +31,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <>
+      <DefaultSeo {...SEO} />
       <Toaster position="top-right" toastOptions={toastOptions} closeButton richColors />
       <SessionProvider session={session}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
