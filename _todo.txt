@@ -1,5 +1,3 @@
 footer:
-- callback restore language
 - profile menu
-- login double or triple logged in toasts
 - email login

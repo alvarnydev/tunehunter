@@ -17,9 +17,14 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
 
   const redirectingText = t("auth.redirecting");
   const loginSuccessText = t("auth.toast.login.success");
+  const loginErrorText = t("auth.toast.login.error");
 
   useEffect(() => {
-    if (status === "authenticated") toast.success(loginSuccessText, { duration: 1800 });
+    if (status === "authenticated") {
+      toast.success(loginSuccessText, { duration: 1800 });
+    } else if (status === "unauthenticated") {
+      toast.error(loginErrorText, { duration: 1800 });
+    }
   }, [status]);
 
   useEffect(() => {

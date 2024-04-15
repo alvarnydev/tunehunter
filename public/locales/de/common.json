@@ -19,7 +19,7 @@
       "logout": {
         "loading": "Ausloggen...",
         "success": "Erfolgreich ausgeloggt",
-        "error": "Fehler beim Einloggen"
+        "error": "Fehler beim Ausloggen"
       }
     }
   },

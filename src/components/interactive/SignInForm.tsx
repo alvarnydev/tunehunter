@@ -1,14 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { type Providers } from "@/interfaces/providers";
-import { Mail } from "lucide-react";
-import { getProviders, signIn } from "next-auth/react";
-import { useRouter } from "next/router";
-import { type FC, useEffect, useState } from "react";
-import CustomIcon from "../CustomIcon";
 import { CustomIconVariant, isCustomIcon } from "@/helpers/custom-icons";
-import { Input } from "../ui/input";
-import { Separator } from "../my-ui/separator";
+import { type Providers } from "@/interfaces/providers";
+import { getProviders, signIn } from "next-auth/react";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import { useEffect, useState, type FC } from "react";
+import CustomIcon from "../CustomIcon";
+import { Separator } from "../my-ui/separator";
+import { Input } from "../ui/input";
 
 const SignInForm: FC = ({}) => {
   const [providers, setProviders] = useState<Providers>();
@@ -27,7 +26,7 @@ const SignInForm: FC = ({}) => {
 
   const handleSignInWithProvider = async (providerId: string) => {
     await signIn(providerId, {
-      callbackUrl: `/auth_callback/?redirectUrl=${router.asPath}`,
+      callbackUrl: `/${router.locale}/auth_callback/?redirectUrl=${router.asPath}`,
     });
   };
 
