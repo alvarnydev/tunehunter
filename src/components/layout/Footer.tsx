@@ -1,6 +1,6 @@
-import { ThemeToggle } from "../interactive/ThemeToggle";
-import ProfileButton from "../interactive/ProfileButton";
 import dynamic from "next/dynamic";
+import ProfileButton from "../interactive/ProfileButton";
+import { ThemeToggle } from "../interactive/ThemeToggle";
 const LanguagePicker = dynamic(() => import("@/components/interactive/LanguagePicker"), {
   ssr: false,
 });

@@ -3,14 +3,20 @@ import useDeviceSize from "@/hooks/useDeviceSize";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { type FC } from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const LanguagePicker: FC = () => {
   const router = useRouter();
   const { isSmallDevice } = useDeviceSize();
   const { t } = useTranslation("");
   const { pathname, asPath, query } = router;
-  // const [language, setLanguage] = useLocalStorage<Locale>("lang", "en");
 
   const placeholderValue = isSmallDevice ? "EN" : t(`lang.${router.locale}`);
   const languageText = (locale: string) =>
@@ -20,11 +26,6 @@ const LanguagePicker: FC = () => {
     document.cookie = `NEXT_LOCALE=${newLocale}; max-age=31536000; SameSite=Lax; path=/`;
     await router.push({ pathname, query }, asPath, { locale: newLocale });
   };
-
-  // // TODO: This is not great, figure out a better way to handle restoring language on callbacks
-  // useEffect(() => {
-  //   router.push({ pathname, query }, asPath, { locale: language });
-  // }, []);
 
   return (
     <Select onValueChange={changeLanguage} value={router.locale}>

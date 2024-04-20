@@ -16,10 +16,8 @@ const ProfileModal: FC<IProps> = ({ open, setOpen }) => {
   return (
     <div
       className={cn(
-        "z-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center menu-transition",
-        open
-          ? "opacity-100 delay-100"
-          : "opacity-0 delay-0 pointer-events-none",
+        "menu-transition page-container absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center",
+        open ? "opacity-100 delay-100" : "pointer-events-none opacity-0 delay-0",
       )}
     >
       {isLoggedIn ? <ProfileMenu setOpen={setOpen} /> : <SignInForm />}

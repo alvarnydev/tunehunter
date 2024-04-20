@@ -1,11 +1,10 @@
 import { wait } from "@/helpers/wait";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslation } from "next-i18next";
 import { type FC } from "react";
 import { toast } from "sonner";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { Table, TableBody, TableCell, TableRow } from "../ui/table";
-import { useTranslation } from "next-i18next";
 
 interface IProps {
   setOpen: (open: boolean) => void;
@@ -51,21 +50,9 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const userMailText = t("auth.mail");
 
   return (
-    <div className="flex flex-col items-center gap-10 rounded-[2rem] bg-background p-10">
+    <div className="flex w-full flex-col items-center gap-10 rounded-[2rem] bg-background p-10">
       <div className="flex flex-col items-center gap-4">
         <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell className="text-lg font-medium">{userNameText}</TableCell>
-              <TableCell className="text-right">{userName}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="text-lg font-medium">{userMailText}</TableCell>
-              <TableCell className="text-right">{userMail}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
       </div>
       <Button
         onClick={handleSignOut}

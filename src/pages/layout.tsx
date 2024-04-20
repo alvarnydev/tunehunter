@@ -15,7 +15,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       {theme === "dark" && (
         <Particles className="animate-fade-in absolute inset-0 -z-10" quantity={100} />
       )}
-      <main className="relative flex w-full max-w-5xl flex-1 flex-col items-center justify-center gap-10 py-16">
+      <main className="page-container relative flex flex-1 flex-col items-center justify-center gap-10 py-16">
         {/* <Header /> */}
         {children}
       </main>
