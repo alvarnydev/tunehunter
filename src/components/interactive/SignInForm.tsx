@@ -11,8 +11,12 @@ import { Input } from "../ui/input";
 
 const SignInForm: FC = ({}) => {
   const [providers, setProviders] = useState<Providers>();
+  const [email, setEmail] = useState<string>("");
   const router = useRouter();
   const { t } = useTranslation("");
+
+  const mailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const isValidMail = mailFormat.test(email);
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -30,8 +34,13 @@ const SignInForm: FC = ({}) => {
     });
   };
 
-  const handleSignInWithEmail = async () => {
-    console.log("hi");
+  const handleSignInWithEmail = async (email: string) => {
+    if (!isValidMail) {
+      return;
+    }
+    console.log(email);
+    const response = await signIn("email", { email, redirect: false });
+    console.log(response);
   };
 
   if (!providers) {
@@ -45,9 +54,15 @@ const SignInForm: FC = ({}) => {
 
   return (
     <div className="flex flex-col gap-4 ">
-      <Input type="email" placeholder="xyz@gmail.com" className="placeholder:text-foreground/50" />
+      <Input
+        type="email"
+        placeholder="xyz@gmail.com"
+        className="placeholder:text-foreground/50"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <Button
-        onClick={handleSignInWithEmail}
+        onClick={() => handleSignInWithEmail(email)}
         className="flex gap-2 px-8 py-6 font-light uppercase tracking-widest"
       >
         <CustomIcon icon="mail" height="22px" width="22px" variant={CustomIconVariant.foreground} />
