@@ -44,7 +44,20 @@ const SignInForm: FC = ({}) => {
   const handleSignInWithEmail: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const signInPromise = signIn("email", { email, redirect: false });
-    toast.promise(signInPromise, {
+    const mailSentPromise = new Promise((resolve, reject) => {
+      signInPromise
+        .then((response) => {
+          if (response?.error) {
+            reject(response);
+          } else {
+            resolve(response);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    toast.promise(mailSentPromise, {
       loading: mailSendLoadingText,
       success: () => {
         setMagicLinkSent(true);
@@ -91,7 +104,7 @@ const SignInForm: FC = ({}) => {
           text={signInWithMailText}
           disabled={!email}
           icon="mail"
-          variant={CustomIconVariant.foreground}
+          iconVariant={CustomIconVariant.foreground}
         />
       </form>
       <Separator text={orText} />

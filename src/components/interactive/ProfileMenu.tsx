@@ -5,6 +5,7 @@ import { type FC } from "react";
 import { toast } from "sonner";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import IconButton from "./IconButton";
 
 interface IProps {
   setOpen: (open: boolean) => void;
@@ -54,13 +55,12 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
       <div className="flex flex-col items-center gap-4">
         <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
       </div>
-      <Button
+      <IconButton
         onClick={handleSignOut}
-        variant={"destructive"}
-        className="px-8 py-6 font-thin uppercase tracking-widest"
-      >
-        <p>{signOutText}</p>
-      </Button>
+        text={signOutText}
+        buttonVariant="destructive"
+        icon="signOut"
+      />
     </div>
   );
 };
