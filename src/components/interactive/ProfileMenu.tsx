@@ -61,7 +61,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const writeUsPrompt = t("settings.writeUs");
 
   return (
-    <div className="overflow-y-auto rounded-[2rem] bg-background px-6 py-4 md:px-8 md:py-6 lg:px-10 lg:py-8 ">
+    <div className="overflow-y-auto rounded-[2rem] bg-background px-6 py-6 md:px-8 md:py-6 lg:px-10 lg:py-8 ">
       <div className="flex w-full flex-col items-center gap-6">
         <div className="flex flex-col items-center gap-4">
           <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
@@ -87,22 +87,31 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
             buttonVariant="accent"
             iconVariant="accent-foreground"
           /> */}
-          <IconButton
-            icon="spotify"
-            text="Connect"
-            sizeVariant="sm"
-            buttonVariant="primary"
-            iconVariant="primary-foreground"
-          />
+          <div className="w-fit">
+            <IconButton
+              icon="spotify"
+              text="Connect"
+              sizeVariant="xs"
+              buttonVariant="link"
+              iconVariant="primary"
+            />
+          </div>
         </div>
-        <Separator borderColor="border-foreground" />
         <div className="grid w-full grid-cols-2 gap-4">
           <p className="flex items-center font-thin">{haveFeedbackText}</p>
-          <IconButton sizeVariant="sm" className="justify-self-start" icon="mail">
-            <a href="mailto:hello@tunehunter.app">{writeUsPrompt}</a>
-          </IconButton>
+          <div className="w-fit">
+            <IconButton
+              sizeVariant="xs"
+              className="justify-self-start"
+              icon="mail"
+              buttonVariant="link"
+              iconVariant="primary"
+            >
+              <a href="mailto:hello@tunehunter.app">{writeUsPrompt}</a>
+            </IconButton>
+          </div>
         </div>
-        <div className="mt-2" />
+        <Separator borderColor="border-foreground" />
         <IconButton
           onClick={handleSignOut}
           text={signOutText}
