@@ -61,7 +61,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const writeUsPrompt = t("settings.writeUs");
 
   return (
-    <div className="overflow-y-auto rounded-[2rem] bg-background p-10 ">
+    <div className="overflow-y-auto rounded-[2rem] bg-background px-6 py-4 md:px-8 md:py-6 lg:px-10 lg:py-8 ">
       <div className="flex w-full flex-col items-center gap-6">
         <div className="flex flex-col items-center gap-4">
           <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
@@ -69,13 +69,15 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
         <div className="grid w-full grid-cols-2 gap-4">
           <p className="font-thin">{userNameText}</p>
           <p>{userName}</p>
-          <p className="font-thin">{userMailText}</p>
-          <p>{userMail}</p>
+          <p className="break-words font-thin">{userMailText}</p>
+          <p className="overflow-x-clip text-ellipsis">{userMail}</p>
         </div>
         <Separator borderColor="border-foreground" />
         <div className="grid w-full grid-cols-2 gap-4">
           <p className="font-thin">{soundsAllowedText}</p>
-          <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
+          <div className="flex items-center">
+            <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
+          </div>
           <p className="flex items-center font-thin">{spotifyConnectedText}</p>
           {/* <IconButton
             icon="tick"
