@@ -105,6 +105,7 @@ const SignInForm: FC = ({}) => {
           disabled={!email}
           icon="mail"
           iconVariant="foreground"
+          sizeVariant="lg"
         />
       </form>
       <Separator text={orText} borderColor="border-foreground" />
@@ -114,6 +115,7 @@ const SignInForm: FC = ({}) => {
             <IconButton
               icon={isCustomIcon(provider.id) ? provider.id : "fallback"}
               text={signInWithProviderText(provider.name)}
+              sizeVariant="lg"
               onClick={() => provider?.id && handleSignInWithProvider(provider.id)}
             />
           </div>

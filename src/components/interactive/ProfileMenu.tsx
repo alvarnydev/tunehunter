@@ -1,5 +1,6 @@
 import { playJingle } from "@/helpers/play-jingle";
 import { wait } from "@/helpers/wait";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { type FC } from "react";
@@ -7,6 +8,7 @@ import { toast } from "sonner";
 import { Separator } from "../my-ui/separator";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { Switch } from "../ui/switch";
 import IconButton from "./IconButton";
 
 interface IProps {
@@ -16,6 +18,7 @@ interface IProps {
 const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const { data: sessionData } = useSession();
   const { t } = useTranslation("");
+  const [allowSounds, setAllowSounds] = useLocalStorage("allowSounds", false);
 
   const signOutText = t("auth.signOut");
   const logoutLoadingText = t("auth.toast.logout.loading");
@@ -50,23 +53,64 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 
-  const userNameText = t("auth.userName");
-  const userMailText = t("auth.mail");
+  const userNameText = t("general.userName");
+  const userMailText = t("general.mail");
+  const spotifyConnectedText = t("settings.spotifyConnected");
+  const soundsAllowedText = t("settings.soundsAllowed");
+  const haveFeedbackText = t("settings.haveFeedback");
+  const writeUsPrompt = t("settings.writeUs");
 
   return (
-    <div className="overflow-y-auto rounded-[2rem] bg-background p-10">
+    <div className="overflow-y-auto rounded-[2rem] bg-background p-10 ">
       <div className="flex w-full flex-col items-center gap-6">
         <div className="flex flex-col items-center gap-4">
           <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
         </div>
+        <div className="grid w-full grid-cols-2 gap-4">
+          <p className="font-thin">{userNameText}</p>
+          <p>{userName}</p>
+          <p className="font-thin">{userMailText}</p>
+          <p>{userMail}</p>
+        </div>
         <Separator borderColor="border-foreground" />
-        <div className="grid grid-cols-2"></div>
+        <div className="grid w-full grid-cols-2 gap-4">
+          <p className="font-thin">{soundsAllowedText}</p>
+          <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
+          <p className="flex items-center font-thin">{spotifyConnectedText}</p>
+          {/* <IconButton
+            icon="tick"
+            text="Connected"
+            disabled
+            sizeVariant="sm"
+            buttonVariant="accent"
+            iconVariant="accent-foreground"
+          /> */}
+          <IconButton
+            icon="spotify"
+            text="Connect"
+            sizeVariant="sm"
+            buttonVariant="primary"
+            iconVariant="primary-foreground"
+          />
+        </div>
         <Separator borderColor="border-foreground" />
+        <div className="grid w-full grid-cols-2 gap-4">
+          <p className="flex items-center font-thin">{haveFeedbackText}</p>
+          <IconButton
+            icon="mail"
+            text={writeUsPrompt}
+            sizeVariant="sm"
+            buttonVariant="primary"
+            iconVariant="primary-foreground"
+          />
+        </div>
+        <div className="mt-2" />
         <IconButton
           onClick={handleSignOut}
           text={signOutText}
           iconVariant="destructive-foreground"
           buttonVariant="destructive"
+          sizeVariant="lg"
           icon="signOut"
         />
       </div>

@@ -1,10 +1,16 @@
 {
   "general": {
-    "or": "oder"
+    "or": "oder",
+    "mail": "E-Mail",
+    "userName": "Nutzername"
+  },
+  "settings": {
+    "spotifyConnected": "Spotify",
+    "soundsAllowed": "Audio erlaubt",
+    "haveFeedback": "Hast du Feedback?",
+    "writeUs": "Schreib' uns"
   },
   "auth": {
-    "userName": "Nutzername",
-    "mail": "E-Mail",
     "redirecting": "Weiterleiten",
     "signIn": "Einloggen",
     "signInWithEmail": "Mit E-Mail einloggen",
