@@ -74,8 +74,8 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
         </div>
         <Separator borderColor="border-foreground" />
         <div className="grid w-full grid-cols-2 gap-4">
-          <p className="font-thin">{soundsAllowedText}</p>
-          <div className="flex items-center">
+          <p className="flex items-center font-thin">{soundsAllowedText}</p>
+          <div className="flex h-8 items-center">
             <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
           </div>
           <p className="flex items-center font-thin">{spotifyConnectedText}</p>
@@ -96,8 +96,6 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
               iconVariant="primary"
             />
           </div>
-        </div>
-        <div className="grid w-full grid-cols-2 gap-4">
           <p className="flex items-center font-thin">{haveFeedbackText}</p>
           <div className="w-fit">
             <IconButton
