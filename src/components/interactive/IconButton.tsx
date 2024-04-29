@@ -4,7 +4,7 @@ import CustomIcon from "../CustomIcon";
 import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "../ui/button";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: CustomIconType;
+  icon?: CustomIconType;
   text?: string;
   buttonVariant?: CustomButtonVariant;
   sizeVariant?: CustomButtonSizeVariant;
@@ -27,7 +27,9 @@ const IconButton: FC<IProps> = ({
       variant={buttonVariant ?? "default"}
       size={sizeVariant ?? "default"}
     >
-      <CustomIcon icon={icon} height="22px" width="22px" variant={iconVariant ?? "foreground"} />
+      {icon && (
+        <CustomIcon icon={icon} height="22px" width="22px" variant={iconVariant ?? "foreground"} />
+      )}
       {text && <p>{text}</p>}
       {children}
     </Button>

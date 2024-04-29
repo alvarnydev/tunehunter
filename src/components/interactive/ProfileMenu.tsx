@@ -96,13 +96,9 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
         <Separator borderColor="border-foreground" />
         <div className="grid w-full grid-cols-2 gap-4">
           <p className="flex items-center font-thin">{haveFeedbackText}</p>
-          <IconButton
-            icon="mail"
-            text={writeUsPrompt}
-            sizeVariant="sm"
-            buttonVariant="primary"
-            iconVariant="primary-foreground"
-          />
+          <IconButton sizeVariant="sm" className="justify-self-start" icon="mail">
+            <a href="mailto:hello@tunehunter.app">{writeUsPrompt}</a>
+          </IconButton>
         </div>
         <div className="mt-2" />
         <IconButton
