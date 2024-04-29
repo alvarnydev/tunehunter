@@ -1,4 +1,4 @@
-import { CustomIconVariant, isCustomIcon } from "@/helpers/custom-icons";
+import { isCustomIcon } from "@/helpers/custom-icons";
 import { type Providers } from "@/interfaces/providers";
 import { getProviders, signIn } from "next-auth/react";
 import { useTranslation } from "next-i18next";
@@ -104,7 +104,7 @@ const SignInForm: FC = ({}) => {
           text={signInWithMailText}
           disabled={!email}
           icon="mail"
-          iconVariant={CustomIconVariant.foreground}
+          iconVariant="foreground"
         />
       </form>
       <Separator text={orText} />

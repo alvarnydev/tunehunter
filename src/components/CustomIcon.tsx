@@ -1,7 +1,4 @@
-import customIcons, {
-  type CustomIconType,
-  CustomIconVariant,
-} from "@/helpers/custom-icons";
+import customIcons, { type CustomIconType, type CustomIconVariant } from "@/helpers/custom-icons";
 import { cn } from "@/lib/utils";
 import { type FC } from "react";
 
@@ -22,33 +19,62 @@ const CustomIcon: FC<CustomIconProps> = ({
 }) => {
   const classes = (() => {
     switch (variant) {
-      case CustomIconVariant.foreground:
+      case "background":
+        return "fill-background";
+      case "foreground":
         return "fill-foreground";
-      case CustomIconVariant.primary:
+      case "primary":
         return "fill-primary";
-      case CustomIconVariant.secondary:
-        return "fill-secondary";
-      case CustomIconVariant.accent:
+      case "primary-foreground":
+        return "fill-primary-foreground";
+      case "accent":
         return "fill-accent";
-      case CustomIconVariant.destructive:
+      case "accent-foreground":
+        return "fill-accent-foreground";
+      case "secondary":
+        return "fill-secondary";
+      case "secondary-foreground":
+        return "fill-secondary-foreground";
+      case "destructive":
         return "fill-destructive";
-      case CustomIconVariant.info:
+      case "destructive-foreground":
+        return "fill-destructive-foreground";
+      case "info":
         return "fill-info";
-      case CustomIconVariant.warn:
+      case "info-foreground":
+        return "fill-info-foreground";
+      case "warn":
         return "fill-warn";
-      case CustomIconVariant.success:
+      case "warn-foreground":
+        return "fill-warn-foreground";
+      case "success":
         return "fill-success";
-      case CustomIconVariant.muted:
+      case "success-foreground":
+        return "fill-success-foreground";
+      case "muted":
         return "fill-muted";
+      case "muted-foreground":
+        return "fill-muted-foreground";
+      case "card":
+        return "fill-card";
+      case "card-foreground":
+        return "fill-card-foreground";
+      case "popover":
+        return "fill-popover";
+      case "popover-foreground":
+        return "fill-popover-foreground";
+      case "border":
+        return "fill-border";
+      case "input":
+        return "fill-input";
+      case "ring":
+        return "fill-ring";
       default:
         return "";
     }
   })();
   return (
-    <div
-      className={cn("transition-colors", classes, className)}
-      style={{ height, width }}
-    >
+    <div className={cn("transition-colors", classes, className)} style={{ height, width }}>
       {customIcons[icon]}
     </div>
   );

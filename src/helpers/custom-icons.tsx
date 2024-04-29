@@ -28,16 +28,31 @@ export const isCustomIcon = (icon: string): icon is CustomIconType => icon in cu
 
 export default customIcons;
 
-export enum CustomIconVariant {
-  foreground,
-  primary,
-  secondary,
-  accent,
-  destructive,
-  info,
-  warn,
-  success,
-  muted,
-}
+export type CustomIconVariant =
+  | "background"
+  | "foreground"
+  | "primary"
+  | "primary-foreground"
+  | "secondary"
+  | "secondary-foreground"
+  | "accent"
+  | "accent-foreground"
+  | "destructive"
+  | "destructive-foreground"
+  | "info"
+  | "info-foreground"
+  | "warn"
+  | "warn-foreground"
+  | "success"
+  | "success-foreground"
+  | "muted"
+  | "muted-foreground"
+  | "card"
+  | "card-foreground"
+  | "popover"
+  | "popover-foreground"
+  | "border"
+  | "input"
+  | "ring";
 
 export type CustomIconType = keyof typeof customIcons;

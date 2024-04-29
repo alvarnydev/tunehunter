@@ -58,6 +58,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
       <IconButton
         onClick={handleSignOut}
         text={signOutText}
+        iconVariant="destructive-foreground"
         buttonVariant="destructive"
         icon="signOut"
       />
