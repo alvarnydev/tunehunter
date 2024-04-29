@@ -1,6 +1,6 @@
+Design
+- profile menu: user data, spotify connected, feedback, bug report
+
 Auth flow:
 - login sound
 - dont show login form but my buttons
-
-Design
-- profile menu

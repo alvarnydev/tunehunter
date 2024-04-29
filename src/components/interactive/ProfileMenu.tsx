@@ -1,8 +1,10 @@
+import { playJingle } from "@/helpers/play-jingle";
 import { wait } from "@/helpers/wait";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { type FC } from "react";
 import { toast } from "sonner";
+import { Separator } from "../my-ui/separator";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import IconButton from "./IconButton";
@@ -28,6 +30,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
       {
         loading: logoutLoadingText,
         success: () => {
+          playJingle("reverse");
           return logoutSuccessText;
         },
         error: logoutErrorText,
@@ -51,17 +54,22 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const userMailText = t("auth.mail");
 
   return (
-    <div className="flex w-full flex-col items-center gap-10 rounded-[2rem] bg-background p-10">
-      <div className="flex flex-col items-center gap-4">
-        <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
+    <div className="overflow-y-auto rounded-[2rem] bg-background p-10">
+      <div className="flex w-full flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-4">
+          <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
+        </div>
+        <Separator borderColor="border-foreground" />
+        <div className="grid grid-cols-2"></div>
+        <Separator borderColor="border-foreground" />
+        <IconButton
+          onClick={handleSignOut}
+          text={signOutText}
+          iconVariant="destructive-foreground"
+          buttonVariant="destructive"
+          icon="signOut"
+        />
       </div>
-      <IconButton
-        onClick={handleSignOut}
-        text={signOutText}
-        iconVariant="destructive-foreground"
-        buttonVariant="destructive"
-        icon="signOut"
-      />
     </div>
   );
 };

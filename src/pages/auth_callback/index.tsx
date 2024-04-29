@@ -1,12 +1,13 @@
 import LoadingIndicator from "@/components/LoadingIndicator";
+import { playJingle } from "@/helpers/play-jingle";
 import type { GetStaticProps, NextPage } from "next";
+import { useSession } from "next-auth/react";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useTranslation } from "next-i18next";
 import { toast } from "sonner";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nConfig from "../../../next-i18next.config.mjs";
-import { useSession } from "next-auth/react";
 
 interface IPageProps {}
 
@@ -22,6 +23,7 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   useEffect(() => {
     if (status === "authenticated") {
       toast.success(loginSuccessText, { duration: 1800 });
+      playJingle("normal");
     } else if (status === "unauthenticated") {
       toast.error(loginErrorText, { duration: 1800 });
     }

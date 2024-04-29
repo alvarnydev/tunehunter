@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export const config = {
   matcher: [
@@ -10,7 +10,7 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!api|_next/static|auth_callback|_next/image|favicon.ico).*)",
+    "/((?!api|static|.*\\..*|_next/static|auth_callback|_next/image|favicon.ico).*)",
   ],
 };
 

@@ -95,7 +95,7 @@ const SignInForm: FC = ({}) => {
         <Input
           type="email"
           placeholder="xyz@gmail.com"
-          className="placeholder:text-foreground/50"
+          className="border-bac placeholder:text-foreground/50"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -107,7 +107,7 @@ const SignInForm: FC = ({}) => {
           iconVariant="foreground"
         />
       </form>
-      <Separator text={orText} />
+      <Separator text={orText} borderColor="border-foreground" />
       {OAuthProviders &&
         Object.values(OAuthProviders).map((provider, index) => (
           <div key={provider?.id ?? index}>
