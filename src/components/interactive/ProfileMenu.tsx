@@ -50,6 +50,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
 
   const userName = sessionData.user.name;
   const userMail = sessionData.user.email;
+  const userInitials = userMail?.substring(0, 2).toUpperCase();
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 
@@ -64,11 +65,20 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
     <div className="overflow-y-auto rounded-[2rem] bg-background px-6 py-6 md:px-8 md:py-6 lg:px-10 lg:py-8 ">
       <div className="flex w-full flex-col items-center gap-6">
         <div className="flex flex-col items-center gap-4">
-          <Avatar>{userImg && <AvatarImage src={userImg} alt={userImgAlt} />}</Avatar>
+          <Avatar>
+            {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
+            {!userImg && (
+              <AvatarImage src="/favicons/android-chrome-192x192.png" alt={userImgAlt} />
+            )}
+          </Avatar>
         </div>
         <div className="grid w-full grid-cols-2 gap-4">
-          <p className="font-thin">{userNameText}</p>
-          <p>{userName}</p>
+          {userName && (
+            <>
+              <p className="font-thin">{userNameText}</p>
+              <p>{userName}</p>
+            </>
+          )}
           <p className="break-words font-thin">{userMailText}</p>
           <p className="overflow-x-clip text-ellipsis">{userMail}</p>
         </div>

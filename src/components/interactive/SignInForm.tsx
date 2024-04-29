@@ -81,7 +81,7 @@ const SignInForm: FC = ({}) => {
       <div className="flex flex-col items-center gap-8 ">
         <p className="text-center text-xl tracking-wide">{magicLinkConfirmationText}</p>
         <div className="w-fit">
-          <IconButton icon="mailOpen">
+          <IconButton icon="mailOpen" sizeVariant="lg">
             <a href="mailto:">{magicLinkPromptText}</a>
           </IconButton>
         </div>
