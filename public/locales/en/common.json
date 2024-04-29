@@ -10,11 +10,20 @@
     "signInWithEmail": "Sign in with E-Mail",
     "signInWithProvider": "Sign in with {{provider}}",
     "signOut": "Log out",
+    "magicLink": {
+      "confirm": "A mail with a sign-in link was sent to '{{email}}'. Check your inbox!",
+      "prompt": "Open mails"
+    },
     "toast": {
       "login": {
         "loading": "Logging you in...",
         "success": "Successfully logged in",
-        "error": "Error when trying to log you in"
+        "error": "Error when trying to log you in",
+        "mail": {
+          "loading": "Trying to send you an e-mail...",
+          "success": "An e-mail with a login link was sent to your mail",
+          "error": "We could not send an e-mail to the specified address"
+        }
       },
       "logout": {
         "loading": "Logging you out...",

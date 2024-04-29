@@ -10,11 +10,20 @@
     "signInWithEmail": "Iniciar sesión con correo",
     "signInWithProvider": "Iniciar sesión con {{provider}}",
     "signOut": "Cerrar sesión",
+    "magicLink": {
+      "confirm": "Un correo con un enlace de inicio de sesión fue enviado a '{{email}}'. ¡Revisa tu bandeja de entrada!",
+      "prompt": "Abrir correo"
+    },
     "toast": {
       "login": {
         "loading": "Iniciando sesión...",
         "success": "Sesión iniciada correctamente",
-        "error": "Error al intentar iniciar sesión"
+        "error": "Error al intentar iniciar sesión",
+        "mail": {
+          "loading": "Intentando enviarte un correo...",
+          "success": "Un correo con un enlace de inicio de sesión fue enviado a tu correo",
+          "error": "No pudimos enviar un correo a la dirección especificada"
+        }
       },
       "logout": {
         "loading": "Cerrando sesión...",

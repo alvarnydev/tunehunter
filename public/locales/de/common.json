@@ -10,11 +10,20 @@
     "signInWithEmail": "Mit E-Mail einloggen",
     "signInWithProvider": "Mit {{provider}} einloggen",
     "signOut": "Ausloggen",
+    "magicLink": {
+      "confirm": "Eine E-Mail mit einem Login-Link wurde an '{{email}}' gesendet. Überprüfe dein Postfach!",
+      "prompt": "Mails öffnen"
+    },
     "toast": {
       "login": {
         "loading": "Einloggen...",
         "success": "Erfolgreich eingeloggt",
-        "error": "Fehler beim Einloggen"
+        "error": "Fehler beim Einloggen",
+        "mail": {
+          "loading": "Wir versuchen dir eine E-Mail zu senden...",
+          "success": "Eine E-Mail mit dem Login-Link wurde versendet",
+          "error": "Wir konnten keine E-Mail an die angegebene Adresse senden"
+        }
       },
       "logout": {
         "loading": "Ausloggen...",

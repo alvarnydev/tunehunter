@@ -1,6 +1,4 @@
 Auth flow:
-- mail works
-- signin form as form and button submit
 - login sound
 - dont show login form but my buttons
 
