@@ -33,7 +33,7 @@ const AuthMenu: FC = ({}) => {
         )}
       >
         <div className={"w-fit"}>
-          <MagicLinkSent email={email} />
+          <MagicLinkSent email={email} setMenuState={setMenuState} />
         </div>
       </div>
       <div
@@ -43,7 +43,7 @@ const AuthMenu: FC = ({}) => {
         )}
       >
         <div className={"w-fit"}>
-          <Register email={email} />
+          <Register email={email} setMenuState={setMenuState} />
         </div>
       </div>
     </div>

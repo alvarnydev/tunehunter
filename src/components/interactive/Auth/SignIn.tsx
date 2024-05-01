@@ -78,6 +78,16 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
 
   return (
     <div className="flex flex-col gap-4">
+      <IconButton
+        icon="mail"
+        sizeVariant="icon"
+        onClick={() => setMenuState(MenuState.MagicLinkSent)}
+      />
+      <IconButton
+        icon="spotify"
+        sizeVariant="icon"
+        onClick={() => setMenuState(MenuState.Register)}
+      />
       <form className="flex flex-col gap-4" onSubmit={handleSignInWithEmail}>
         <Input
           type="email"
