@@ -50,7 +50,6 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
 
   const userName = sessionData.user.name;
   const userMail = sessionData.user.email;
-  const userInitials = userMail?.substring(0, 2).toUpperCase();
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 

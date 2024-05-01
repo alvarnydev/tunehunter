@@ -1,2 +1,6 @@
 Auth flow:
+- if user doesn't exist -> woosh, register (image, user name)
+- if user does exist -> woosh, mail
+
+- settings functionality: spotify, audio
 - dont show login form but my buttons

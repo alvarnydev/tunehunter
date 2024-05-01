@@ -1,3 +1,5 @@
+import { Separator } from "@/components/my-ui/separator";
+import { Input } from "@/components/ui/input";
 import { isCustomIcon } from "@/helpers/custom-icons";
 import { type Providers } from "@/interfaces/providers";
 import { getProviders, signIn } from "next-auth/react";
@@ -5,25 +7,19 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState, type FC, type FormEventHandler } from "react";
 import { toast } from "sonner";
-import { Separator } from "../my-ui/separator";
-import { Input } from "../ui/input";
-import IconButton from "./IconButton";
+import { MenuState } from "../AuthMenu";
+import IconButton from "../IconButton";
 
-const SignInForm: FC = ({}) => {
-  const [providers, setProviders] = useState<Providers>();
-  const [email, setEmail] = useState<string>("");
-  const [magicLinkSent, setMagicLinkSent] = useState<boolean>(false);
-  const router = useRouter();
+interface IProps {
+  email: string;
+  setEmail: (email: string) => void;
+  setMenuState: (menuState: MenuState) => void;
+}
+
+const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const { t } = useTranslation("");
-
-  // const mailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-  // const isValidMail = mailFormat.test(email);
-
-  const mailSendLoadingText = t("auth.toast.login.mail.loading");
-  const mailSendErrorText = t("auth.toast.login.mail.error");
-  const mailSendSuccessText = t("auth.toast.login.mail.success");
-  const magicLinkConfirmationText = t("auth.magicLink.confirm", { email });
-  const magicLinkPromptText = t("auth.magicLink.prompt");
+  const [providers, setProviders] = useState<Providers>();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -34,6 +30,19 @@ const SignInForm: FC = ({}) => {
 
     fetchProviders();
   }, []);
+
+  if (!providers) {
+    return <></>;
+  }
+
+  const OAuthProviders = [providers.spotify];
+  const orText = t("general.or");
+  const signInWithMailText = t("auth.signInWithEmail");
+  const signInWithProviderText = (provider: string) => t("auth.signInWithProvider", { provider });
+
+  const mailSendLoadingText = t("auth.toast.login.mail.loading");
+  const mailSendErrorText = t("auth.toast.login.mail.error");
+  const mailSendSuccessText = t("auth.toast.login.mail.success");
 
   const handleSignInWithProvider = async (providerId: string) => {
     await signIn(providerId, {
@@ -60,34 +69,12 @@ const SignInForm: FC = ({}) => {
     toast.promise(mailSentPromise, {
       loading: mailSendLoadingText,
       success: () => {
-        setMagicLinkSent(true);
+        setMenuState(MenuState.MagicLinkSent);
         return mailSendSuccessText;
       },
       error: mailSendErrorText,
     });
   };
-
-  if (!providers) {
-    return <></>;
-  }
-
-  const OAuthProviders = [providers.spotify];
-  const orText = t("general.or");
-  const signInWithMailText = t("auth.signInWithEmail");
-  const signInWithProviderText = (provider: string) => t("auth.signInWithProvider", { provider });
-
-  if (magicLinkSent) {
-    return (
-      <div className="flex flex-col items-center gap-8 ">
-        <p className="text-center text-xl tracking-wide">{magicLinkConfirmationText}</p>
-        <div className="w-fit">
-          <IconButton icon="mailOpen" sizeVariant="lg">
-            <a href="mailto:">{magicLinkPromptText}</a>
-          </IconButton>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -124,4 +111,4 @@ const SignInForm: FC = ({}) => {
   );
 };
 
-export default SignInForm;
+export default SignIn;
