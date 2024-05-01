@@ -1,9 +1,11 @@
 import { type FC } from "react";
 
-interface IProps {}
+interface IProps {
+  email: string;
+}
 
-const Register: FC<IProps> = ({}) => {
-  return <div>Register</div>;
+const Register: FC<IProps> = ({ email }) => {
+  return <div>Register with {email}</div>;
 };
 
 export default Register;

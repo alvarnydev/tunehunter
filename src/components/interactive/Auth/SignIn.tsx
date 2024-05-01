@@ -6,7 +6,6 @@ import { getProviders, signIn } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState, type FC, type FormEventHandler } from "react";
-import { toast } from "sonner";
 import { MenuState } from "../AuthMenu";
 import IconButton from "../IconButton";
 
@@ -51,29 +50,31 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   };
 
   const handleSignInWithEmail: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    const signInPromise = signIn("email", { email, redirect: false });
-    const mailSentPromise = new Promise((resolve, reject) => {
-      signInPromise
-        .then((response) => {
-          if (response?.error) {
-            reject(response);
-          } else {
-            resolve(response);
-          }
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-    toast.promise(mailSentPromise, {
-      loading: mailSendLoadingText,
-      success: () => {
-        setMenuState(MenuState.MagicLinkSent);
-        return mailSendSuccessText;
-      },
-      error: mailSendErrorText,
-    });
+    setMenuState(MenuState.MagicLinkSent);
+    return;
+    // event.preventDefault();
+    // const signInPromise = signIn("email", { email, redirect: false });
+    // const mailSentPromise = new Promise((resolve, reject) => {
+    //   signInPromise
+    //     .then((response) => {
+    //       if (response?.error) {
+    //         reject(response);
+    //       } else {
+    //         resolve(response);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       reject(error);
+    //     });
+    // });
+    // toast.promise(mailSentPromise, {
+    //   loading: mailSendLoadingText,
+    //   success: () => {
+    //     setMenuState(MenuState.MagicLinkSent);
+    //     return mailSendSuccessText;
+    //   },
+    //   error: mailSendErrorText,
+    // });
   };
 
   return (
