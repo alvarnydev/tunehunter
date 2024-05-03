@@ -1,9 +1,8 @@
 import { playJingle } from "@/helpers/play-jingle";
 import { wait } from "@/helpers/wait";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { toast } from "sonner";
 import { Separator } from "../my-ui/separator";
 import { Avatar, AvatarImage } from "../ui/avatar";
@@ -18,7 +17,8 @@ interface IProps {
 const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const { data: sessionData } = useSession();
   const { t } = useTranslation("");
-  const [allowSounds, setAllowSounds] = useLocalStorage("allowSounds", false);
+  const [allowSounds, setAllowSounds] = useState(false);
+  const [spotifyConnected, setSpotifyConnected] = useState(false);
 
   const signOutText = t("auth.signOut");
   const logoutLoadingText = t("auth.toast.logout.loading");
@@ -27,18 +27,22 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
 
   const handleSignOut = async () => {
     setOpen(false);
+    if (allowSounds) playJingle("reverse");
 
     toast.promise(
       wait(500).then(() => signOut({ redirect: false })),
       {
         loading: logoutLoadingText,
         success: () => {
-          playJingle("reverse");
           return logoutSuccessText;
         },
         error: logoutErrorText,
       },
     );
+  };
+
+  const handleDeleteAccount = async () => {
+    console.log("deleting account");
   };
 
   if (!sessionData)
@@ -53,21 +57,19 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 
-  const orText = t("general.or");
   const userNameText = t("general.userName");
   const userMailText = t("general.mail");
 
   const settingsText = t("profile.settings.label");
-  const spotifyText = t("profile.settings.spotify");
   const spotifyConnectedText = t("profile.settings.spotifyConnected");
-  const spotifyNotConnectedText = t("profile.settings.spotifyNotConnected");
   const soundsAllowedText = t("profile.settings.soundsAllowed");
 
   const actionsText = t("profile.actions.label");
   const haveFeedbackText = t("profile.actions.haveFeedback");
   const writeUsPrompt = t("profile.actions.writeUs");
-  const logOutText = t("profile.actions.logout");
+  const wantToGoText = t("profile.actions.wantToGo");
   const deleteAccountText = t("profile.actions.deleteAccount");
+  const logOutText = t("profile.actions.logout");
 
   return (
     <div className="overflow-y-auto rounded-[2rem] bg-background px-6 py-6 md:px-8 md:py-6 lg:px-10 lg:py-8 ">
@@ -103,23 +105,9 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
           <div className="flex h-8 items-center">
             <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
           </div>
-          <p className="flex items-center font-thin">{spotifyText}</p>
-          {/* <IconButton
-            icon="tick"
-            text={spotifyConnectedText}
-            disabled
-            sizeVariant="sm"
-            buttonVariant="accent"
-            iconVariant="accent-foreground"
-          /> */}
-          <div className="w-fit">
-            <IconButton
-              icon="spotify"
-              text={spotifyNotConnectedText}
-              sizeVariant="xs"
-              buttonVariant="link"
-              iconVariant="primary"
-            />
+          <p className="flex items-center font-thin">{spotifyConnectedText}</p>
+          <div className="flex h-8 items-center">
+            <Switch checked={spotifyConnected} onCheckedChange={setSpotifyConnected} />
           </div>
         </div>
 
@@ -130,39 +118,35 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
         </Separator>
         <div className="grid w-full grid-cols-2 gap-4">
           <p className="flex items-center font-thin">{haveFeedbackText}</p>
-          <div className="w-fit">
-            <IconButton
-              sizeVariant="xs"
-              className="justify-self-start"
-              icon="mail"
-              buttonVariant="link"
-              iconVariant="primary"
-            >
-              <a href="mailto:hello@tunehunter.app">{writeUsPrompt}</a>
-            </IconButton>
-          </div>
-        </div>
-        <div className="flex w-fit flex-col gap-4">
           <IconButton
-            onClick={handleSignOut}
-            text={logOutText}
-            iconVariant="primary-foreground"
+            sizeVariant="xs"
+            className="justify-self-start"
+            icon="mail"
             buttonVariant="primary"
-            sizeVariant="lg"
-            icon="signOut"
-          />
-          <Separator>
-            <p className="px-2 text-xs uppercase">{orText}</p>
-          </Separator>
+            iconVariant="primary-foreground"
+          >
+            <a href="mailto:hello@tunehunter.app?subject=Feedback">{writeUsPrompt}</a>
+          </IconButton>
+          <p className="flex items-center font-thin">{wantToGoText}</p>
           <IconButton
-            onClick={handleSignOut}
+            onClick={handleDeleteAccount}
             text={deleteAccountText}
             iconVariant="destructive-foreground"
             buttonVariant="destructiveGhost"
-            sizeVariant="lg"
+            sizeVariant="xs"
             icon="x"
           />
         </div>
+
+        <Separator />
+        <IconButton
+          onClick={handleSignOut}
+          text={logOutText}
+          iconVariant="primary-foreground"
+          buttonVariant="primary"
+          sizeVariant="lg"
+          icon="signOut"
+        />
       </div>
     </div>
   );

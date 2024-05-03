@@ -7,9 +7,7 @@
   "profile": {
     "settings": {
       "label": "Ajustes",
-      "spotify": "Spotify",
-      "spotifyConnected": "",
-      "spotifyNotConnected": "",
+      "spotifyConnected": "Spotify conectado",
       "soundsAllowed": "Sonidos permitidos"
     },
     "actions": {
@@ -17,6 +15,7 @@
       "haveFeedback": "¿Tienes feedback?",
       "writeUs": "Escríbenos",
       "logout": "Cerrar sesión",
+      "wantToGo": "¿Quieres salir?",
       "deleteAccount": "Eliminar cuenta"
     }
   },
