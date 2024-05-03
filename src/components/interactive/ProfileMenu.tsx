@@ -11,10 +11,10 @@ import { Switch } from "../ui/switch";
 import IconButton from "./IconButton";
 
 interface IProps {
-  setOpen: (open: boolean) => void;
+  closeModal: () => void;
 }
 
-const ProfileMenu: FC<IProps> = ({ setOpen }) => {
+const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const { data: sessionData } = useSession();
   const { t } = useTranslation("");
   const [allowSounds, setAllowSounds] = useState(false);
@@ -26,7 +26,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const logoutErrorText = t("auth.toast.logout.error");
 
   const handleSignOut = async () => {
-    setOpen(false);
+    closeModal();
     if (allowSounds) playJingle("reverse");
 
     toast.promise(

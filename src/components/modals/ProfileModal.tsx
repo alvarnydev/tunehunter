@@ -6,10 +6,10 @@ import ProfileMenu from "../interactive/ProfileMenu";
 
 interface IProps {
   open: boolean;
-  setOpen: (open: boolean) => void;
+  closeModal: () => void;
 }
 
-const ProfileModal: FC<IProps> = ({ open, setOpen }) => {
+const ProfileModal: FC<IProps> = ({ open, closeModal }) => {
   const { status } = useSession();
   const isLoggedIn = status === "authenticated";
 
@@ -20,7 +20,7 @@ const ProfileModal: FC<IProps> = ({ open, setOpen }) => {
         open ? "opacity-100 delay-100" : "pointer-events-none opacity-0 delay-0",
       )}
     >
-      {isLoggedIn ? <ProfileMenu setOpen={setOpen} /> : <AuthMenu />}
+      {isLoggedIn ? <ProfileMenu closeModal={closeModal} /> : <AuthMenu />}
     </div>
   );
 };
