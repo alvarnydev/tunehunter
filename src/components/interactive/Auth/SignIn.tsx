@@ -98,8 +98,7 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
           text={signInWithMailText}
           disabled={!email}
           icon="mail"
-          iconVariant="foreground"
-          sizeVariant="lg"
+          size="lg"
         />
       </form>
       <Separator borderColor="border-foreground">
@@ -111,7 +110,7 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
             <IconButton
               icon={isCustomIcon(provider.id) ? provider.id : "fallback"}
               text={signInWithProviderText(provider.name)}
-              sizeVariant="lg"
+              size="lg"
               onClick={() => provider?.id && handleSignInWithProvider(provider.id)}
             />
           </div>

@@ -14,11 +14,12 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         accent: "bg-accent text-accent-foreground hover:bg-accent/80",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/80",
-        destructiveGhost: "hover:bg-destructive",
+
+        link: "text-primary underline-offset-4 hover:underline",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghostDestructive: "text-destructive hover:bg-destructive hover:text-destructive-foreground",
         outline:
           "border border-background bg-transparent hover:bg-accent hover:text-accent-foreground",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -41,7 +42,7 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
-export type CustomButtonVariant = VariantProps<typeof buttonVariants>["variant"];
+export type CustomButtonVariant = NonNullable<VariantProps<typeof buttonVariants>["variant"]>;
 export type CustomButtonSizeVariant = VariantProps<typeof buttonVariants>["size"];
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

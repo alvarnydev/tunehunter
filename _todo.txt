@@ -1,9 +1,9 @@
+- #settings
+
 Auth flow:
 - trpc, db, check user existence
 - if user doesn't exist -> woosh, register (image, user name)
 - if user does exist -> woosh, mail
-
-- styles: switch
 
 - user functionality: edit username, picture
 - settings functionality: spotify, audio

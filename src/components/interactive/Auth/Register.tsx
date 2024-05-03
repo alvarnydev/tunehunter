@@ -12,8 +12,8 @@ const Register: FC<IProps> = ({ email, setMenuState }) => {
     <div className="flex flex-col items-center gap-8">
       <IconButton
         icon="back"
-        sizeVariant="icon"
-        buttonVariant="ghost"
+        size="icon"
+        variant="ghost"
         onClick={() => setMenuState(MenuState.SignIn)}
       />
       <p>Register with {email}</p>

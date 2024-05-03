@@ -6,26 +6,39 @@ import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: CustomIconType;
   text?: string;
-  buttonVariant?: CustomButtonVariant;
-  sizeVariant?: CustomButtonSizeVariant;
-  iconVariant?: CustomIconVariant;
+  variant?: CustomButtonVariant;
+  size?: CustomButtonSizeVariant;
 }
+
+const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
+  default: "foreground",
+  primary: "primary-foreground",
+  secondary: "secondary-foreground",
+  accent: "accent-foreground",
+  destructive: "destructive-foreground",
+
+  link: "link-foreground",
+  ghost: "ghost-foreground",
+  ghostDestructive: "ghost-destructive-foreground",
+  outline: "outline-foreground",
+};
 
 const IconButton: FC<IProps> = ({
   text,
   icon,
-  iconVariant,
-  buttonVariant,
-  sizeVariant,
+  variant = "default",
+  size,
   children,
   ...extraProps
 }) => {
+  const iconVariant = icon ? buttonToIconVariantMap[variant ?? "default"] : undefined;
+
   return (
     <Button
       {...extraProps}
-      className="flex gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
-      variant={buttonVariant ?? "default"}
-      size={sizeVariant ?? "default"}
+      className="group flex gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
+      variant={variant ?? "default"}
+      size={size ?? "default"}
     >
       {icon && (
         <CustomIcon icon={icon} height="22px" width="22px" variant={iconVariant ?? "foreground"} />

@@ -19,56 +19,37 @@ const CustomIcon: FC<CustomIconProps> = ({
 }) => {
   const classes = (() => {
     switch (variant) {
+      // Colors
       case "background":
         return "fill-background";
-      case "foreground":
-        return "fill-foreground";
       case "primary":
         return "fill-primary";
-      case "primary-foreground":
-        return "fill-primary-foreground";
-      case "accent":
-        return "fill-accent";
-      case "accent-foreground":
-        return "fill-accent-foreground";
       case "secondary":
         return "fill-secondary";
-      case "secondary-foreground":
-        return "fill-secondary-foreground";
+      case "accent":
+        return "fill-accent";
       case "destructive":
         return "fill-destructive";
+
+      // For buttons
+      case "foreground":
+        return "fill-foreground";
+      case "primary-foreground":
+        return "fill-primary-foreground";
+      case "secondary-foreground":
+        return "fill-secondary-foreground";
+      case "accent-foreground":
+        return "fill-accent-foreground";
       case "destructive-foreground":
         return "fill-destructive-foreground";
-      case "info":
-        return "fill-info";
-      case "info-foreground":
-        return "fill-info-foreground";
-      case "warn":
-        return "fill-warn";
-      case "warn-foreground":
-        return "fill-warn-foreground";
-      case "success":
-        return "fill-success";
-      case "success-foreground":
-        return "fill-success-foreground";
-      case "muted":
-        return "fill-muted";
-      case "muted-foreground":
-        return "fill-muted-foreground";
-      case "card":
-        return "fill-card";
-      case "card-foreground":
-        return "fill-card-foreground";
-      case "popover":
-        return "fill-popover";
-      case "popover-foreground":
-        return "fill-popover-foreground";
-      case "border":
-        return "fill-border";
-      case "input":
-        return "fill-input";
-      case "ring":
-        return "fill-ring";
+      case "ghost-foreground":
+        return "fill-foreground";
+      case "ghost-destructive-foreground":
+        return "fill-destructive group-hover:fill-destructive-foreground";
+      case "link-foreground":
+        return "fill-primary";
+      case "outline-foreground":
+        return "fill-primary";
       default:
         return "";
     }

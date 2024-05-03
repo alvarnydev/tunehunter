@@ -118,22 +118,15 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
         </Separator>
         <div className="grid w-full grid-cols-2 gap-4">
           <p className="flex items-center font-thin">{haveFeedbackText}</p>
-          <IconButton
-            sizeVariant="xs"
-            className="justify-self-start"
-            icon="mail"
-            buttonVariant="primary"
-            iconVariant="primary-foreground"
-          >
+          <IconButton size="xs" className="justify-self-start" icon="mail" variant="primary">
             <a href="mailto:hello@tunehunter.app?subject=Feedback">{writeUsPrompt}</a>
           </IconButton>
           <p className="flex items-center font-thin">{wantToGoText}</p>
           <IconButton
             onClick={handleDeleteAccount}
             text={deleteAccountText}
-            iconVariant="destructive-foreground"
-            buttonVariant="destructiveGhost"
-            sizeVariant="xs"
+            variant="ghostDestructive"
+            size="xs"
             icon="x"
           />
         </div>
@@ -142,9 +135,8 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
         <IconButton
           onClick={handleSignOut}
           text={logOutText}
-          iconVariant="primary-foreground"
-          buttonVariant="primary"
-          sizeVariant="lg"
+          variant="primary"
+          size="lg"
           icon="signOut"
         />
       </div>

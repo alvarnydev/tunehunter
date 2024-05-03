@@ -54,20 +54,9 @@ export type CustomIconVariant =
   | "accent-foreground"
   | "destructive"
   | "destructive-foreground"
-  | "info"
-  | "info-foreground"
-  | "warn"
-  | "warn-foreground"
-  | "success"
-  | "success-foreground"
-  | "muted"
-  | "muted-foreground"
-  | "card"
-  | "card-foreground"
-  | "popover"
-  | "popover-foreground"
-  | "border"
-  | "input"
-  | "ring";
+  | "ghost-foreground"
+  | "ghost-destructive-foreground"
+  | "outline-foreground"
+  | "link-foreground";
 
 export type CustomIconType = keyof typeof customIcons;
