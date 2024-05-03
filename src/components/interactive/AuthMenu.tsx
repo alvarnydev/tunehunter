@@ -18,8 +18,8 @@ const AuthMenu: FC = ({}) => {
     <div className="relative w-full">
       <div
         className={cn(
-          "absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 justify-center transition-transform duration-500 ease-in-out",
-          menuState !== MenuState.SignIn && "-translate-x-[150%]",
+          "absolute-center auth-menu-transition flex w-full justify-center",
+          menuState !== MenuState.SignIn && "!-translate-x-[180%]",
         )}
       >
         <div className={"w-fit"}>
@@ -28,8 +28,8 @@ const AuthMenu: FC = ({}) => {
       </div>
       <div
         className={cn(
-          "absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 justify-center transition-transform duration-500 ease-in-out",
-          menuState !== MenuState.MagicLinkSent && "translate-x-[150%]",
+          "absolute-center auth-menu-transition flex w-full justify-center",
+          menuState !== MenuState.MagicLinkSent && "!translate-x-[180%]",
         )}
       >
         <div className={"w-fit"}>
@@ -38,8 +38,8 @@ const AuthMenu: FC = ({}) => {
       </div>
       <div
         className={cn(
-          "absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 justify-center transition-transform duration-500 ease-in-out",
-          menuState !== MenuState.Register && "translate-x-[150%]",
+          "absolute-center auth-menu-transition flex w-full justify-center",
+          menuState !== MenuState.Register && "!translate-x-[180%]",
         )}
       >
         <div className={"w-fit"}>

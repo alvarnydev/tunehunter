@@ -52,6 +52,13 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
 
   const handleSignInWithEmail: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+
+    // const hello = api.post.hello.useQuery({ text: "from tRPC" });
+
+    // // New user
+    // setMenuState(MenuState.Register);
+
+    // Existing user
     const signInPromise = signIn("email", { email, redirect: false });
     const mailSentPromise = new Promise((resolve, reject) => {
       signInPromise
@@ -78,16 +85,6 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <IconButton
-        icon="mail"
-        sizeVariant="icon"
-        onClick={() => setMenuState(MenuState.MagicLinkSent)}
-      />
-      <IconButton
-        icon="spotify"
-        sizeVariant="icon"
-        onClick={() => setMenuState(MenuState.Register)}
-      />
       <form className="flex flex-col gap-4" onSubmit={handleSignInWithEmail}>
         <Input
           type="email"
@@ -105,7 +102,9 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
           sizeVariant="lg"
         />
       </form>
-      <Separator text={orText} borderColor="border-foreground" />
+      <Separator borderColor="border-foreground">
+        <p className="px-2 text-xs uppercase">{orText}</p>
+      </Separator>
       {OAuthProviders &&
         Object.values(OAuthProviders).map((provider, index) => (
           <div key={provider?.id ?? index}>

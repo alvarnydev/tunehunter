@@ -4,11 +4,21 @@
     "userName": "Nombre de usuario",
     "mail": "Correo"
   },
-  "settings": {
-    "spotifyConnected": "Spotify",
-    "soundsAllowed": "Sonidos permitidos",
-    "haveFeedback": "¿Tienes feedback?",
-    "writeUs": "Escríbenos"
+  "profile": {
+    "settings": {
+      "label": "Ajustes",
+      "spotify": "Spotify",
+      "spotifyConnected": "",
+      "spotifyNotConnected": "",
+      "soundsAllowed": "Sonidos permitidos"
+    },
+    "actions": {
+      "label": "Acciones",
+      "haveFeedback": "¿Tienes feedback?",
+      "writeUs": "Escríbenos",
+      "logout": "Cerrar sesión",
+      "deleteAccount": "Eliminar cuenta"
+    }
   },
   "auth": {
     "redirecting": "Redirigiendo",

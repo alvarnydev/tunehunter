@@ -68,6 +68,12 @@
 .page-container {
   @apply mx-auto w-[90%] max-w-screen-xl;
 }
+.auth-menu-transition {
+  @apply transition-transform duration-500 ease-in-out;
+}
+.absolute-center {
+  @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+}
 
 @layer base {
   * {

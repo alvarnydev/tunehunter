@@ -23,7 +23,7 @@ const IconButton: FC<IProps> = ({
   return (
     <Button
       {...extraProps}
-      className="flex gap-2 font-light uppercase tracking-widest opacity-100 transition-opacity duration-300 disabled:opacity-50"
+      className="flex gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
       variant={buttonVariant ?? "default"}
       size={sizeVariant ?? "default"}
     >

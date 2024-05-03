@@ -53,16 +53,26 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 
+  const orText = t("general.or");
   const userNameText = t("general.userName");
   const userMailText = t("general.mail");
-  const spotifyConnectedText = t("settings.spotifyConnected");
-  const soundsAllowedText = t("settings.soundsAllowed");
-  const haveFeedbackText = t("settings.haveFeedback");
-  const writeUsPrompt = t("settings.writeUs");
+
+  const settingsText = t("profile.settings.label");
+  const spotifyText = t("profile.settings.spotify");
+  const spotifyConnectedText = t("profile.settings.spotifyConnected");
+  const spotifyNotConnectedText = t("profile.settings.spotifyNotConnected");
+  const soundsAllowedText = t("profile.settings.soundsAllowed");
+
+  const actionsText = t("profile.actions.label");
+  const haveFeedbackText = t("profile.actions.haveFeedback");
+  const writeUsPrompt = t("profile.actions.writeUs");
+  const logOutText = t("profile.actions.logout");
+  const deleteAccountText = t("profile.actions.deleteAccount");
 
   return (
     <div className="overflow-y-auto rounded-[2rem] bg-background px-6 py-6 md:px-8 md:py-6 lg:px-10 lg:py-8 ">
       <div className="flex w-full flex-col items-center gap-6">
+        {/* User */}
         <div className="flex flex-col items-center gap-4">
           <Avatar>
             {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
@@ -71,6 +81,7 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
             )}
           </Avatar>
         </div>
+
         <div className="grid w-full grid-cols-2 gap-4">
           {userName && (
             <>
@@ -81,16 +92,21 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
           <p className="break-words font-thin">{userMailText}</p>
           <p className="overflow-x-clip text-ellipsis">{userMail}</p>
         </div>
-        <Separator borderColor="border-foreground" />
+
+        {/* Settings */}
+        <div className="mb-[1px] mt-[2px]" />
+        <Separator borderColor="border-foreground">
+          <p className="px-2 text-sm uppercase">{settingsText}</p>
+        </Separator>
         <div className="grid w-full grid-cols-2 gap-4">
           <p className="flex items-center font-thin">{soundsAllowedText}</p>
           <div className="flex h-8 items-center">
             <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
           </div>
-          <p className="flex items-center font-thin">{spotifyConnectedText}</p>
+          <p className="flex items-center font-thin">{spotifyText}</p>
           {/* <IconButton
             icon="tick"
-            text="Connected"
+            text={spotifyConnectedText}
             disabled
             sizeVariant="sm"
             buttonVariant="accent"
@@ -99,12 +115,20 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
           <div className="w-fit">
             <IconButton
               icon="spotify"
-              text="Connect"
+              text={spotifyNotConnectedText}
               sizeVariant="xs"
               buttonVariant="link"
               iconVariant="primary"
             />
           </div>
+        </div>
+
+        {/* Actions */}
+        <div className="mb-[1px] mt-[2px]" />
+        <Separator borderColor="border-foreground">
+          <p className="px-2 text-sm uppercase">{actionsText}</p>
+        </Separator>
+        <div className="grid w-full grid-cols-2 gap-4">
           <p className="flex items-center font-thin">{haveFeedbackText}</p>
           <div className="w-fit">
             <IconButton
@@ -118,15 +142,27 @@ const ProfileMenu: FC<IProps> = ({ setOpen }) => {
             </IconButton>
           </div>
         </div>
-        <Separator borderColor="border-foreground" />
-        <IconButton
-          onClick={handleSignOut}
-          text={signOutText}
-          iconVariant="destructive-foreground"
-          buttonVariant="destructive"
-          sizeVariant="lg"
-          icon="signOut"
-        />
+        <div className="flex w-fit flex-col gap-4">
+          <IconButton
+            onClick={handleSignOut}
+            text={logOutText}
+            iconVariant="primary-foreground"
+            buttonVariant="primary"
+            sizeVariant="lg"
+            icon="signOut"
+          />
+          <Separator>
+            <p className="px-2 text-xs uppercase">{orText}</p>
+          </Separator>
+          <IconButton
+            onClick={handleSignOut}
+            text={deleteAccountText}
+            iconVariant="destructive-foreground"
+            buttonVariant="destructiveGhost"
+            sizeVariant="lg"
+            icon="x"
+          />
+        </div>
       </div>
     </div>
   );
