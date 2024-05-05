@@ -1,8 +1,9 @@
+import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { cn } from "@/lib/utils";
-import { useState, type FC } from "react";
-import MagicLinkSent from "./Auth/MagicLinkSent";
-import Register from "./Auth/Register";
-import SignIn from "./Auth/SignIn";
+import { useEffect, useState, type FC } from "react";
+import MagicLinkSentInfo from "./Auth/MagicLinkSentInfo";
+import RegisterForm from "./Auth/RegisterForm";
+import SignInForm from "./Auth/SignInForm";
 
 export enum MenuState {
   SignIn,
@@ -13,6 +14,41 @@ export enum MenuState {
 const AuthMenu: FC = ({}) => {
   const [email, setEmail] = useState<string>("");
   const [menuState, setMenuState] = useState<MenuState>(0);
+  const router = useRouterWithHelpers();
+
+  // Update URL fragment when menuState changes
+  useEffect(() => {
+    if (!router.getParams("profile")) return;
+    switch (menuState) {
+      case MenuState.SignIn:
+        router.setParams({ profile: "login" });
+        break;
+      case MenuState.MagicLinkSent:
+        router.setParams({ profile: "magiclinksent" });
+        break;
+      case MenuState.Register:
+        router.setParams({ profile: "register" });
+        break;
+    }
+  }, [menuState]);
+
+  // Restore menuState from URL
+  useEffect(() => {
+    const profileParams = router.getParams("profile");
+    if (!profileParams) return;
+
+    switch (profileParams) {
+      case "login":
+        setMenuState(MenuState.SignIn);
+        break;
+      case "magiclinksent":
+        setMenuState(MenuState.MagicLinkSent);
+        break;
+      case "register":
+        setMenuState(MenuState.Register);
+        break;
+    }
+  }, [router.isReady]);
 
   return (
     <div className="relative w-full">
@@ -23,7 +59,7 @@ const AuthMenu: FC = ({}) => {
         )}
       >
         <div className={"w-fit"}>
-          <SignIn email={email} setEmail={setEmail} setMenuState={setMenuState} />
+          <SignInForm email={email} setEmail={setEmail} setMenuState={setMenuState} />
         </div>
       </div>
       <div
@@ -33,7 +69,7 @@ const AuthMenu: FC = ({}) => {
         )}
       >
         <div className={"w-fit"}>
-          <MagicLinkSent email={email} setMenuState={setMenuState} />
+          <MagicLinkSentInfo email={email} setMenuState={setMenuState} />
         </div>
       </div>
       <div
@@ -43,7 +79,7 @@ const AuthMenu: FC = ({}) => {
         )}
       >
         <div className={"w-fit"}>
-          <Register email={email} setMenuState={setMenuState} />
+          <RegisterForm email={email} setMenuState={setMenuState} />
         </div>
       </div>
     </div>

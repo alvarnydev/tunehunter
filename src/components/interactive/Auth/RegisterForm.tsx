@@ -7,7 +7,7 @@ interface IProps {
   setMenuState: (menuState: MenuState) => void;
 }
 
-const Register: FC<IProps> = ({ email, setMenuState }) => {
+const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
   return (
     <div className="flex flex-col items-center gap-8">
       <IconButton
@@ -21,4 +21,4 @@ const Register: FC<IProps> = ({ email, setMenuState }) => {
   );
 };
 
-export default Register;
+export default RegisterForm;

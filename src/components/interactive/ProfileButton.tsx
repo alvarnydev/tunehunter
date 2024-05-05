@@ -1,6 +1,7 @@
+import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { cn } from "@/lib/utils";
 import { User, X } from "lucide-react";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ProfileBackground from "../ProfileBackground";
 import ProfileModal from "../modals/ProfileModal";
@@ -8,16 +9,17 @@ import { Button } from "../ui/button";
 
 const ProfileButton = () => {
   const [profileModalOpen, setProfileModalOpen] = useState(false);
-  const router = useRouter();
+  const router = useRouterWithHelpers();
+  const { status } = useSession();
 
   const openProfileModal = () => {
     setProfileModalOpen(true);
-    router.push(`${router.asPath}#settings`);
+    router.setParams({ profile: status === "authenticated" ? "settings" : "login" });
   };
 
   const closeProfileModal = () => {
     setProfileModalOpen(false);
-    router.replace(router.asPath.replace("#settings", ""));
+    router.setParams({ profile: "" });
   };
 
   const toggleProfileModal = () => {
@@ -26,10 +28,10 @@ const ProfileButton = () => {
   };
 
   useEffect(() => {
-    if (router.asPath.includes("#settings")) {
+    if (router.isReady && router.getParams("profile")) {
       setProfileModalOpen(true);
     }
-  }, []);
+  }, [router.isReady]);
 
   return (
     <>

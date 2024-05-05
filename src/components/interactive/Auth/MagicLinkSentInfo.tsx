@@ -8,7 +8,7 @@ interface IProps {
   setMenuState: (menuState: MenuState) => void;
 }
 
-const MagicLinkSent: FC<IProps> = ({ email, setMenuState }) => {
+const MagicLinkSentInfo: FC<IProps> = ({ email, setMenuState }) => {
   const { t } = useTranslation("");
 
   const magicLinkConfirmationText = t("auth.magicLink.confirm", { email });
@@ -32,4 +32,4 @@ const MagicLinkSent: FC<IProps> = ({ email, setMenuState }) => {
   );
 };
 
-export default MagicLinkSent;
+export default MagicLinkSentInfo;

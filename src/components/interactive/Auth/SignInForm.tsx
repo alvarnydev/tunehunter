@@ -16,7 +16,7 @@ interface IProps {
   setMenuState: (menuState: MenuState) => void;
 }
 
-const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
+const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const { t } = useTranslation("");
   const [providers, setProviders] = useState<Providers>();
   const router = useRouter();
@@ -58,7 +58,7 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
     // // New user
     // setMenuState(MenuState.Register);
 
-    // Existing user
+    // // Existing user
     const signInPromise = signIn("email", { email, redirect: false });
     const mailSentPromise = new Promise((resolve, reject) => {
       signInPromise
@@ -85,6 +85,13 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
 
   return (
     <div className="flex flex-col gap-4">
+      <IconButton
+        type="submit"
+        text={signInWithMailText}
+        icon="mail"
+        size="lg"
+        onClick={() => setMenuState(MenuState.Register)}
+      />
       <form className="flex flex-col gap-4" onSubmit={handleSignInWithEmail}>
         <Input
           type="email"
@@ -119,4 +126,4 @@ const SignIn: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   );
 };
 
-export default SignIn;
+export default SignInForm;
