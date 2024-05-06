@@ -1,6 +1,4 @@
 - #settings: remove when callback
-- #settings-magiclink
-- #settings-register
 
 Auth flow:
 - trpc, db, check user existence

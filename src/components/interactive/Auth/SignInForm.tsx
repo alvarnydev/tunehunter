@@ -45,9 +45,15 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const mailSendSuccessText = t("auth.toast.login.mail.success");
 
   const handleSignInWithProvider = async (providerId: string) => {
-    await signIn(providerId, {
-      callbackUrl: `/${router.locale}/auth_callback/?redirectUrl=${router.asPath}`,
-    });
+    // Remove ?profile
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    params.delete("profile");
+    url.search = params.toString();
+    const redirectPath = url.pathname + url.search;
+
+    const callbackUrl = `/${router.locale}/auth_callback/?redirectUrl=${redirectPath}`;
+    await signIn(providerId, { callbackUrl });
   };
 
   const handleSignInWithEmail: FormEventHandler<HTMLFormElement> = (event) => {
@@ -56,7 +62,7 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
     // const hello = api.post.hello.useQuery({ text: "from tRPC" });
 
     // // New user
-    // setMenuState(MenuState.Register);
+    // setMenuState(MenuState.Register)
 
     // // Existing user
     const signInPromise = signIn("email", { email, redirect: false });
