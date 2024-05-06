@@ -1,5 +1,3 @@
-- #settings: remove when callback
-
 Auth flow:
 - trpc, db, check user existence
 - if user doesn't exist -> woosh, register (image, user name)
