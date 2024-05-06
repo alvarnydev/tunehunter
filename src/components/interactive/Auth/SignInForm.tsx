@@ -45,7 +45,7 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const mailSendSuccessText = t("auth.toast.login.mail.success");
 
   const handleSignInWithProvider = async (providerId: string) => {
-    // Remove ?profile
+    // Remove ?profile parameter from URL
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
     params.delete("profile");
