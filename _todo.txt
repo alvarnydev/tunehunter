@@ -1,12 +1,15 @@
-Auth flow:
-- trpc, db, check user existence
-- if user doesn't exist -> woosh, register (image, user name)
-- if user does exist -> woosh, mail
+1. Auth flow:
+- TRPC & DB
+  - Check user existence: 
+  - if user doesn't exist -> woosh, register (image, user name)
+  - if user does exist -> woosh, mail
+- Settings functionality
+  - user functionality: edit username, picture
+  - settings functionality: spotify, audio
+  - actions functionality: delete account
 
-- user functionality: edit username, picture
-- settings functionality: spotify, audio
-- actions functionality: delete account
+2. Roll your own auth
 
-- dont show login form but my buttons
+3. Add cypress tests
 
-- cypress tests
+4. Copy styles and functionality from tunehunter repo
