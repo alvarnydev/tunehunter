@@ -14,13 +14,25 @@ export const userRouter = createTRPCRouter(
       return "you can now see this secret message!";
     }),
 
-    getUser: publicProcedure
+    // useform, crete account and user
+    // createAccount: publicProcedure
+    //   .input(z.infer<typeof RegisterSchema>)
+    //   .mutation(({ ctx, input }) => {
+    //     ctx.db.insert(users).values({});
+    //   }),
+
+    getUserById: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+      return ctx.db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.id, input.id),
+      });
+    }),
+
+    getUserByEmail: publicProcedure
       .input(z.object({ email: z.string().email() }))
       .query(({ ctx, input }) => {
-        const user = ctx.db.query.users.findFirst({
+        return ctx.db.query.users.findFirst({
           where: (users, { eq }) => eq(users.email, input.email),
         });
-        return user;
       }),
   },
 

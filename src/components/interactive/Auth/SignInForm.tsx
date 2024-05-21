@@ -62,7 +62,8 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const handleSignInWithEmail = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const user = await utils.user.getUser.fetch({ email });
+    const user = await utils.user.getUserByEmail.fetch({ email });
+    // use mutation "register" and check result
 
     // New user -> Register
     if (!user) {

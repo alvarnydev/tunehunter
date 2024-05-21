@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 import { type FC } from "react";
 import { MenuState } from "../AuthMenu";
@@ -15,18 +16,19 @@ const MagicLinkSentInfo: FC<IProps> = ({ email, setMenuState }) => {
   const magicLinkPromptText = t("auth.magicLink.prompt");
 
   return (
-    <div className="flex flex-col items-center gap-8">
-      <IconButton
-        icon="back"
-        size="icon"
-        variant="ghost"
-        onClick={() => setMenuState(MenuState.SignIn)}
-      />
-      <p className="text-center text-xl tracking-wide">{magicLinkConfirmationText}</p>
-      <div className="w-fit">
-        <IconButton icon="mailOpen" size="lg">
-          <a href="mailto:">{magicLinkPromptText}</a>
-        </IconButton>
+    <div className="overflow-y-auto rounded-[2rem] bg-background px-6 py-6 md:px-8 md:py-6 lg:px-10 lg:py-8 ">
+      <div className="flex flex-col items-center gap-8">
+        <div className="text-center">
+          <p>{magicLinkConfirmationText}</p>
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <IconButton icon="mailOpen" size="lg" variant="primary">
+            <a href="mailto:">{magicLinkPromptText}</a>
+          </IconButton>
+          <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
+            Or return the the sign in page
+          </Button>
+        </div>
       </div>
     </div>
   );

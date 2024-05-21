@@ -20,7 +20,6 @@ export const users = pgTable("user", {
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  username: varchar("username", { length: 255 }),
   darkMode: varchar("dark_mode", { length: 255 }),
   language: varchar("language", { length: 255 }),
 });
