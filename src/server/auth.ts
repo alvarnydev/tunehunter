@@ -53,12 +53,8 @@ export const authOptions: NextAuthOptions = {
   providers: [
     EmailProvider({
       server: {
-        host: env.EMAIL_SERVER_HOST,
-        port: env.EMAIL_SERVER_PORT,
-        auth: {
-          user: env.EMAIL_SERVER_USER,
-          pass: env.EMAIL_SERVER_PASSWORD,
-        },
+        server: env.EMAIL_SERVER,
+        from: env.EMAIL_FROM,
       },
       from: env.EMAIL_FROM,
       maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
