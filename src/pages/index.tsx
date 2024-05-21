@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { debounce } from "lodash";
 import { Search } from "lucide-react";
 import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useCallback, useState, type FormEvent } from "react";
@@ -49,6 +50,7 @@ export const Home: NextPage = () => {
   const [currentPlaceholder] = useState(
     placeholderValues[Math.floor(Math.random() * placeholderValues.length)],
   );
+  const { t } = useTranslation("");
 
   const setTab = (newTab: Tab) => {
     if (newTab === searchTab) setSearchTab("");
@@ -97,7 +99,7 @@ export const Home: NextPage = () => {
             onChange={(e) => handleInputChange(e.target.value)}
           />
           <button
-            className="absolute right-4 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="absolute right-0 top-1/2 -translate-x-1/2 -translate-y-1/2 p-2"
             type="submit"
           >
             <Search />
@@ -114,7 +116,7 @@ export const Home: NextPage = () => {
               searchTab === tab ? "text-foreground" : "text-muted-foreground",
             )}
           >
-            {tab.toUpperCase()}
+            {t(`hunter.tabs.${tab}`)}
           </button>
         ))}
       </div>

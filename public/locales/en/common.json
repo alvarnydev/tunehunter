@@ -4,6 +4,14 @@
     "userName": "User name",
     "mail": "Mail"
   },
+  "hunter": {
+    "tabs": {
+      "trending": "Trending",
+      "spotify": "Spotify",
+      "history": "History",
+      "wishlist": "Wishlist"
+    }
+  },
   "profile": {
     "settings": {
       "label": "Settings",
