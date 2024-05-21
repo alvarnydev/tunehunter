@@ -9,39 +9,48 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { type AdapterAccount } from "next-auth/adapters";
 
 // AUTH
 export const users = pgTable("user", {
-  id: varchar("id", { length: 255 }).notNull().primaryKey(),
-  name: varchar("name", { length: 255 }),
+  id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }).default(sql`CURRENT_TIMESTAMP(3)`),
+  username: varchar("username", { length: 255 }).notNull(),
+  emailVerified: timestamp("email_verified", { mode: "date" }).default(sql`CURRENT_TIMESTAMP(3)`),
   image: varchar("image", { length: 255 }),
+  darkMode: varchar("dark_mode", { length: 255 }).notNull(),
+  language: varchar("language", { length: 255 }).notNull(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
+  queries: many(queries),
+  wishlists: many(wishlists),
 }));
 
 export const accounts = pgTable(
   "account",
   {
-    userId: varchar("userId", { length: 255 }).notNull(),
-    type: varchar("type", { length: 255 }).$type<AdapterAccount["type"]>().notNull(),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    type: varchar("type", { length: 255 }).notNull(),
     provider: varchar("provider", { length: 255 }).notNull(),
-    providerAccountId: varchar("providerAccountId", { length: 255 }).notNull(),
-    refresh_token: text("refresh_token"),
-    access_token: text("access_token"),
-    expires_at: integer("expires_at"),
-    token_type: varchar("token_type", { length: 255 }),
+    providerAccountId: varchar("provider_account_id", {
+      length: 255,
+    }).notNull(),
+    refreshToken: text("refresh_token"),
+    accessToken: text("access_token"),
+    expiresAt: integer("expires_at"),
+    tokenType: varchar("token_type", { length: 255 }),
     scope: varchar("scope", { length: 255 }),
-    id_token: text("id_token"),
-    session_state: varchar("session_state", { length: 255 }),
+    idToken: text("id_token"),
+    sessionState: varchar("session_state", { length: 255 }),
   },
   (account) => ({
-    compoundKey: primaryKey({ columns: [account.provider, account.providerAccountId] }),
+    compoundKey: primaryKey({
+      columns: [account.userId, account.providerAccountId],
+    }),
     userIdIdx: index("accounts_userId_idx").on(account.userId),
   }),
 );
@@ -53,8 +62,10 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 export const sessions = pgTable(
   "session",
   {
-    sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
-    userId: varchar("userId", { length: 255 }).notNull(),
+    sessionToken: varchar("session_token", { length: 255 }).notNull().primaryKey(),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
   (session) => ({
