@@ -29,6 +29,8 @@
   },
   "auth": {
     "redirecting": "Redirecting",
+    "returnToSignIn": "Return to sign in page",
+    "register": "Register",
     "signIn": "Sign in",
     "signInWithEmail": "Sign in with E-Mail",
     "signInWithProvider": "Sign in with {{provider}}",

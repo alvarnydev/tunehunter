@@ -29,6 +29,8 @@
   },
   "auth": {
     "redirecting": "Redirigiendo",
+    "returnToSignIn": "Volver a iniciar sesión",
+    "register": "Registrarse",
     "signIn": "Iniciar sesión",
     "signInWithEmail": "Iniciar sesión con correo",
     "signInWithProvider": "Iniciar sesión con {{provider}}",

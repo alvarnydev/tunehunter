@@ -13,6 +13,7 @@ import { RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition, type FC } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { type z } from "zod";
 import { MenuState } from "../AuthMenu";
 import FormError from "./FormError";
@@ -26,6 +27,7 @@ interface IProps {
 const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const { t } = useTranslation("");
   const [isPending, startTransition] = useTransition();
   // const createAccount = api.user.createAccount.useMutation();
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -35,6 +37,9 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
     },
   });
   form.setValue("email", email);
+
+  const registerText = t("auth.register");
+  const returnText = t("auth.returnToSignIn");
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     console.log(values, "values");
@@ -102,10 +107,10 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
             <Separator borderColor="border-foreground" />
             <div className="flex flex-col items-center gap-2">
               <Button type="submit" className="w-full" variant="primary" disabled={isPending}>
-                Register
+                {registerText}
               </Button>
               <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
-                Or return the the sign in page
+                {returnText}
               </Button>
             </div>
           </form>
