@@ -94,7 +94,7 @@ export const Home: NextPage = () => {
             type="text"
             placeholder={currentPlaceholder}
             sizeVariant="lg"
-            className="border-2 border-primary pr-14 text-lg placeholder:text-muted-foreground focus-visible:ring-primary"
+            className="overflow-ellipsis border-2 border-primary pr-14 text-lg placeholder:text-muted-foreground focus-visible:ring-primary"
             value={searchValue}
             onChange={(e) => handleInputChange(e.target.value)}
           />
@@ -106,13 +106,13 @@ export const Home: NextPage = () => {
           </button>
         </form>
       </div>
-      <div className="flex min-w-0 justify-start gap-4 overflow-x-scroll">
+      <div className="flex min-w-0 flex-wrap justify-center gap-4">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setTab(tab)}
             className={cn(
-              "transition-colors hover:text-foreground ",
+              "whitespace-nowrap transition-colors hover:text-foreground",
               searchTab === tab ? "text-foreground" : "text-muted-foreground",
             )}
           >
