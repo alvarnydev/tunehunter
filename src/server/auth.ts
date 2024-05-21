@@ -50,6 +50,12 @@ export const authOptions: NextAuthOptions = {
   /**
    * @see https://next-auth.js.org/providers/github
    */
+  pages: {
+    error: "/?profile=error",
+    newUser: "/?profile=register",
+    signIn: "/?profile=login",
+    signOut: "?profile=open",
+  },
   providers: [
     EmailProvider({
       server: {
