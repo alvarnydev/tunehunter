@@ -2,16 +2,27 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 
-export const postRouter = createTRPCRouter({
-  hello: publicProcedure.input(z.object({ text: z.string() })).query(({ input }) => {
-    return {
-      greeting: `Hello ${input.text}`,
-    };
-  }),
+export const userRouter = createTRPCRouter(
+  {
+    hello: publicProcedure.input(z.object({ text: z.string() })).query(({ input }) => {
+      return {
+        greeting: `Hello ${input.text}`,
+      };
+    }),
 
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
-  }),
+    getSecretMessage: protectedProcedure.query(() => {
+      return "you can now see this secret message!";
+    }),
+
+    getUser: publicProcedure
+      .input(z.object({ email: z.string().email() }))
+      .query(({ ctx, input }) => {
+        const user = ctx.db.query.users.findFirst({
+          where: (users, { eq }) => eq(users.email, input.email),
+        });
+        return user;
+      }),
+  },
 
   // create: protectedProcedure
   //   .input(z.object({ name: z.string().min(1) }))
@@ -30,4 +41,4 @@ export const postRouter = createTRPCRouter({
   //     orderBy: (posts, { desc }) => [desc(posts.createdAt)],
   //   });
   // }),
-});
+);

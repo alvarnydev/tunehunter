@@ -7,7 +7,7 @@ import type { GetStaticProps, NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
-import { useCallback, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useState, type FormEvent } from "react";
 import nextI18nConfig from "../../next-i18next.config.mjs";
 
 const tabs = ["trending", "spotify", "history", "wishlist"] as const;
@@ -47,10 +47,14 @@ export const Home: NextPage = () => {
   const router = useRouter();
   const [searchTab, setSearchTab] = useState<Tab | "">("");
   const [searchValue, setSearchValue] = useState("");
-  const [currentPlaceholder] = useState(
-    placeholderValues[Math.floor(Math.random() * placeholderValues.length)],
-  );
+  const [currentPlaceholder, setCurrentPlaceholder] = useState("");
   const { t } = useTranslation("");
+
+  useEffect(() => {
+    const rndPlaceholderIndex = Math.floor(Math.random() * placeholderValues.length);
+    const rndPlaceholder = placeholderValues[rndPlaceholderIndex];
+    setCurrentPlaceholder(rndPlaceholder!);
+  }, []);
 
   const setTab = (newTab: Tab) => {
     if (newTab === searchTab) setSearchTab("");

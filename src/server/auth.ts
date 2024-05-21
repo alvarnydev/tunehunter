@@ -50,18 +50,15 @@ export const authOptions: NextAuthOptions = {
   /**
    * @see https://next-auth.js.org/providers/github
    */
-  pages: {
-    error: "/?profile=error",
-    newUser: "/?profile=register",
-    signIn: "/?profile=login",
-    signOut: "?profile=open",
-  },
+  // pages: {
+  //   error: "/?profile=error",
+  //   newUser: "/?profile=register",
+  //   signIn: "/?profile=login",
+  //   signOut: "?profile=open",
+  // },
   providers: [
     EmailProvider({
-      server: {
-        server: env.EMAIL_SERVER,
-        from: env.EMAIL_FROM,
-      },
+      server: env.EMAIL_SERVER,
       from: env.EMAIL_FROM,
       maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
     }),

@@ -2,10 +2,11 @@ import { Separator } from "@/components/my-ui/separator";
 import { Input } from "@/components/ui/input";
 import { isCustomIcon } from "@/helpers/custom-icons";
 import { type Providers } from "@/interfaces/providers";
+import { api } from "@/utils/api";
 import { getProviders, signIn } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { useEffect, useState, type FC, type FormEventHandler } from "react";
+import { useEffect, useState, type FC, type FormEvent } from "react";
 import { toast } from "sonner";
 import { MenuState } from "../AuthMenu";
 import IconButton from "../IconButton";
@@ -20,6 +21,8 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const { t } = useTranslation("");
   const [providers, setProviders] = useState<Providers>();
   const router = useRouter();
+  // const userQuery = api.user.getUser.useQuery({ email }, { enabled: true });
+  const utils = api.useUtils();
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -56,15 +59,18 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
     await signIn(providerId, { callbackUrl });
   };
 
-  const handleSignInWithEmail: FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSignInWithEmail = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // const hello = api.post.hello.useQuery({ text: "from tRPC" });
+    const user = await utils.user.getUser.fetch({ email });
 
-    // // New user
-    // setMenuState(MenuState.Register)
+    // New user -> Register
+    if (!user) {
+      setMenuState(MenuState.Register);
+      return;
+    }
 
-    // // Existing user
+    // Existing user -> Magic Link
     const signInPromise = signIn("email", { email, redirect: false });
     const mailSentPromise = new Promise((resolve, reject) => {
       signInPromise

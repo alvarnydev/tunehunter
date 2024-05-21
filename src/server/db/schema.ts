@@ -9,16 +9,20 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { type AdapterAccount } from "next-auth/adapters";
 
 // AUTH
 export const users = pgTable("user", {
-  id: serial("id").primaryKey(),
-  email: varchar("email", { length: 255 }).notNull(),
-  username: varchar("username", { length: 255 }).notNull(),
-  emailVerified: timestamp("email_verified", { mode: "date" }).default(sql`CURRENT_TIMESTAMP(3)`),
-  image: varchar("image", { length: 255 }),
-  darkMode: varchar("dark_mode", { length: 255 }).notNull(),
-  language: varchar("language", { length: 255 }).notNull(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("name"),
+  email: text("email").notNull(),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  image: text("image"),
+  username: varchar("username", { length: 255 }),
+  darkMode: varchar("dark_mode", { length: 255 }),
+  language: varchar("language", { length: 255 }),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -31,27 +35,24 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const accounts = pgTable(
   "account",
   {
-    userId: integer("user_id")
+    userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    type: varchar("type", { length: 255 }).notNull(),
-    provider: varchar("provider", { length: 255 }).notNull(),
-    providerAccountId: varchar("provider_account_id", {
-      length: 255,
-    }).notNull(),
-    refreshToken: text("refresh_token"),
-    accessToken: text("access_token"),
-    expiresAt: integer("expires_at"),
-    tokenType: varchar("token_type", { length: 255 }),
-    scope: varchar("scope", { length: 255 }),
-    idToken: text("id_token"),
-    sessionState: varchar("session_state", { length: 255 }),
+    type: text("type").$type<AdapterAccount["type"]>().notNull(),
+    provider: text("provider").notNull(),
+    providerAccountId: text("providerAccountId").notNull(),
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
   },
   (account) => ({
     compoundKey: primaryKey({
-      columns: [account.userId, account.providerAccountId],
+      columns: [account.provider, account.providerAccountId],
     }),
-    userIdIdx: index("accounts_userId_idx").on(account.userId),
   }),
 );
 
@@ -62,8 +63,8 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 export const sessions = pgTable(
   "session",
   {
-    sessionToken: varchar("session_token", { length: 255 }).notNull().primaryKey(),
-    userId: integer("user_id")
+    sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
+    userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     expires: timestamp("expires", { mode: "date" }).notNull(),
@@ -93,7 +94,7 @@ export const verificationTokens = pgTable(
 export const queries = pgTable(
   "query",
   {
-    userId: integer("user_id")
+    userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     songId: integer("song_id")
@@ -122,7 +123,7 @@ export const queriesRelations = relations(queries, ({ one }) => ({
 export const wishlists = pgTable(
   "wishlist",
   {
-    userId: integer("user_id")
+    userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     songId: integer("song_id")
