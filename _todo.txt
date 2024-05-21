@@ -1,4 +1,10 @@
-1. Auth flow:
+SENTRY & Upstash
+Add rate limiting to search with: 
+- const { success } = ratelimit.limit(user.id);
+
+Copy styles and functionality from tunehunter repo
+
+Auth flow:
 - TRPC & DB
   - Check user existence: 
   - if user doesn't exist -> woosh, register (image, user name)
@@ -8,8 +14,10 @@
   - settings functionality: spotify, audio
   - actions functionality: delete account
 
-2. Roll your own auth
 
-3. Add cypress tests
 
-4. Copy styles and functionality from tunehunter repo
+
+
+----- MAYBE
+Add cypress tests
+Roll your own auth

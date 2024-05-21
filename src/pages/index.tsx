@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useCallback, useState, type FormEvent } from "react";
 import nextI18nConfig from "../../next-i18next.config.mjs";
 
-const tabs = ["trending", "spotify", "history", "wishlist"] as const;
+const tabs = ["spotify", "history", "wishlist"] as const;
 type Tab = (typeof tabs)[number];
 
 const placeholderValues = [
@@ -36,7 +36,6 @@ const tabContent = {
       <p>Spotify</p>
     </div>
   ),
-  trending: <div>Trending</div>,
   history: <p>History</p>,
   wishlist: <p>Wishlist</p>,
   // Add more tabs as needed
