@@ -7,13 +7,13 @@ import { appWithTranslation } from "next-i18next";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "@/styles/globals.css";
-import Layout from "./layout";
 import nextI18nConfig from "../../next-i18next.config.mjs";
+import Layout from "./layout";
 
 import { Toaster } from "sonner";
 
-import SEO from "../../next-seo.config";
 import { DefaultSeo } from "next-seo";
+import SEO from "../../next-seo.config";
 
 const toastOptions = {
   // Figure this out at some later day

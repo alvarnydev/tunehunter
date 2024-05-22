@@ -8,3 +8,9 @@ export const RegisterSchema = z.object({
     message: "Name is required",
   }),
 });
+
+export const TokenConfirmSchema = z.object({
+  token: z.string().min(1, {
+    message: "Token is required",
+  }),
+});

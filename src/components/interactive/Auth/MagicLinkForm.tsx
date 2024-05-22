@@ -1,15 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { RegisterSchema } from "@/schemas";
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { TokenConfirmSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useTranslation } from "next-i18next";
 import { useState, useTransition, type FC } from "react";
 import { useForm } from "react-hook-form";
@@ -24,27 +23,25 @@ interface IProps {
   setMenuState: (menuState: MenuState) => void;
 }
 
-const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
+const MagicLinkForm: FC<IProps> = ({ email, setMenuState }) => {
+  const { t } = useTranslation("");
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  const { t } = useTranslation("");
   const [isPending, startTransition] = useTransition();
   // const createAccount = api.user.createAccount.useMutation();
-  const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
+  const form = useForm<z.infer<typeof TokenConfirmSchema>>({
+    resolver: zodResolver(TokenConfirmSchema),
     defaultValues: {
-      email: "",
+      token: "",
     },
   });
-  form.setValue("email", email);
 
-  const registerText = t("auth.register");
+  const magicLinkInfoText = t("auth.magicLink.sent", { email });
+  const tokenLabel = t("auth.magicLink.token");
+  const confirmTokenText = t("auth.magicLink.confirm");
   const returnText = t("auth.returnToSignIn");
-  const registerPrompt = t("auth.registerPrompt");
-  const usernameText = t("general.userName");
-  const mailText = t("general.mail");
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = (values: z.infer<typeof TokenConfirmSchema>) => {
     console.log(values, "values");
     setError("");
     setSuccess("");
@@ -60,44 +57,29 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
   };
 
   return (
-    <AuthCard label={registerPrompt} size="small">
+    <AuthCard label={magicLinkInfoText} size="small">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-6">
           <div className="space-y-4">
-            {/* TODO: Add avatar */}
             <FormField
               control={form.control}
-              name="email"
+              name="token"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{mailText}</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="john.doe@example.com"
-                      type="email"
-                      disabled={isPending}
-                      className="border-2 border-primary placeholder:text-muted-foreground focus-visible:ring-primary"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{usernameText}</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="TrebleMaker"
-                      type="text"
-                      disabled={isPending}
-                      className="border-2 border-primary placeholder:text-muted-foreground focus-visible:ring-primary"
-                    />
+                    <InputOTP maxLength={6} {...field} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} className="border-foreground" />
+                        <InputOTPSlot index={1} className="border-foreground" />
+                        <InputOTPSlot index={2} className="border-foreground" />
+                      </InputOTPGroup>
+                      <InputOTPSeparator />
+                      <InputOTPGroup>
+                        <InputOTPSlot index={3} className="border-foreground" />
+                        <InputOTPSlot index={4} className="border-foreground" />
+                        <InputOTPSlot index={5} className="border-foreground" />
+                      </InputOTPGroup>
+                    </InputOTP>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -108,7 +90,7 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
           <FormSuccess message={success} />
           <div className="flex flex-col items-center gap-2">
             <Button type="submit" className="w-full" variant="primary" disabled={isPending}>
-              {registerText}
+              {confirmTokenText}
             </Button>
             <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
               {returnText}
@@ -120,4 +102,4 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
   );
 };
 
-export default RegisterForm;
+export default MagicLinkForm;

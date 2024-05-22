@@ -31,12 +31,17 @@
     "redirecting": "Redirigiendo",
     "returnToSignIn": "Volver a iniciar sesión",
     "register": "Registrarse",
+    "registerPrompt": "Todavía no tienes cuenta?",
     "signIn": "Iniciar sesión",
     "signInWithEmail": "Iniciar sesión con correo",
     "signInWithProvider": "Iniciar sesión con {{provider}}",
     "signOut": "Cerrar sesión",
     "magicLink": {
-      "confirm": "Un correo con un enlace de inicio de sesión fue enviado a '{{email}}'. ¡Revisa tu bandeja de entrada!",
+      "token": "Token",
+      "tokenMissing": "Falta el token",
+      "tokenError": "Token inválido",
+      "sent": "Un correo fue enviado a '{{email}}'. Haz clic en el enlace o pega el token de confirmación aquí:",
+      "confirm": "Confirmar",
       "prompt": "Abrir correo"
     },
     "toast": {

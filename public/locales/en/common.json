@@ -31,12 +31,17 @@
     "redirecting": "Redirecting",
     "returnToSignIn": "Return to sign in page",
     "register": "Register",
+    "registerPrompt": "Don't have an account yet?",
     "signIn": "Sign in",
     "signInWithEmail": "Sign in with E-Mail",
     "signInWithProvider": "Sign in with {{provider}}",
     "signOut": "Log out",
     "magicLink": {
-      "confirm": "A mail with a sign-in link was sent to '{{email}}'. Check your inbox!",
+      "token": "Confirmation token",
+      "tokenMissing": "Token is required",
+      "tokenError": "Wrong confirmation",
+      "sent": "A mail with was just sent to '{{email}}'. Click on the link or paste the confirmation token here:",
+      "confirm": "Confirm",
       "prompt": "Open mails"
     },
     "toast": {

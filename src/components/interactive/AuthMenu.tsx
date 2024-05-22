@@ -1,7 +1,7 @@
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, type FC } from "react";
-import MagicLinkSentInfo from "./Auth/MagicLinkSentInfo";
+import MagicLinkForm from "./Auth/MagicLinkForm";
 import RegisterForm from "./Auth/RegisterForm";
 import SignInForm from "./Auth/SignInForm";
 
@@ -69,7 +69,7 @@ const AuthMenu: FC = ({}) => {
         )}
       >
         <div className={"w-fit"}>
-          <MagicLinkSentInfo email={email} setMenuState={setMenuState} />
+          <MagicLinkForm email={email} setMenuState={setMenuState} />
         </div>
       </div>
       <div
