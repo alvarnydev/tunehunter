@@ -68,8 +68,8 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
         { ...values },
         {
           onSettled: (data) => {
-            if (data.error) setError(t(`auth.registration.process.${data.error}`));
-            if (data.success) {
+            if (data?.error) setError(t(`auth.registration.process.${data.error}`));
+            if (data?.success) {
               setSuccess(t(`auth.registration.process.${data.success}`));
               setAccountCreated(true);
               signIn("email", { email: values.email, redirect: false });
