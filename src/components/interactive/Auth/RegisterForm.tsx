@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RegisterSchema } from "@/schemas";
+import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "next-i18next";
 import { useState, useTransition, type FC } from "react";
@@ -29,14 +30,14 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
   const [success, setSuccess] = useState<string | undefined>("");
   const { t } = useTranslation("");
   const [isPending, startTransition] = useTransition();
-  // const createAccount = api.user.createAccount.useMutation();
+  const createAccount = api.user.createAccount.useMutation();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       email: "",
     },
   });
-  form.setValue("email", email);
+  // form.setValue("email", email);
 
   const registerText = t("auth.register");
   const returnText = t("auth.returnToSignIn");
@@ -48,15 +49,15 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
     console.log(values, "values");
     setError("");
     setSuccess("");
-    // startTransition(() => {
-    //   createAccount.mutate(
-    //     { values },
-    //     {
-    //       onSuccess: setMenuState(MenuState.MagicLinkSent),
-    //       onError: (data) => setError(data.error),
-    //     },
-    //   );
-    // });
+    startTransition(() => {
+      createAccount.mutate(
+        { ...values },
+        {
+          onSuccess: () => setMenuState(MenuState.MagicLinkSent),
+          // onError: (data) => setError(data.error),
+        },
+      );
+    });
   };
 
   return (

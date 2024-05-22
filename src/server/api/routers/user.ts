@@ -1,6 +1,8 @@
 import { z } from "zod";
 
+import { RegisterSchema } from "@/schemas";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
+import { accounts, users } from "@/server/db/schema";
 
 export const userRouter = createTRPCRouter(
   {
@@ -15,11 +17,26 @@ export const userRouter = createTRPCRouter(
     }),
 
     // useform, crete account and user
-    // createAccount: publicProcedure
-    //   .input(z.infer<typeof RegisterSchema>)
-    //   .mutation(({ ctx, input }) => {
-    //     ctx.db.insert(users).values({});
-    //   }),
+    createAccount: publicProcedure.input(RegisterSchema).mutation(async ({ ctx, input }) => {
+      // Create user
+      await ctx.db.insert(users).values({ name: input.name, email: input.email });
+
+      // Get user id
+      const user = await ctx.db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.email, input.email),
+      });
+      if (!user) return;
+
+      // Create account
+      await ctx.db
+        .insert(accounts)
+        .values({
+          userId: user.id,
+          type: "email",
+          provider: "email",
+          providerAccountId: `email-${user.id}`,
+        });
+    }),
 
     getUserById: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
       return ctx.db.query.users.findFirst({
