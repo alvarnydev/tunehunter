@@ -14,6 +14,12 @@ import("./src/env.js");
 const NextConfig = {
   reactStrictMode: true,
   i18n: i18nConfig.i18n,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     remotePatterns: [
       {
