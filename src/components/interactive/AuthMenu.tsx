@@ -58,9 +58,7 @@ const AuthMenu: FC = ({}) => {
           menuState !== MenuState.SignIn && "!-translate-x-[180%]",
         )}
       >
-        <div className={"w-fit"}>
-          <SignInForm email={email} setEmail={setEmail} setMenuState={setMenuState} />
-        </div>
+        <SignInForm email={email} setEmail={setEmail} setMenuState={setMenuState} />
       </div>
       <div
         className={cn(
@@ -68,9 +66,7 @@ const AuthMenu: FC = ({}) => {
           menuState !== MenuState.MagicLinkSent && "!translate-x-[180%]",
         )}
       >
-        <div className={"w-fit"}>
-          <MagicLinkForm email={email} setMenuState={setMenuState} />
-        </div>
+        <MagicLinkForm email={email} setMenuState={setMenuState} />
       </div>
       <div
         className={cn(
@@ -78,9 +74,7 @@ const AuthMenu: FC = ({}) => {
           menuState !== MenuState.Register && "!translate-x-[180%]",
         )}
       >
-        <div className={"w-fit"}>
-          <RegisterForm email={email} setMenuState={setMenuState} />
-        </div>
+        <RegisterForm email={email} menuState={menuState} setMenuState={setMenuState} />
       </div>
     </div>
   );

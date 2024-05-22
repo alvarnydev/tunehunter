@@ -40,8 +40,8 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
 
   const OAuthProviders = [providers.spotify];
   const orText = t("general.or");
-  const signInWithMailText = t("auth.signInWithEmail");
-  const signInWithProviderText = (provider: string) => t("auth.signInWithProvider", { provider });
+  const signInWithMailText = t("auth.signIn.withEmail");
+  const signInWithProviderText = (provider: string) => t("auth.signIn.withProvider", { provider });
 
   const mailSendLoadingText = t("auth.toast.login.mail.loading");
   const mailSendErrorText = t("auth.toast.login.mail.error");
@@ -63,7 +63,6 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
     event.preventDefault();
 
     const user = await utils.user.getUserByEmail.fetch({ email });
-    // use mutation "register" and check result
 
     // New user -> Register
     if (!user) {

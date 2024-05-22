@@ -2,7 +2,8 @@
   "general": {
     "or": "oder",
     "mail": "E-Mail",
-    "userName": "Nutzername"
+    "userName": "Nutzername",
+    "continue": "Weiter"
   },
   "hunter": {
     "tabs": {
@@ -30,19 +31,29 @@
   "auth": {
     "redirecting": "Weiterleiten",
     "returnToSignIn": "Zurück zum Login",
-    "register": "Registrieren",
-    "registerPrompt": "Hast du noch keinen Account?",
-    "signIn": "Einloggen",
-    "signInWithEmail": "Mit E-Mail einloggen",
-    "signInWithProvider": "Mit {{provider}} einloggen",
+    "registration": {
+      "register": "Registrieren",
+      "registerPrompt": "Hast du noch keinen Account?",
+      "process": {
+        "accountCreated": "Account erfolgreich erstellt",
+        "generalError": "Account konnte nicht erstellt werden",
+        "invalidFields": "Bitte überprüfe deine Eingabe",
+        "accountAlreadyExists": "Account existiert bereits"
+      }
+    },
+    "signIn": {
+      "signIn": "Einloggen",
+      "withEmail": "Mit E-Mail einloggen",
+      "withProvider": "Mit {{provider}} einloggen"
+    },
     "signOut": "Ausloggen",
     "magicLink": {
       "token": "Bestätigungscode",
       "tokenMissing": "Bestätigungscode erforderlich",
       "tokenError": "Falscher Bestätigungscode",
-      "sent": "Eine E-Mail wurde gerade an '{{email}}' gesendet. Klick' auf den Link oder gib' den Bestätigungscode hier ein:",
+      "sent": "Wir haben dir eine Mail mit einem Login-Link gesendet! Klick' ihn an, um dich einzuloggen.",
       "confirm": "Bestätigen",
-      "prompt": "Mails öffnen"
+      "openMails": "Mails öffnen"
     },
     "toast": {
       "login": {

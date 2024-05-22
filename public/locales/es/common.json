@@ -2,7 +2,8 @@
   "general": {
     "or": "o",
     "userName": "Nombre de usuario",
-    "mail": "Correo"
+    "mail": "Correo",
+    "continue": "Continuar"
   },
   "hunter": {
     "tabs": {
@@ -40,9 +41,9 @@
       "token": "Token",
       "tokenMissing": "Falta el token",
       "tokenError": "Token inválido",
-      "sent": "Un correo fue enviado a '{{email}}'. Haz clic en el enlace o pega el token de confirmación aquí:",
+      "sent": "Te eviamos un correo con un enlace de inicio de sesión! Por favor haz clic en él para iniciar sesión.",
       "confirm": "Confirmar",
-      "prompt": "Abrir correo"
+      "openMails": "Abrir correo"
     },
     "toast": {
       "login": {

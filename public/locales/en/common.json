@@ -2,7 +2,8 @@
   "general": {
     "or": "or",
     "userName": "User name",
-    "mail": "Mail"
+    "mail": "Mail",
+    "continue": "Continue"
   },
   "hunter": {
     "tabs": {
@@ -30,19 +31,29 @@
   "auth": {
     "redirecting": "Redirecting",
     "returnToSignIn": "Return to sign in page",
-    "register": "Register",
-    "registerPrompt": "Don't have an account yet?",
-    "signIn": "Sign in",
-    "signInWithEmail": "Sign in with E-Mail",
-    "signInWithProvider": "Sign in with {{provider}}",
+    "registration": {
+      "register": "Register",
+      "registerPrompt": "Don't have an account yet?",
+      "process": {
+        "accountCreated": "Account successfully created",
+        "generalError": "Could not create account",
+        "invalidFields": "Please check your input",
+        "accountAlreadyExists": "Account already exists"
+      }
+    },
+    "signIn": {
+      "signIn": "Sign in",
+      "withEmail": "Sign in with E-Mail",
+      "withProvider": "Sign in with {{provider}}"
+    },
     "signOut": "Log out",
     "magicLink": {
       "token": "Confirmation token",
       "tokenMissing": "Token is required",
       "tokenError": "Wrong confirmation",
-      "sent": "A mail with was just sent to '{{email}}'. Click on the link or paste the confirmation token here:",
+      "sent": "We sent you a mail with a login link! Please click it to login.",
       "confirm": "Confirm",
-      "prompt": "Open mails"
+      "openMails": "Open mails"
     },
     "toast": {
       "login": {

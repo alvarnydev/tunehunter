@@ -11,50 +11,71 @@ import { Input } from "@/components/ui/input";
 import { RegisterSchema } from "@/schemas";
 import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { useState, useTransition, type FC } from "react";
+import { useEffect, useState, useTransition, type FC } from "react";
 import { useForm } from "react-hook-form";
-import { type z } from "zod";
+import { z } from "zod";
+import { makeZodI18nMap } from "zod-i18n-map";
 import { MenuState } from "../AuthMenu";
+import IconButton from "../IconButton";
 import AuthCard from "./AuthCard";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 
 interface IProps {
   email: string;
+  menuState: MenuState;
   setMenuState: (menuState: MenuState) => void;
 }
 
-const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
+const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
+  console.log("hi");
+  const [accountCreated, setAccountCreated] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const { t } = useTranslation("");
+  z.setErrorMap(makeZodI18nMap({ t }));
   const [isPending, startTransition] = useTransition();
   const createAccount = api.user.createAccount.useMutation();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      email: "",
+      email: email,
+      name: "",
     },
   });
-  // form.setValue("email", email);
+  form.setValue("email", email);
 
-  const registerText = t("auth.register");
+  const continueText = t("general.continue");
+  const registerText = t("auth.registration.register");
   const returnText = t("auth.returnToSignIn");
-  const registerPrompt = t("auth.registerPrompt");
+  const registerPrompt = t("auth.registration.registerPrompt");
   const usernameText = t("general.userName");
   const mailText = t("general.mail");
 
+  useEffect(() => {
+    setError("");
+    setSuccess("");
+    setAccountCreated(false);
+  }, [menuState]);
+
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    console.log(values, "values");
     setError("");
     setSuccess("");
     startTransition(() => {
       createAccount.mutate(
         { ...values },
         {
-          onSuccess: () => setMenuState(MenuState.MagicLinkSent),
-          // onError: (data) => setError(data.error),
+          onSettled: (data) => {
+            if (data.error) setError(t(`auth.registration.process.${data.error}`));
+            if (data.success) {
+              setSuccess(t(`auth.registration.process.${data.success}`));
+              setAccountCreated(true);
+              signIn("email", { email: values.email, redirect: false });
+            }
+          },
+          onError: (error) => setError(error.message),
         },
       );
     });
@@ -77,7 +98,7 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
                       {...field}
                       placeholder="john.doe@example.com"
                       type="email"
-                      disabled={isPending}
+                      disabled
                       className="border-2 border-primary placeholder:text-muted-foreground focus-visible:ring-primary"
                     />
                   </FormControl>
@@ -107,16 +128,31 @@ const RegisterForm: FC<IProps> = ({ email, setMenuState }) => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
-          <div className="flex flex-col items-center gap-2">
-            <Button type="submit" className="w-full" variant="primary" disabled={isPending}>
-              {registerText}
-            </Button>
-            <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
-              {returnText}
-            </Button>
-          </div>
+          {!accountCreated && (
+            <div className="flex flex-col items-center gap-2">
+              <IconButton
+                type="submit"
+                text={registerText}
+                disabled={isPending}
+                icon="signUp"
+                size="lg"
+                variant="primary"
+              />
+              <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
+                {returnText}
+              </Button>
+            </div>
+          )}
         </form>
       </Form>
+      {!!accountCreated && (
+        <IconButton
+          text={continueText}
+          onClick={() => setMenuState(MenuState.MagicLinkSent)}
+          className="-mt-2 w-full"
+          variant="primary"
+        />
+      )}
     </AuthCard>
   );
 };

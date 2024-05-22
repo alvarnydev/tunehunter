@@ -35,10 +35,10 @@ const IconButton: FC<IProps> = ({
 
   return (
     <Button
-      {...extraProps}
-      className="group flex gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
+      className="group flex w-full gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
       variant={variant ?? "default"}
       size={size ?? "default"}
+      {...extraProps}
     >
       {icon && (
         <CustomIcon icon={icon} height="22px" width="22px" variant={iconVariant ?? "foreground"} />

@@ -18,6 +18,15 @@ export const userRouter = createTRPCRouter(
 
     // useform, crete account and user
     createAccount: publicProcedure.input(RegisterSchema).mutation(async ({ ctx, input }) => {
+      const validatedFields = RegisterSchema.safeParse(input);
+      if (!validatedFields.success) return { error: "invalidFields" };
+
+      // Check existing user
+      const existingUser = await ctx.db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.email, input.email),
+      });
+      if (existingUser) return { error: "accountAlreadyExists" };
+
       // Create user
       await ctx.db.insert(users).values({ name: input.name, email: input.email });
 
@@ -25,17 +34,17 @@ export const userRouter = createTRPCRouter(
       const user = await ctx.db.query.users.findFirst({
         where: (users, { eq }) => eq(users.email, input.email),
       });
-      if (!user) return;
+      if (!user) return { error: "generalError" };
 
       // Create account
-      await ctx.db
-        .insert(accounts)
-        .values({
-          userId: user.id,
-          type: "email",
-          provider: "email",
-          providerAccountId: `email-${user.id}`,
-        });
+      await ctx.db.insert(accounts).values({
+        userId: user.id,
+        type: "email",
+        provider: "email",
+        providerAccountId: `email-${user.id}`,
+      });
+
+      return { success: "accountCreated" };
     }),
 
     getUserById: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
