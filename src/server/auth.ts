@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     signIn: async ({ user, account, profile, email, credentials }) => {
-      if (account?.expires_at && account?.refresh_token && Date.now() > account.expires_at) {
+      if (account?.expires_at && account?.refresh_token && Date.now() / 1000 > account.expires_at) {
         const { access_token, expires_at } = await refreshAccessToken(account.refresh_token);
         await db
           .update(accounts)

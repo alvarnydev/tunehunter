@@ -1,58 +1,74 @@
-// import { RefObject, useLayoutEffect } from "react";
+import { SpotifyData } from "@/types/spotify";
+import { SpotifyTableTab } from "./SpotifyTable";
+import SpotifyTableRow from "./SpotifyTableRow";
 
-// interface ISpotifyTableBodyProps {
-//   tab: string;
-//   tableRef: RefObject<HTMLDivElement>;
-//   tableHeight: number;
-//   tableScroll: number;
-// }
+interface SpotifyTableBodyProps {
+  tab: SpotifyTableTab;
+  spotifyData: SpotifyData;
+}
 
-// const SpotifyTableBody = ({ tab, tableRef, tableHeight, tableScroll }: ISpotifyTableBodyProps) => {
-//   const { userData } = useAuth();
+const SpotifyTableBody = ({ spotifyData, tab }: SpotifyTableBodyProps) => {
+  return (
+    <tbody>
+      {tab == "recentlyPlayed" && (
+        <>
+          {spotifyData.recentlyPlayed?.items.length == 0 ? (
+            <div className="flex h-full items-center justify-center">
+              <p className="text-center">You have no recently played songs</p>
+            </div>
+          ) : (
+            <>
+              {spotifyData.recentlyPlayed?.items.map((track) => (
+                <SpotifyTableRow
+                  key={track.played_at}
+                  trackData={track.track}
+                  userCountry="US" // TODO
+                />
+              ))}
+            </>
+          )}
+        </>
+      )}
+      {tab == "topTracks" && (
+        <>
+          {spotifyData.topTracks?.items.length == 0 ? (
+            <div className="flex h-full items-center justify-center">
+              <p className="text-center">We found no data for your most played songs</p>
+            </div>
+          ) : (
+            <>
+              {spotifyData.topTracks?.items.map((track) => (
+                <SpotifyTableRow
+                  key={track.id}
+                  trackData={track}
+                  userCountry="US" // TODO
+                />
+              ))}
+            </>
+          )}
+        </>
+      )}
+      {tab == "queue" && (
+        <>
+          {spotifyData.queue?.queue.length == 0 ? (
+            <div className="flex h-full items-center justify-center">
+              <p className="text-center">Your queue is currently empty</p>
+            </div>
+          ) : (
+            <>
+              {spotifyData.queue?.queue.map((track, index) => (
+                <SpotifyTableRow
+                  key={track.id + index}
+                  trackData={track}
+                  userCountry="US" // TODO
+                />
+              ))}
+            </>
+          )}
+        </>
+      )}
+    </tbody>
+  );
+};
 
-//   // Restore table height (tailwind stops evaluating h-[${tableHeight.current}px] correctly after some time, for whatever reason)
-//   useLayoutEffect(() => {
-//     if (tableRef.current == null) return;
-//     tableRef.current.style.height = `${tableHeight}px`;
-//     tableRef.current.scrollTop = tableScroll;
-//   }, []);
-
-//   const QueueTable = () => {
-//     if (data.queue?.queue.length == 0)
-//       return (
-//         <div className="flex h-full items-center justify-center">
-//           <p className="text-center">Your queue is currently empty</p>
-//         </div>
-//       );
-
-//     return (
-//       <table className="table w-full table-fixed">
-//         <tbody>
-//           {data.queue?.queue.map((item, index) => (
-//             <TrackRow
-//               key={index}
-//               trackData={item}
-//               userCountry={data.profileData?.country}
-//               handleSubmit={handleSubmit}
-//             />
-//           ))}
-//         </tbody>
-//       </table>
-//     );
-//   };
-
-//   return (
-//     <div
-//       ref={tableRef}
-//       className={`scrollbar-none w-full resize-y overflow-x-auto rounded py-2 h-[${tableHeight}px]`}
-//     >
-//       {tab == "recentlyPlayed" && (
-//         <RecentlyPlayedTable data={userData} handleSubmit={handleSubmit} />
-//       )}
-//       {tab == "mostPlayed" && <MostPlayedTable data={userData} handleSubmit={handleSubmit} />}
-//       {tab == "queue" && <QueueTable data={userData} handleSubmit={handleSubmit} />}
-//     </div>
-//   );
-// };
-
-// export default SpotifyTableBody;
+export default SpotifyTableBody;

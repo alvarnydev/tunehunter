@@ -3,35 +3,38 @@ import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useRef, useState } from "react";
+import SpotifyTableRow from "./SpotifyTableRow";
+import SpotifyTableBody from "./SpotifyTableBody";
 
-export const spotifyTableTabs = ["recentlyPlayed", "queue", "mostPlayed"] as const;
+export const spotifyTableTabs = ["recentlyPlayed", "queue", "topTracks"] as const;
 export type SpotifyTableTab = (typeof spotifyTableTabs)[number];
 
 const SpotifyTable = () => {
-  const tableHeight = useRef(208);
-  const tableScroll = useRef(0);
-  const tableRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<SpotifyTableTab>("recentlyPlayed");
   const { t } = useTranslation();
-  const { data, status } = useSession();
-  const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
-    {
-      userId: data?.user.id!,
-    },
-    { enabled: data !== null },
+  const { data: userData, status } = useSession();
+  const { data: spotifyAccountData, isLoading: spotifyAccountDataLoading } =
+    api.account.getSpotifyAccountById.useQuery();
+  const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
+    spotifyAccountData?.access_token || "",
   );
-  const { spotifyData, isLoading } = useSpotifyData(spotifyAccount?.access_token || "");
 
   const loggedIn = status === "authenticated";
-  console.log("user", data?.user);
-  console.log("spotifyaccount", spotifyAccount);
-  console.log("spotifyData", spotifyData);
-
   const tabChooserPrompt = t("spotifyBox.prompt");
 
   const handleTabUpdate = (newTab: SpotifyTableTab) => {
     setTab(newTab);
   };
+
+  if (!spotifyAccountData) {
+    // Please connect your spotify account using this link:
+    return;
+  }
+
+  if (!spotifyData) {
+    // We could not fetch the data for your account
+    return;
+  }
 
   return (
     <div className="w-3/4 rounded-xl px-2 pt-2 shadow-md shadow-neutral">
@@ -43,6 +46,7 @@ const SpotifyTable = () => {
           <div className="join">
             {spotifyTableTabs.map((spotifyTableTab) => (
               <button
+                id={spotifyTableTab}
                 className={`btn btn-ghost join-item btn-sm rounded-l-full text-base capitalize tracking-wide ${spotifyTableTab === tab ? "font-bold" : "font-normal"}`}
                 onClick={() => handleTabUpdate(spotifyTableTab)}
               >
@@ -52,13 +56,10 @@ const SpotifyTable = () => {
           </div>
         </div>
       </div>
-      <div
-        ref={tableRef}
-        className={`scrollbar-none w-full resize-y overflow-x-auto rounded py-2 h-[${tableHeight}px]`}
-      >
-        {/* {tab == "recentlyPlayed" && <RecentlyPlayedTable data={userData} />}
-        {tab == "mostPlayed" && <MostPlayedTable data={userData} />}
-        {tab == "queue" && <QueueTable data={userData} />} */}
+      <div className={`scrollbar-none w-full resize-y overflow-x-auto rounded py-2`}>
+        <table className="table w-full table-fixed">
+          <SpotifyTableBody tab={tab} spotifyData={spotifyData} />
+        </table>
       </div>
     </div>
   );
