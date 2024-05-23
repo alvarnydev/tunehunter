@@ -3,7 +3,8 @@
     "or": "o",
     "userName": "Nombre de usuario",
     "mail": "Correo",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "search": "Buscar"
   },
   "hunter": {
     "tabs": {
@@ -27,6 +28,30 @@
       "wantToGo": "¿Quieres salir?",
       "deleteAccount": "Eliminar cuenta"
     }
+  },
+  "search": {
+    "spotify": {
+      "recentlyPlayed": {
+        "header": "Recientes",
+        "empty": "No has escuchado canciones en Spotify recientemente"
+      },
+      "mostPlayed": {
+        "header": "Más escuchadas",
+        "empty": "No recibimos data de tus canciones más escuchadas"
+      },
+      "queue": { "header": "Cola", "empty": "No hay canciones en la cola" }
+    }
+  },
+  "results": {
+    "header": {
+      "store": "Tienda",
+      "quality": "Calidad",
+      "price": "Precio",
+      "artistsshare": "Corte del artista",
+      "link": "Link"
+    },
+    "buy": "Comprar",
+    "backtostart": "Volver al principio"
   },
   "auth": {
     "redirecting": "Redirigiendo",

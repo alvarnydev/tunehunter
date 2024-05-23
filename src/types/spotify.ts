@@ -32,7 +32,7 @@ export type SpotifyProfileData = {
 };
 export type SpotifyCurrentlyPlaying = {
   timestamp: number;
-  context: SpotifyContext;
+  context: SpotifyContext | null;
   progress_ms: number;
   item: SpotifyTrack;
   currently_playing_type: string;
@@ -58,7 +58,7 @@ export type SpotifyTopArtists = {
   limit: number;
   offset: number;
   href: string;
-  previous: string;
+  previous: string | null;
   next: string;
 };
 
@@ -68,7 +68,7 @@ export type SpotifyTopTracks = {
   limit: number;
   offset: number;
   href: string;
-  previous: string;
+  previous: string | null;
   next: string;
 };
 
@@ -76,7 +76,7 @@ export type SpotifyTopTracks = {
 export type SpotifyRecentlyPlayedTrack = {
   track: SpotifyTrack;
   played_at: string;
-  context: SpotifyContext;
+  context: SpotifyContext | null;
 };
 
 export type SpotifyTrack = {

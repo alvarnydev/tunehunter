@@ -1,4 +1,4 @@
-import SpotifyTable from "@/components/interactive/Spotify/SpotifyTable";
+import SpotifyTable from "@/components/interactive/SongTables/SpotifyTable";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,6 +10,10 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import nextI18nConfig from "../../next-i18next.config.mjs";
+import TrendingTable from "@/components/interactive/SongTables/TrendingTable";
+import WishlistTable from "@/components/interactive/SongTables/WishlistTable";
+import HistoryTable from "@/components/interactive/SongTables/HistorTable";
+import { Table } from "@/components/ui/table";
 
 const tabs = ["trending", "spotify", "history", "wishlist"] as const;
 type Tab = (typeof tabs)[number];
@@ -30,10 +34,9 @@ const placeholderValues = [
 const tabContent = {
   "": <></>,
   spotify: <SpotifyTable />,
-  trending: <p>Trending</p>,
-  history: <p>History</p>,
-  wishlist: <p>Wishlist</p>,
-  // Add more tabs as needed
+  trending: <TrendingTable />,
+  history: <HistoryTable />,
+  wishlist: <WishlistTable />,
 };
 
 export const Home: NextPage = () => {
@@ -110,10 +113,10 @@ export const Home: NextPage = () => {
             onClick={() => setTab(tab)}
             className={cn(
               "whitespace-nowrap transition-colors hover:text-foreground",
-              searchTab === tab ? "text-foreground" : "text-muted-foreground",
+              searchTab === tab ? "font-bold text-foreground" : "text-muted-foreground",
             )}
           >
-            {t(`hunter.tabs.${tab}`)}
+            {t(`search.tabs.${tab}`)}
           </button>
         ))}
       </div>
@@ -123,9 +126,9 @@ export const Home: NextPage = () => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="hide-scrollbars overflow-y-scroll"
+          className="hide-scrollbars mx-auto h-96 w-4/5 overflow-hidden rounded-xl p-4"
         >
-          {tabContent[searchTab]}
+          <Table>{tabContent[searchTab]}</Table>
         </motion.div>
       </AnimatePresence>
     </div>

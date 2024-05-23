@@ -7,14 +7,14 @@ import {
   type SpotifyTopTracks,
 } from "@/types/spotify";
 
+const SONG_LIMIT = 30;
+
 const USER_PROFILE_ENDPOINT = "https://api.spotify.com/v1/me";
 const CURRENTLY_PLAYING_ENDPOINT = "https://api.spotify.com/v1/me/player/currently-playing";
 const QUEUE_ENDPOINT = "https://api.spotify.com/v1/me/player/queue";
-const RECENTLY_PLAYED_ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played?limit=50";
-const TOP_ARTISTS_ENDPOINT =
-  "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50";
-const TOP_TRACKS_ENDPOINT =
-  "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50";
+const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played?limit=${SONG_LIMIT}`;
+const TOP_ARTISTS_ENDPOINT = `https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=${SONG_LIMIT}`;
+const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=${SONG_LIMIT}`;
 
 export const combinedFetchSpotifyData = async (token: string) => {
   const [profileData, currentlyPlaying, queue, recentlyPlayed, topArtists, topTracks] =

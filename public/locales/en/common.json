@@ -3,7 +3,8 @@
     "or": "or",
     "userName": "User name",
     "mail": "Mail",
-    "continue": "Continue"
+    "continue": "Continue",
+    "search": "Search"
   },
   "hunter": {
     "tabs": {
@@ -27,6 +28,30 @@
       "wantToGo": "Want to go?",
       "deleteAccount": "Delete account"
     }
+  },
+  "search": {
+    "spotify": {
+      "recentlyPlayed": {
+        "header": "Recently Played",
+        "empty": "You haven't listed to any songs on Spotify recently "
+      },
+      "mostPlayed": {
+        "header": "Most Played",
+        "empty": "We received no data for your most played songs"
+      },
+      "queue": { "header": "Queue", "empty": "Your queue is currently empty" }
+    }
+  },
+  "results": {
+    "header": {
+      "store": "Music store",
+      "quality": "Quality",
+      "price": "Price",
+      "artistsshare": "Artist's share",
+      "link": "Link"
+    },
+    "buy": "Buy",
+    "backtostart": "Back to the start"
   },
   "auth": {
     "redirecting": "Redirecting",

@@ -1,6 +1,9 @@
 import { SpotifyData } from "@/types/spotify";
 import { SpotifyTableTab } from "./SpotifyTable";
-import SpotifyTableRow from "./SpotifyTableRow";
+import SearchTableRow from "../SearchTableRow";
+import { TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { useTranslation } from "next-i18next";
 
 interface SpotifyTableBodyProps {
   tab: SpotifyTableTab;
@@ -8,22 +11,27 @@ interface SpotifyTableBodyProps {
 }
 
 const SpotifyTableBody = ({ spotifyData, tab }: SpotifyTableBodyProps) => {
+  const { t } = useTranslation("");
+
+  const recentlyPlayedEmpty = t("search.spotify.recentlyPlayed.empty");
+  const topTracksEmpty = t("search.spotify.topTracks.empty");
+  const queueEmpty = t("search.spotify.queue.empty");
+
   return (
-    <tbody>
+    <TableBody>
       {tab == "recentlyPlayed" && (
         <>
           {spotifyData.recentlyPlayed?.items.length == 0 ? (
             <div className="flex h-full items-center justify-center">
-              <p className="text-center">You have no recently played songs</p>
+              <p className="text-center">{recentlyPlayedEmpty}</p>
             </div>
           ) : (
             <>
+              {spotifyData.currentlyPlaying?.is_playing && (
+                <SearchTableRow track={spotifyData.currentlyPlaying.item} currentlyPlaying={true} />
+              )}
               {spotifyData.recentlyPlayed?.items.map((track) => (
-                <SpotifyTableRow
-                  key={track.played_at}
-                  trackData={track.track}
-                  userCountry="US" // TODO
-                />
+                <SearchTableRow track={track.track} />
               ))}
             </>
           )}
@@ -33,18 +41,10 @@ const SpotifyTableBody = ({ spotifyData, tab }: SpotifyTableBodyProps) => {
         <>
           {spotifyData.topTracks?.items.length == 0 ? (
             <div className="flex h-full items-center justify-center">
-              <p className="text-center">We found no data for your most played songs</p>
+              <p className="text-center">{topTracksEmpty}</p>
             </div>
           ) : (
-            <>
-              {spotifyData.topTracks?.items.map((track) => (
-                <SpotifyTableRow
-                  key={track.id}
-                  trackData={track}
-                  userCountry="US" // TODO
-                />
-              ))}
-            </>
+            <>{spotifyData.topTracks?.items.map((track) => <SearchTableRow track={track} />)}</>
           )}
         </>
       )}
@@ -52,22 +52,14 @@ const SpotifyTableBody = ({ spotifyData, tab }: SpotifyTableBodyProps) => {
         <>
           {spotifyData.queue?.queue.length == 0 ? (
             <div className="flex h-full items-center justify-center">
-              <p className="text-center">Your queue is currently empty</p>
+              <p className="text-center">{queueEmpty}</p>
             </div>
           ) : (
-            <>
-              {spotifyData.queue?.queue.map((track, index) => (
-                <SpotifyTableRow
-                  key={track.id + index}
-                  trackData={track}
-                  userCountry="US" // TODO
-                />
-              ))}
-            </>
+            <>{spotifyData.queue?.queue.map((track) => <SearchTableRow track={track} />)}</>
           )}
         </>
       )}
-    </tbody>
+    </TableBody>
   );
 };
 

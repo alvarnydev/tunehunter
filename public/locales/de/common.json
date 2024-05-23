@@ -3,15 +3,8 @@
     "or": "oder",
     "mail": "E-Mail",
     "userName": "Nutzername",
-    "continue": "Weiter"
-  },
-  "hunter": {
-    "tabs": {
-      "trending": "Aktuell",
-      "spotify": "Spotify",
-      "history": "Verlauf",
-      "wishlist": "Wunschliste"
-    }
+    "continue": "Weiter",
+    "search": "Suchen"
   },
   "profile": {
     "settings": {
@@ -27,6 +20,36 @@
       "wantToGo": "Willst du gehen?",
       "deleteAccount": "Account löschen"
     }
+  },
+  "search": {
+    "tabs": {
+      "trending": "Aktuell",
+      "spotify": "Spotify",
+      "history": "Verlauf",
+      "wishlist": "Wunschliste"
+    },
+    "spotify": {
+      "recentlyPlayed": {
+        "header": "Zuletzt gehört",
+        "empty": "Du hast in letzter Zeit keine Lieder bei Spotify gehört"
+      },
+      "topTracks": {
+        "header": "Meistgehört",
+        "empty": "Wir haben keine Daten zu deinen meistgehörten Liedern gefunden"
+      },
+      "queue": { "header": "Warteschlange", "empty": "Deine Warteschlange ist leer" }
+    }
+  },
+  "results": {
+    "header": {
+      "store": "Plattform",
+      "quality": "Qualität",
+      "price": "Preis",
+      "artistsshare": "Künstleranteil",
+      "link": "Link"
+    },
+    "buy": "Kaufen",
+    "backtostart": "Zurück zum Start"
   },
   "auth": {
     "redirecting": "Weiterleiten",
