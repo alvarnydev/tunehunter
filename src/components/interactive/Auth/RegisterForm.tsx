@@ -17,9 +17,9 @@ import { useEffect, useState, useTransition, type FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { makeZodI18nMap } from "zod-i18n-map";
-import { MenuState } from "../AuthMenu";
-import IconButton from "../IconButton";
+import IconButton from "../../IconButton";
 import AuthCard from "./AuthCard";
+import { MenuState } from "./AuthMenu";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 

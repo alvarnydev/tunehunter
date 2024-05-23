@@ -1,3 +1,4 @@
+import SpotifyTable from "@/components/interactive/Spotify/SpotifyTable";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -28,15 +29,7 @@ const placeholderValues = [
 
 const tabContent = {
   "": <></>,
-  spotify: (
-    <div>
-      <p>Spotify</p>
-      <p>Spotify</p>
-      <p>Spotify</p>
-      <p>Spotify</p>
-      <p>Spotify</p>
-    </div>
-  ),
+  spotify: <SpotifyTable />,
   trending: <p>Trending</p>,
   history: <p>History</p>,
   wishlist: <p>Wishlist</p>,

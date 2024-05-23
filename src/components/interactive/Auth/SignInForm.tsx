@@ -8,8 +8,8 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState, type FC, type FormEvent } from "react";
 import { toast } from "sonner";
-import { MenuState } from "../AuthMenu";
-import IconButton from "../IconButton";
+import IconButton from "../../IconButton";
+import { MenuState } from "./AuthMenu";
 
 interface IProps {
   email: string;

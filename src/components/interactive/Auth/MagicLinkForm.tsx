@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 import { type FC } from "react";
-import { MenuState } from "../AuthMenu";
-import IconButton from "../IconButton";
+import IconButton from "../../IconButton";
 import AuthCard from "./AuthCard";
+import { MenuState } from "./AuthMenu";
 
 interface IProps {
   email: string;

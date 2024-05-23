@@ -1,4 +1,3 @@
-import { withSentryConfig } from "@sentry/nextjs";
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
@@ -70,6 +69,7 @@ const sentryConfig = {
   automaticVercelMonitors: true,
 };
 
-const config = withSentryConfig(NextConfig, sentryConfig);
+// const config = withSentryConfig(NextConfig, sentryConfig);
+const config = NextConfig;
 
 export default config;

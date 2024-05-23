@@ -1,9 +1,9 @@
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, type FC } from "react";
-import MagicLinkForm from "./Auth/MagicLinkForm";
-import RegisterForm from "./Auth/RegisterForm";
-import SignInForm from "./Auth/SignInForm";
+import MagicLinkForm from "./MagicLinkForm";
+import RegisterForm from "./RegisterForm";
+import SignInForm from "./SignInForm";
 
 export enum MenuState {
   SignIn,

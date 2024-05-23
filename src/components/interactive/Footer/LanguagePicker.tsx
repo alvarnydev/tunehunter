@@ -3,14 +3,7 @@ import useDeviceSize from "@/hooks/useDeviceSize";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { type FC } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 
 const LanguagePicker: FC = () => {
   const router = useRouter();

@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import ProfileButton from "../interactive/ProfileButton";
-import { ThemeToggle } from "../interactive/ThemeToggle";
-const LanguagePicker = dynamic(() => import("@/components/interactive/LanguagePicker"), {
+import ProfileButton from "../interactive/Footer/ProfileButton";
+import { ThemeToggle } from "../interactive/Footer/ThemeToggle";
+const LanguagePicker = dynamic(() => import("@/components/interactive/Footer/LanguagePicker"), {
   ssr: false,
 });
 

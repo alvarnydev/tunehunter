@@ -45,6 +45,9 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    signIn: ({ user, account, profile, email, credentials }) => {
+      return true;
+    },
   },
   adapter: DrizzleAdapter(db, pgTable) as Adapter,
   /**

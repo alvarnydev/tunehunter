@@ -1,7 +1,7 @@
 import { type CustomIconType, type CustomIconVariant } from "@/helpers/custom-icons";
 import { type ButtonHTMLAttributes, type FC } from "react";
-import CustomIcon from "../CustomIcon";
-import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "../ui/button";
+import CustomIcon from "./CustomIcon";
+import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "./ui/button";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: CustomIconType;

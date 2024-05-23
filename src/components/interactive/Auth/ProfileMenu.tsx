@@ -4,12 +4,12 @@ import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useState, type FC } from "react";
 import { toast } from "sonner";
-import { Separator } from "../my-ui/separator";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { Switch } from "../ui/switch";
-import AuthCard from "./Auth/AuthCard";
-import IconButton from "./IconButton";
+import IconButton from "../../IconButton";
+import { Separator } from "../../my-ui/separator";
+import { Avatar, AvatarImage } from "../../ui/avatar";
+import { Button } from "../../ui/button";
+import { Switch } from "../../ui/switch";
+import AuthCard from "./AuthCard";
 
 interface IProps {
   closeModal: () => void;

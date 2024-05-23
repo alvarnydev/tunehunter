@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { User, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import ProfileBackground from "../ProfileBackground";
-import ProfileModal from "../modals/ProfileModal";
-import { Button } from "../ui/button";
+import ProfileModal from "../../modals/ProfileModal";
+import { Button } from "../../ui/button";
+import ProfileBackground from "../Auth/ProfileBackground";
 
 const ProfileButton = () => {
   const [profileModalOpen, setProfileModalOpen] = useState(false);

@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import { type FC } from "react";
-import AuthMenu from "../interactive/AuthMenu";
-import ProfileMenu from "../interactive/ProfileMenu";
+import AuthMenu from "../interactive/Auth/AuthMenu";
+import ProfileMenu from "../interactive/Auth/ProfileMenu";
 
 interface IProps {
   open: boolean;
