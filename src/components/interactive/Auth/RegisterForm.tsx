@@ -30,7 +30,6 @@ interface IProps {
 }
 
 const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
-  console.log("hi");
   const [accountCreated, setAccountCreated] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");

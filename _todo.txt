@@ -1,3 +1,5 @@
+!! ANY TS version after 5.3.3 fucks up eslint
+
 SENTRY & Upstash
 Add rate limiting to search with: 
 - const { success } = ratelimit.limit(user.id);

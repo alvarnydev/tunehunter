@@ -6,7 +6,7 @@ import { type Adapter } from "next-auth/adapters";
 import { env } from "@/env";
 import { eq } from "drizzle-orm";
 
-import { refreshTokens } from "@/helpers/refresh-token";
+import { refreshAccessToken } from "@/helpers/refresh-token";
 import { db } from "@/server/db";
 import { pgTable } from "drizzle-orm/pg-core";
 import EmailProvider from "next-auth/providers/email";
@@ -49,18 +49,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     signIn: async ({ user, account, profile, email, credentials }) => {
-      if (
-        account?.expires_at &&
-        account?.access_token &&
-        account?.refresh_token &&
-        Date.now() > account.expires_at
-      ) {
-        console.log("refreshing token");
-        const { access_token, refresh_token } = await refreshTokens(account.refresh_token);
-        console.log("access_token", access_token, "refresh_token", refresh_token);
+      if (account?.expires_at && account?.refresh_token && Date.now() > account.expires_at) {
+        const { access_token, expires_at } = await refreshAccessToken(account.refresh_token);
         await db
           .update(accounts)
-          .set({ access_token: access_token, refresh_token: refresh_token })
+          .set({ access_token, expires_at })
           .where(eq(accounts.userId, user.id));
       }
       return true;

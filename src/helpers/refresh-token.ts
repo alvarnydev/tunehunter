@@ -1,24 +1,36 @@
 import { env } from "@/env";
+import { SpotifyRefreshData } from "@/types/spotify";
+import { JWT } from "next-auth/jwt";
 
-export const refreshTokens = async (refreshToken: string) => {
-  const url = new URL("https://accounts.spotify.com/api/token");
+export async function refreshAccessToken(oldRefreshToken: string) {
+  const clientId = env.SPOTIFY_CLIENT_ID;
+  const clientSecret = env.SPOTIFY_CLIENT_SECRET;
+  const refreshUrl = "https://accounts.spotify.com/api/token";
 
-  const payload = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token: refreshToken,
-      client_id: env.SPOTIFY_CLIENT_ID,
-    }),
-  };
+  try {
+    const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
 
-  const response = await fetch(url, payload);
-  const data = await response.json();
+    const response = await fetch(refreshUrl, {
+      method: "POST",
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: oldRefreshToken,
+      }),
+      headers: {
+        Authorization: `Basic ${basicAuth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      cache: "no-cache",
+    });
+    const data: SpotifyRefreshData = await response.json();
 
-  const { access_token, refresh_token } = data;
-
-  return { access_token, refresh_token };
-};
+    return {
+      access_token: data.access_token,
+      expires_at: Math.round((Date.now() + data.expires_in * 1000) / 1000),
+    };
+  } catch (error) {
+    return {
+      error: "RefreshAccessTokenError",
+    };
+  }
+}
