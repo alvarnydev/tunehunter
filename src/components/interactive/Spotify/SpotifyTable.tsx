@@ -1,3 +1,4 @@
+import useSpotifyData from "@/hooks/useSpotifyData";
 import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
@@ -13,20 +14,18 @@ const SpotifyTable = () => {
   const [tab, setTab] = useState<SpotifyTableTab>("recentlyPlayed");
   const { t } = useTranslation();
   const { data, status } = useSession();
+  const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
+    {
+      userId: data?.user.id!,
+    },
+    { enabled: data !== null },
+  );
+  const { spotifyData, isLoading } = useSpotifyData(spotifyAccount?.access_token || "");
 
-  if (!data || status !== "authenticated") {
-    return <></>;
-  }
-
-  const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery({
-    userId: data?.user.id,
-  });
-  console.log("data", spotifyAccount);
-
-  // const { data: spotifyData, isLoading } = useQuery({
-  //   queryKey: ["spotifyData"],
-  //   queryFn: () => combinedFetchSpotifyData(spotifyAccount.access_token),
-  // });
+  const loggedIn = status === "authenticated";
+  console.log("user", data?.user);
+  console.log("spotifyaccount", spotifyAccount);
+  console.log("spotifyData", spotifyData);
 
   const tabChooserPrompt = t("spotifyBox.prompt");
 

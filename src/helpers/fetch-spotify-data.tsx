@@ -1,10 +1,10 @@
 import {
-  SpotifyCurrentlyPlaying,
-  SpotifyProfileData,
-  SpotifyQueue,
-  SpotifyRecentlyPlayed,
-  SpotifyTopArtists,
-  SpotifyTopTracks,
+  type SpotifyCurrentlyPlaying,
+  type SpotifyProfileData,
+  type SpotifyQueue,
+  type SpotifyRecentlyPlayed,
+  type SpotifyTopArtists,
+  type SpotifyTopTracks,
 } from "@/types/spotify";
 
 const USER_PROFILE_ENDPOINT = "https://api.spotify.com/v1/me";
@@ -26,34 +26,35 @@ export const combinedFetchSpotifyData = async (token: string) => {
       fetchTopArtists(token),
       fetchTopTracks(token),
     ]);
+
   return { profileData, currentlyPlaying, queue, recentlyPlayed, topArtists, topTracks };
 };
 
-export const fetchProfileData = async (token: string) => {
-  return fetchSpotifyData(token, USER_PROFILE_ENDPOINT) as Promise<SpotifyProfileData>;
+export const fetchProfileData = (token: string) => {
+  return fetchSpotifyData<SpotifyProfileData>(token, USER_PROFILE_ENDPOINT);
 };
 
-export const fetchCurrentlyPlaying = async (token: string) => {
-  return fetchSpotifyData(token, CURRENTLY_PLAYING_ENDPOINT) as Promise<SpotifyCurrentlyPlaying>;
+export const fetchCurrentlyPlaying = (token: string) => {
+  return fetchSpotifyData<SpotifyCurrentlyPlaying>(token, CURRENTLY_PLAYING_ENDPOINT);
 };
 
-export const fetchQueue = async (token: string) => {
-  return fetchSpotifyData(token, QUEUE_ENDPOINT) as Promise<SpotifyQueue>;
+export const fetchQueue = (token: string) => {
+  return fetchSpotifyData<SpotifyQueue>(token, QUEUE_ENDPOINT);
 };
 
-export const fetchRecentlyPlayed = async (token: string) => {
-  return fetchSpotifyData(token, RECENTLY_PLAYED_ENDPOINT) as Promise<SpotifyRecentlyPlayed>;
+export const fetchRecentlyPlayed = (token: string) => {
+  return fetchSpotifyData<SpotifyRecentlyPlayed>(token, RECENTLY_PLAYED_ENDPOINT);
 };
 
-export const fetchTopArtists = async (token: string) => {
-  return fetchSpotifyData(token, TOP_ARTISTS_ENDPOINT) as Promise<SpotifyTopArtists>;
+export const fetchTopArtists = (token: string) => {
+  return fetchSpotifyData<SpotifyTopArtists>(token, TOP_ARTISTS_ENDPOINT);
 };
 
-export const fetchTopTracks = async (token: string) => {
-  return fetchSpotifyData(token, TOP_TRACKS_ENDPOINT) as Promise<SpotifyTopTracks>;
+export const fetchTopTracks = (token: string) => {
+  return fetchSpotifyData<SpotifyTopTracks>(token, TOP_TRACKS_ENDPOINT);
 };
 
-const fetchSpotifyData = async (token: string, endpoint: string) => {
+async function fetchSpotifyData<T>(token: string, endpoint: string): Promise<T | null> {
   const response = await fetch(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -62,5 +63,5 @@ const fetchSpotifyData = async (token: string, endpoint: string) => {
   if (response.status === 204 || response.status >= 400) {
     return null;
   }
-  return await response.json();
-};
+  return (await response.json()) as Promise<T>;
+}

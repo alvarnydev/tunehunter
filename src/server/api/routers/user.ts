@@ -3,6 +3,7 @@ import { z } from "zod";
 import { RegisterSchema } from "@/schemas";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 import { accounts, users } from "@/server/db/schema";
+import { eq } from "drizzle-orm";
 
 export const userRouter = createTRPCRouter(
   {

@@ -4,11 +4,14 @@ import { getServerSession, type DefaultSession, type NextAuthOptions } from "nex
 import { type Adapter } from "next-auth/adapters";
 
 import { env } from "@/env";
+import { eq } from "drizzle-orm";
 
+import { refreshTokens } from "@/helpers/refresh-token";
 import { db } from "@/server/db";
 import { pgTable } from "drizzle-orm/pg-core";
 import EmailProvider from "next-auth/providers/email";
 import SpotifyProvider from "next-auth/providers/spotify";
+import { accounts } from "./db/schema";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -45,7 +48,21 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
-    signIn: ({ user, account, profile, email, credentials }) => {
+    signIn: async ({ user, account, profile, email, credentials }) => {
+      if (
+        account?.expires_at &&
+        account?.access_token &&
+        account?.refresh_token &&
+        Date.now() > account.expires_at
+      ) {
+        console.log("refreshing token");
+        const { access_token, refresh_token } = await refreshTokens(account.refresh_token);
+        console.log("access_token", access_token, "refresh_token", refresh_token);
+        await db
+          .update(accounts)
+          .set({ access_token: access_token, refresh_token: refresh_token })
+          .where(eq(accounts.userId, user.id));
+      }
       return true;
     },
   },
