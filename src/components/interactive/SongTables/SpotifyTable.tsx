@@ -86,7 +86,7 @@ const SpotifyTable = () => {
       <div className="absolute left-1/2 top-0 z-20 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary/50 bg-background px-1 py-[6px]">
         {spotifyTableTabs.map((spotifyTableTab) => (
           <button
-            id={spotifyTableTab}
+            key={spotifyTableTab}
             className={cn(
               "whitespace-nowrap text-base transition-colors hover:text-foreground",
               spotifyTableTab === tab ? "text-foreground" : "text-muted-foreground",
@@ -110,12 +110,13 @@ const SpotifyTable = () => {
                   <>
                     {spotifyData.currentlyPlaying?.is_playing && (
                       <SearchTableRow
+                        key={spotifyData.currentlyPlaying.item.id}
                         track={spotifyData.currentlyPlaying.item}
                         currentlyPlaying={true}
                       />
                     )}
-                    {spotifyData.recentlyPlayed?.items.map((track) => (
-                      <SearchTableRow track={track.track} />
+                    {spotifyData.recentlyPlayed?.items.map((track, index) => (
+                      <SearchTableRow key={`${track.track.id}/${index}`} track={track.track} />
                     ))}
                   </>
                 )}
@@ -129,7 +130,9 @@ const SpotifyTable = () => {
                   </div>
                 ) : (
                   <>
-                    {spotifyData.topTracks?.items.map((track) => <SearchTableRow track={track} />)}
+                    {spotifyData.topTracks?.items.map((track) => (
+                      <SearchTableRow key={track.id} track={track} />
+                    ))}
                   </>
                 )}
               </>
@@ -141,7 +144,11 @@ const SpotifyTable = () => {
                     <p className="text-center">{queueEmpty}</p>
                   </div>
                 ) : (
-                  <>{spotifyData.queue?.queue.map((track) => <SearchTableRow track={track} />)}</>
+                  <>
+                    {spotifyData.queue?.queue.map((track, index) => (
+                      <SearchTableRow key={`${track.id}/${index}`} track={track} />
+                    ))}
+                  </>
                 )}
               </>
             )}

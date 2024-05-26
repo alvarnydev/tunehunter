@@ -17,7 +17,7 @@ const SearchTableRow: React.FC<{
   };
 
   return (
-    <tr key={track.disc_number} className="max-h-16">
+    <tr className="max-h-16">
       <td className="py-2 pr-8">
         <div className="flex items-center gap-4">
           <div className="avatar">

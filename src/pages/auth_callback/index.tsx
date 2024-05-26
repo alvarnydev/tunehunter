@@ -1,4 +1,4 @@
-import { LoadingIndicator } from "@/components/Indicators";
+import { RedirectIndicator } from "@/components/Indicators";
 import { playJingle } from "@/helpers/play-jingle";
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
@@ -41,7 +41,7 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   return (
     <div className="flex items-baseline gap-2">
       <p className="text-lg text-foreground">{redirectingText}</p>
-      <LoadingIndicator size={12} />
+      <RedirectIndicator size={12} />
     </div>
   );
 };
