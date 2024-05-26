@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { debounce } from "lodash";
 import { Search } from "lucide-react";
 import type { GetStaticProps, NextPage } from "next";
+import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
@@ -40,10 +41,13 @@ const tableContent = {
 
 export const Home: NextPage = () => {
   const router = useRouter();
+  const { status } = useSession();
   const [searchTab, setSearchTab] = useState<Tab | "">("");
   const [searchValue, setSearchValue] = useState("");
   const [currentPlaceholder, setCurrentPlaceholder] = useState("");
   const { t } = useTranslation("");
+
+  const loggedIn = status === "authenticated";
 
   useEffect(() => {
     const rndPlaceholderIndex = Math.floor(Math.random() * placeholderValues.length);
@@ -68,8 +72,6 @@ export const Home: NextPage = () => {
 
   const promptSongConfirmation = async () => {
     // Query itunes api
-
-    console.log("hi");
   };
 
   const debouncedPromptSongConfirmation = useCallback(
@@ -125,7 +127,12 @@ export const Home: NextPage = () => {
             initial={{ opacity: 0, height: "0rem" }}
             animate={{ opacity: 1, height: "16rem" }}
             exit={{ opacity: 0, height: "0rem" }}
-            className="relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary/50"
+            className={cn(
+              "relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 ",
+              loggedIn
+                ? "border-primary"
+                : "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30",
+            )}
           >
             {tableContent[searchTab]}
           </motion.div>

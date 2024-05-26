@@ -30,8 +30,6 @@ const SpotifyTable = () => {
     spotifyAccount?.access_token || "",
   );
 
-  console.log("spotifyData", spotifyData);
-
   const loggedIn = status === "authenticated";
   const recentlyPlayedEmpty = t("search.spotify.recentlyPlayed.empty");
   const topTracksEmpty = t("search.spotify.topTracks.empty");
@@ -40,7 +38,7 @@ const SpotifyTable = () => {
 
   if (!loggedIn) {
     return (
-      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
+      <div className="flex h-full w-full items-center justify-center">
         <div className="w-fit">
           <IconButton
             icon={"spotify"}
@@ -60,7 +58,7 @@ const SpotifyTable = () => {
   if (!spotifyAccount) {
     const spotifyPrompt = t("search.spotify.connectPrompt");
     return (
-      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
+      <div className="flex h-full w-full items-center justify-center">
         <div className="w-fit">
           <IconButton text={spotifyPrompt} icon="spotify" size="lg" />
         </div>
@@ -85,7 +83,7 @@ const SpotifyTable = () => {
 
   return (
     <div className="h-full w-full px-7">
-      <div className="absolute left-1/2 top-0 z-20 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary/50 bg-background px-1 py-[6px]">
+      <div className="absolute left-1/2 top-0 z-20 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
         {spotifyTableTabs.map((spotifyTableTab) => (
           <button
             key={spotifyTableTab}
