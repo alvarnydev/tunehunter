@@ -18,18 +18,27 @@ const SearchTableRow: React.FC<{
   };
 
   return (
-    <TableRow key={track.disc_number}>
-      <TableCell className="font-medium">
-        <img src={track.album.images[0]?.url} className="relative h-10 w-10 rounded-xl" />
-      </TableCell>
-      <TableCell>{track.artists[0]?.name}</TableCell>
-      <TableCell>{track.name}</TableCell>
-      <TableCell className="text-right">
+    <tr key={track.disc_number} className="">
+      <td className="py-2 pr-2">
+        <div className="flex items-center">
+          <div className="avatar">
+            <div className="mask mask-squircle h-12 w-12">
+              <img src={track.album.images[0]?.url} />
+            </div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <p>{track.artists[0]?.name}</p>
+        {track.artists[1] && <p className="text-muted-foreground">{track.artists[1]?.name}</p>}
+      </td>
+      <td>{track.name}</td>
+      <td className="text-right">
         <Button variant="primary" size="sm" className="capitalize tracking-wide">
           {searchText}
         </Button>
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   );
 };
 

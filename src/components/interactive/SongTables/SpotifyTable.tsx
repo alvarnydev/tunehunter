@@ -4,11 +4,10 @@ import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useRef, useState } from "react";
 import SearchTableRow from "../SearchTableRow";
-import SpotifyTableBody from "./SpotifyTableBody";
 import SearchTable from "../SearchTable";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import SpotifyTableHeader from "./SpotifytableHeader";
+import { cn } from "@/lib/utils";
 
 export const spotifyTableTabs = ["recentlyPlayed", "queue", "topTracks"] as const;
 export type SpotifyTableTab = (typeof spotifyTableTabs)[number];
@@ -26,6 +25,9 @@ const SpotifyTable = () => {
 
   const loggedIn = status === "authenticated";
   const tabChooserPrompt = t("spotifyBox.prompt");
+  const recentlyPlayedEmpty = t("search.spotify.recentlyPlayed.empty");
+  const topTracksEmpty = t("search.spotify.topTracks.empty");
+  const queueEmpty = t("search.spotify.queue.empty");
 
   if (!spotifyAccountData) {
     // Please connect your spotify account using this link:
@@ -39,8 +41,71 @@ const SpotifyTable = () => {
 
   return (
     <>
-      <SpotifyTableHeader tab={tab} setTab={setTab} />
-      <SpotifyTableBody tab={tab} spotifyData={spotifyData} />
+      <div className="flex w-full items-center justify-center gap-8 border-b-[1px] border-primary pb-2">
+        {spotifyTableTabs.map((spotifyTableTab) => (
+          <button
+            id={spotifyTableTab}
+            className={cn(
+              "whitespace-nowrap transition-colors hover:text-foreground",
+              spotifyTableTab === tab ? "font-bold" : "font-normal",
+            )}
+            onClick={() => setTab(spotifyTableTab)}
+          >
+            {t(`search.spotify.${spotifyTableTab}.header`)}
+          </button>
+        ))}
+      </div>
+      <div className="hide-scrollbars w-full overflow-scroll pt-2">
+        <table className="w-full">
+          <tbody>
+            {tab == "recentlyPlayed" && (
+              <>
+                {spotifyData.recentlyPlayed?.items.length == 0 ? (
+                  <div className="flex h-full items-center justify-center">
+                    <p className="text-center">{recentlyPlayedEmpty}</p>
+                  </div>
+                ) : (
+                  <>
+                    {spotifyData.currentlyPlaying?.is_playing && (
+                      <SearchTableRow
+                        track={spotifyData.currentlyPlaying.item}
+                        currentlyPlaying={true}
+                      />
+                    )}
+                    {spotifyData.recentlyPlayed?.items.map((track) => (
+                      <SearchTableRow track={track.track} />
+                    ))}
+                  </>
+                )}
+              </>
+            )}
+            {tab == "topTracks" && (
+              <>
+                {spotifyData.topTracks?.items.length == 0 ? (
+                  <div className="flex h-full items-center justify-center">
+                    <p className="text-center">{topTracksEmpty}</p>
+                  </div>
+                ) : (
+                  <>
+                    {spotifyData.topTracks?.items.map((track) => <SearchTableRow track={track} />)}
+                  </>
+                )}
+              </>
+            )}
+            {tab == "queue" && (
+              <>
+                {spotifyData.queue?.queue.length == 0 ? (
+                  <div className="flex h-full items-center justify-center">
+                    <p className="text-center">{queueEmpty}</p>
+                  </div>
+                ) : (
+                  <>{spotifyData.queue?.queue.map((track) => <SearchTableRow track={track} />)}</>
+                )}
+              </>
+            )}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

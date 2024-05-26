@@ -31,7 +31,7 @@ const placeholderValues = [
   "Ariana Grande - 7 Rings",
 ];
 
-const tabContent = {
+const tableContent = {
   "": <></>,
   spotify: <SpotifyTable />,
   trending: <TrendingTable />,
@@ -122,13 +122,12 @@ export const Home: NextPage = () => {
       </div>
       <AnimatePresence mode="wait">
         <motion.div
-          key={searchTab}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="hide-scrollbars mx-auto h-96 w-4/5 overflow-hidden rounded-xl p-4"
+          initial={{ opacity: 0, height: "0rem" }}
+          animate={{ opacity: 1, height: "16rem" }}
+          exit={{ opacity: 0, height: "0rem" }}
+          className=" mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-xl px-8 pt-5 shadow-md shadow-primary"
         >
-          <Table>{tabContent[searchTab]}</Table>
+          {tableContent[searchTab]}
         </motion.div>
       </AnimatePresence>
     </div>

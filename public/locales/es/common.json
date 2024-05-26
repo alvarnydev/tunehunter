@@ -6,14 +6,6 @@
     "continue": "Continuar",
     "search": "Buscar"
   },
-  "hunter": {
-    "tabs": {
-      "trending": "Trending",
-      "spotify": "Spotify",
-      "history": "Historial",
-      "wishlist": "Lista de deseos"
-    }
-  },
   "profile": {
     "settings": {
       "label": "Ajustes",
@@ -30,12 +22,18 @@
     }
   },
   "search": {
+    "tabs": {
+      "trending": "Trending",
+      "spotify": "Spotify",
+      "history": "Historial",
+      "wishlist": "Lista de deseos"
+    },
     "spotify": {
       "recentlyPlayed": {
         "header": "Recientes",
         "empty": "No has escuchado canciones en Spotify recientemente"
       },
-      "mostPlayed": {
+      "topTracks": {
         "header": "Más escuchadas",
         "empty": "No recibimos data de tus canciones más escuchadas"
       },

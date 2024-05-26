@@ -6,14 +6,6 @@
     "continue": "Continue",
     "search": "Search"
   },
-  "hunter": {
-    "tabs": {
-      "trending": "Trending",
-      "spotify": "Spotify",
-      "history": "History",
-      "wishlist": "Wishlist"
-    }
-  },
   "profile": {
     "settings": {
       "label": "Settings",
@@ -30,12 +22,18 @@
     }
   },
   "search": {
+    "tabs": {
+      "trending": "Trending",
+      "spotify": "Spotify",
+      "history": "History",
+      "wishlist": "Wishlist"
+    },
     "spotify": {
       "recentlyPlayed": {
         "header": "Recently Played",
         "empty": "You haven't listed to any songs on Spotify recently "
       },
-      "mostPlayed": {
+      "topTracks": {
         "header": "Most Played",
         "empty": "We received no data for your most played songs"
       },
