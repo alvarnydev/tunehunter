@@ -1,4 +1,4 @@
-import LoadingIndicator from "@/components/LoadingIndicator";
+import { LoadingIndicator } from "@/components/Indicators";
 import { playJingle } from "@/helpers/play-jingle";
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";

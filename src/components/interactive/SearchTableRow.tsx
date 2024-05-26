@@ -1,17 +1,13 @@
-import { MusicPlayingIndicator } from "@/components/MusicPlayingIndicator";
-import { Button } from "@/components/ui/button";
-import { TableCell, TableRow } from "@/components/ui/table";
 import { SpotifyTrack } from "@/types/spotify";
 import { useTranslation } from "next-i18next";
 import IconButton from "../IconButton";
-import { Search } from "lucide-react";
-import CustomIcon from "../CustomIcon";
+import { MusicPlayingIndicator } from "../Indicators";
 
 const SearchTableRow: React.FC<{
   track: SpotifyTrack;
   currentlyPlaying?: boolean;
   userCountry?: string;
-}> = ({ track }) => {
+}> = ({ track, currentlyPlaying }) => {
   const { t } = useTranslation();
 
   const searchText = t("general.search");
@@ -23,12 +19,13 @@ const SearchTableRow: React.FC<{
   return (
     <tr key={track.disc_number} className="max-h-16">
       <td className="py-2 pr-8">
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <div className="avatar">
             <div className="mask mask-squircle h-12 w-12">
               <img src={track.album.images[0]?.url} />
             </div>
           </div>
+          {currentlyPlaying && <MusicPlayingIndicator size={12} />}
         </div>
       </td>
       <td className="max-h-16 overflow-hidden pr-4">
@@ -39,9 +36,11 @@ const SearchTableRow: React.FC<{
           </p>
         )}
       </td>
-      <td className="pr-4">{track.name}</td>
+      <td className="pr-4">
+        <span>{track.name}</span>
+      </td>
       <td className="text-right">
-        <IconButton variant="primary" text={searchText} size="default" />
+        <IconButton variant="primary" text={searchText} size="sm" />
       </td>
     </tr>
   );

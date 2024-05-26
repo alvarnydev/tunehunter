@@ -1,49 +1,61 @@
+import IconButton from "@/components/IconButton";
+import { LoadingIndicator } from "@/components/Indicators";
+import { signInWithProvider } from "@/helpers/sign-in";
+import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import useSpotifyData from "@/hooks/useSpotifyData";
+import { cn } from "@/lib/utils";
 import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import SearchTableRow from "../SearchTableRow";
-import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import IconButton from "@/components/IconButton";
 
 export const spotifyTableTabs = ["recentlyPlayed", "queue", "topTracks"] as const;
 export type SpotifyTableTab = (typeof spotifyTableTabs)[number];
 
 const SpotifyTable = () => {
-  console.log("hi");
   const [tab, setTab] = useState<SpotifyTableTab>("recentlyPlayed");
   const { t } = useTranslation();
+  const router = useRouterWithHelpers();
   const { data: userData, status } = useSession();
-  const { data: spotifyAccountData, isLoading: spotifyAccountDataLoading } =
-    api.account.getSpotifyAccountById.useQuery(undefined, {
-      refetchOnWindowFocus: false,
-      enabled: !!userData,
-    });
+  const { data: spotifyAccount, isLoading: spotifyAccountDataLoading } =
+    api.account.getSpotifyAccountById.useQuery(
+      { userId: userData?.user.id! },
+      {
+        refetchOnWindowFocus: false,
+        enabled: !!userData,
+      },
+    );
   const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
-    spotifyAccountData?.access_token || "",
+    spotifyAccount?.access_token || "",
   );
 
   const loggedIn = status === "authenticated";
-  const tabChooserPrompt = t("spotifyBox.prompt");
   const recentlyPlayedEmpty = t("search.spotify.recentlyPlayed.empty");
   const topTracksEmpty = t("search.spotify.topTracks.empty");
   const queueEmpty = t("search.spotify.queue.empty");
+  const signInWithProviderText = (provider: string) => t("auth.signIn.withProvider", { provider });
 
-  if (spotifyAccountDataLoading) {
-    // TODO: Add loading spinner, remove bg
+  if (!loggedIn) {
     return (
       <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
         <div className="w-fit">
-          <IconButton text="Loading account..." icon="spotify" size="lg" />
+          <IconButton
+            icon={"spotify"}
+            text={signInWithProviderText("Spotify")}
+            size="lg"
+            onClick={() => signInWithProvider("spotify", router.locale ?? "")}
+          />
         </div>
       </div>
     );
   }
 
-  if (!spotifyAccountData) {
+  if (spotifyAccountDataLoading) {
+    return <LoadingIndicator size={32} />;
+  }
+
+  if (!spotifyAccount) {
     const spotifyPrompt = t("search.spotify.connectPrompt");
     return (
       <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
@@ -55,14 +67,7 @@ const SpotifyTable = () => {
   }
 
   if (spotifyDataLoading) {
-    // TODO: Add loading spinner, remove bg
-    return (
-      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
-        <div className="w-fit">
-          <IconButton text="Loading spotify data..." icon="spotify" size="lg" />
-        </div>
-      </div>
-    );
+    return <LoadingIndicator size={32} />;
   }
 
   if (!spotifyData) {
@@ -77,8 +82,8 @@ const SpotifyTable = () => {
   }
 
   return (
-    <div className="h-full w-full px-5">
-      <div className="absolute left-1/2 top-0 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
+    <div className="h-full w-full px-7">
+      <div className="absolute left-1/2 top-0 z-20 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary/50 bg-background px-1 py-[6px]">
         {spotifyTableTabs.map((spotifyTableTab) => (
           <button
             id={spotifyTableTab}
@@ -148,31 +153,3 @@ const SpotifyTable = () => {
 };
 
 export default SpotifyTable;
-
-{
-  /* <div className="w-3/4 rounded-xl px-2 pt-2 shadow-md shadow-neutral">
-  <div className="mx-[2%] flex justify-center border-b-[1px] border-b-neutral py-2">
-    <div className="flex w-full items-center justify-between">
-      <div>
-        <p>{tabChooserPrompt}</p>
-      </div>
-      <div className="join">
-        {spotifyTableTabs.map((spotifyTableTab) => (
-          <button
-            id={spotifyTableTab}
-            className={`btn btn-ghost join-item btn-sm rounded-l-full text-base capitalize tracking-wide ${spotifyTableTab === tab ? "font-bold" : "font-normal"}`}
-            onClick={() => handleTabUpdate(spotifyTableTab)}
-          >
-            {t(`spotifyBox.${spotifyTableTab}`)}
-          </button>
-        ))}
-      </div>
-    </div>
-  </div>
-  <div className={`scrollbar-none w-full resize-y overflow-x-auto rounded py-2`}>
-    <table className="table w-full table-fixed">
-      <SpotifyTableBody tab={tab} spotifyData={spotifyData} />
-    </table>
-  </div>
-</div>; */
-}

@@ -1,23 +1,11 @@
 import { z } from "zod";
 
 import { RegisterSchema } from "@/schemas";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { accounts, users } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
 
 export const userRouter = createTRPCRouter(
   {
-    hello: publicProcedure.input(z.object({ text: z.string() })).query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-
-    getSecretMessage: protectedProcedure.query(() => {
-      return "you can now see this secret message!";
-    }),
-
-    // useform, crete account and user
     createAccount: publicProcedure.input(RegisterSchema).mutation(async ({ ctx, input }) => {
       const validatedFields = RegisterSchema.safeParse(input);
       if (!validatedFields.success) return { error: "invalidFields" };

@@ -1,6 +1,7 @@
 import { Separator } from "@/components/my-ui/separator";
 import { Input } from "@/components/ui/input";
 import { isCustomIcon } from "@/helpers/custom-icons";
+import { buildRedirectUrl, signInWithProvider } from "@/helpers/sign-in";
 import { type Providers } from "@/interfaces/providers";
 import { api } from "@/utils/api";
 import { getProviders, signIn } from "next-auth/react";
@@ -47,18 +48,6 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const mailSendErrorText = t("auth.toast.login.mail.error");
   const mailSendSuccessText = t("auth.toast.login.mail.success");
 
-  const handleSignInWithProvider = async (providerId: string) => {
-    // Remove ?profile from URL
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    params.delete("profile");
-    url.search = params.toString();
-    const redirectPath = url.pathname + url.search;
-
-    const callbackUrl = `/${router.locale}/auth_callback/?redirectUrl=${redirectPath}`;
-    await signIn(providerId, { callbackUrl });
-  };
-
   const handleSignInWithEmail = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -95,6 +84,12 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
     });
   };
 
+  const handleSignInWithProvider = async (providerId: string) => {
+    const redirectPath = buildRedirectUrl();
+    const callbackUrl = `/${router.locale}/auth_callback/?redirectUrl=${redirectPath}`;
+    signInWithProvider(providerId, callbackUrl);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <form className="flex flex-col gap-4" onSubmit={handleSignInWithEmail}>
@@ -123,7 +118,7 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
               icon={isCustomIcon(provider.id) ? provider.id : "fallback"}
               text={signInWithProviderText(provider.name)}
               size="lg"
-              onClick={() => provider?.id && handleSignInWithProvider(provider.id)}
+              onClick={() => provider?.id && signInWithProvider(provider.id, router.locale ?? "")}
             />
           </div>
         ))}

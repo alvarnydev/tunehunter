@@ -1,4 +1,7 @@
+import HistoryTable from "@/components/interactive/SongTables/HistorTable";
 import SpotifyTable from "@/components/interactive/SongTables/SpotifyTable";
+import TrendingTable from "@/components/interactive/SongTables/TrendingTable";
+import WishlistTable from "@/components/interactive/SongTables/WishlistTable";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,10 +13,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import nextI18nConfig from "../../next-i18next.config.mjs";
-import TrendingTable from "@/components/interactive/SongTables/TrendingTable";
-import WishlistTable from "@/components/interactive/SongTables/WishlistTable";
-import HistoryTable from "@/components/interactive/SongTables/HistorTable";
-import { Table } from "@/components/ui/table";
 
 const tabs = ["trending", "spotify", "history", "wishlist"] as const;
 type Tab = (typeof tabs)[number];
@@ -126,7 +125,7 @@ export const Home: NextPage = () => {
             initial={{ opacity: 0, height: "0rem" }}
             animate={{ opacity: 1, height: "16rem" }}
             exit={{ opacity: 0, height: "0rem" }}
-            className="relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary"
+            className="relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary/50"
           >
             {tableContent[searchTab]}
           </motion.div>
