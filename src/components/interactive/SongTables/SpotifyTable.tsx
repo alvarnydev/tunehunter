@@ -7,6 +7,7 @@ import SearchTableRow from "../SearchTableRow";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import IconButton from "@/components/IconButton";
 
 export const spotifyTableTabs = ["recentlyPlayed", "queue", "topTracks"] as const;
 export type SpotifyTableTab = (typeof spotifyTableTabs)[number];
@@ -17,7 +18,10 @@ const SpotifyTable = () => {
   const { t } = useTranslation();
   const { data: userData, status } = useSession();
   const { data: spotifyAccountData, isLoading: spotifyAccountDataLoading } =
-    api.account.getSpotifyAccountById.useQuery(undefined, { refetchOnWindowFocus: false });
+    api.account.getSpotifyAccountById.useQuery(undefined, {
+      refetchOnWindowFocus: false,
+      enabled: !!userData,
+    });
   const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
     spotifyAccountData?.access_token || "",
   );
@@ -28,18 +32,52 @@ const SpotifyTable = () => {
   const topTracksEmpty = t("search.spotify.topTracks.empty");
   const queueEmpty = t("search.spotify.queue.empty");
 
+  if (spotifyAccountDataLoading) {
+    // TODO: Add loading spinner, remove bg
+    return (
+      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
+        <div className="w-fit">
+          <IconButton text="Loading account..." icon="spotify" size="lg" />
+        </div>
+      </div>
+    );
+  }
+
   if (!spotifyAccountData) {
-    // Please connect your spotify account using this link:
-    return;
+    const spotifyPrompt = t("search.spotify.connectPrompt");
+    return (
+      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
+        <div className="w-fit">
+          <IconButton text={spotifyPrompt} icon="spotify" size="lg" />
+        </div>
+      </div>
+    );
+  }
+
+  if (spotifyDataLoading) {
+    // TODO: Add loading spinner, remove bg
+    return (
+      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
+        <div className="w-fit">
+          <IconButton text="Loading spotify data..." icon="spotify" size="lg" />
+        </div>
+      </div>
+    );
   }
 
   if (!spotifyData) {
-    // We could not fetch the data for your account
-    return;
+    const dataMissingInfo = t("search.spotify.dataMissing");
+    return (
+      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
+        <div className="w-fit">
+          <IconButton text={dataMissingInfo} icon="spotify" size="lg" />
+        </div>
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className="h-full w-full px-5">
       <div className="absolute left-1/2 top-0 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
         {spotifyTableTabs.map((spotifyTableTab) => (
           <button
@@ -54,7 +92,7 @@ const SpotifyTable = () => {
           </button>
         ))}
       </div>
-      <div className="hide-scrollbars h-full w-full overflow-scroll pt-12">
+      <div className="hide-scrollbars h-full w-full overflow-scroll pb-6 pt-12">
         <table className="w-full">
           <tbody>
             {tab == "recentlyPlayed" && (
@@ -105,7 +143,7 @@ const SpotifyTable = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 

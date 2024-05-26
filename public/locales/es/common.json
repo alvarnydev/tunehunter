@@ -22,6 +22,8 @@
     }
   },
   "search": {
+    "connectPrompt": "Connect tu cuenta de Spotify",
+    "dataMissing": "No pudimos cargar tu data de Spotify. Por favor intenta de nuevo más tarde.",
     "tabs": {
       "trending": "Trending",
       "spotify": "Spotify",

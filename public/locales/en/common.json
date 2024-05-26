@@ -29,6 +29,8 @@
       "wishlist": "Wishlist"
     },
     "spotify": {
+      "connectPrompt": "Connect your Spotify account",
+      "dataMissing": "We could not load your Spotify data. Please try again later.",
       "recentlyPlayed": {
         "header": "Recently Played",
         "empty": "You haven't listed to any songs on Spotify recently."

@@ -126,7 +126,7 @@ export const Home: NextPage = () => {
             initial={{ opacity: 0, height: "0rem" }}
             animate={{ opacity: 1, height: "16rem" }}
             exit={{ opacity: 0, height: "0rem" }}
-            className="relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary px-8 shadow-md"
+            className="relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary"
           >
             {tableContent[searchTab]}
           </motion.div>
