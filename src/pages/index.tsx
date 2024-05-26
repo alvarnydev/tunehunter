@@ -3,6 +3,7 @@ import SpotifyTable from "@/components/interactive/SongTables/SpotifyTable";
 import TrendingTable from "@/components/interactive/SongTables/TrendingTable";
 import WishlistTable from "@/components/interactive/SongTables/WishlistTable";
 import { Input } from "@/components/ui/input";
+import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { debounce } from "lodash";
@@ -11,12 +12,12 @@ import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import nextI18nConfig from "../../next-i18next.config.mjs";
 
 const tabs = ["trending", "spotify", "history", "wishlist"] as const;
 type Tab = (typeof tabs)[number];
+const isTab = (tab: string): tab is Tab => tabs.includes(tab as Tab);
 
 const placeholderValues = [
   "Celine Dion - My Heart Will Go On",
@@ -40,7 +41,7 @@ const tableContent = {
 };
 
 export const Home: NextPage = () => {
-  const router = useRouter();
+  const router = useRouterWithHelpers();
   const { status } = useSession();
   const [searchTab, setSearchTab] = useState<Tab | "">("");
   const [searchValue, setSearchValue] = useState("");
@@ -56,9 +57,21 @@ export const Home: NextPage = () => {
   }, []);
 
   const setTab = (newTab: Tab) => {
-    if (newTab === searchTab) setSearchTab("");
-    else setSearchTab(newTab);
+    if (newTab === searchTab) {
+      setSearchTab("");
+      router.setParams({ search: "" });
+    } else {
+      setSearchTab(newTab);
+      router.setParams({ search: newTab });
+    }
   };
+
+  useEffect(() => {
+    const searchParam = router.getParams("search");
+    if (router.isReady && searchParam && isTab(searchParam)) {
+      setSearchTab(searchParam);
+    }
+  }, [router.isReady]);
 
   const startSearch = (songId: string) => {
     // Get id from modal before pushing
