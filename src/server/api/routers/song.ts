@@ -1,33 +1,27 @@
-import { z } from "zod";
-
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 
 export const songRouter = createTRPCRouter({
-  hello: publicProcedure.input(z.object({ text: z.string() })).query(({ input }) => {
-    return {
-      greeting: `Hello ${input.text}`,
-    };
+  getTrending: publicProcedure.query(({ ctx }) => {
+    // const trending = ctx.db.select("songId").from("queries").groupBy("songId").orderBy("count(*)", "desc").limit(30);
+    return ctx.db.query.queries.findMany({
+      orderBy: (queries, { desc }) => [desc(queries.searchedAt)],
+      limit: 30,
+    });
   }),
 
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
+  getHistory: protectedProcedure.query(({ ctx }) => {
+    return ctx.db.query.queries.findMany({
+      where: (queries, { eq }) => eq(queries.userId, ctx.session.user.id),
+      orderBy: (queries, { desc }) => [desc(queries.searchedAt)],
+      limit: 30,
+    });
   }),
 
-  // create: protectedProcedure
-  //   .input(z.object({ name: z.string().min(1) }))
-  //   .mutation(async ({ ctx, input }) => {
-  //     // simulate a slow db call
-  //     await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  //     await ctx.db.insert(posts).values({
-  //       name: input.name,
-  //       createdById: ctx.session.user.id,
-  //     });
-  //   }),
-
-  // getLatest: publicProcedure.query(({ ctx }) => {
-  //   return ctx.db.query.posts.findFirst({
-  //     orderBy: (posts, { desc }) => [desc(posts.createdAt)],
-  //   });
-  // }),
+  getWishlist: protectedProcedure.query(({ ctx }) => {
+    return ctx.db.query.wishlists.findMany({
+      where: (wishlist, { eq }) => eq(wishlist.userId, ctx.session.user.id),
+      orderBy: (wishlist, { desc }) => [desc(wishlist.addedAt)],
+      limit: 30,
+    });
+  }),
 });
