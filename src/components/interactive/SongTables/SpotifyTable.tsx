@@ -30,6 +30,8 @@ const SpotifyTable = () => {
     spotifyAccount?.access_token || "",
   );
 
+  console.log("spotifyData", spotifyData);
+
   const loggedIn = status === "authenticated";
   const recentlyPlayedEmpty = t("search.spotify.recentlyPlayed.empty");
   const topTracksEmpty = t("search.spotify.topTracks.empty");

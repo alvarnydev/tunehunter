@@ -19,14 +19,16 @@ const SearchTableRow: React.FC<{
   return (
     <tr className="max-h-16">
       <td className="py-2 pr-8">
-        <div className="flex items-center gap-4">
-          <div className="avatar">
-            <div className="mask mask-squircle h-12 w-12">
-              <img src={track.album.images[0]?.url} />
+        <a href={track.external_urls.spotify} target="_blank">
+          <div className="flex items-center gap-4">
+            <div className="avatar">
+              <div className="mask mask-squircle h-12 w-12">
+                <img src={track.album.images[0]?.url} />
+              </div>
             </div>
+            {currentlyPlaying && <MusicPlayingIndicator size={12} />}
           </div>
-          {currentlyPlaying && <MusicPlayingIndicator size={12} />}
-        </div>
+        </a>
       </td>
       <td className="max-h-16 overflow-hidden pr-4">
         <p>{track.artists[0]?.name}</p>
