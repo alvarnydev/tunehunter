@@ -1,5 +1,5 @@
 import { type CustomIconType, type CustomIconVariant } from "@/helpers/custom-icons";
-import { type ButtonHTMLAttributes, type FC } from "react";
+import { ReactNode, type ButtonHTMLAttributes, type FC } from "react";
 import CustomIcon from "./CustomIcon";
 import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "./ui/button";
 
@@ -21,6 +21,7 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
   ghost: "ghost-foreground",
   ghostDestructive: "ghost-destructive-foreground",
   outline: "outline-foreground",
+  outlinePrimary: "primary-foreground",
 };
 
 const IconButton: FC<IProps> = ({

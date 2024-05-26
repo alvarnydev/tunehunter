@@ -31,13 +31,13 @@
     "spotify": {
       "recentlyPlayed": {
         "header": "Zuletzt gehört",
-        "empty": "Du hast in letzter Zeit keine Lieder bei Spotify gehört"
+        "empty": "Du hast in letzter Zeit keine Lieder bei Spotify gehört."
       },
       "topTracks": {
         "header": "Meistgehört",
-        "empty": "Wir haben keine Daten zu deinen meistgehörten Liedern gefunden"
+        "empty": "Wir haben keine Daten zu deinen meistgehörten Liedern gefunden."
       },
-      "queue": { "header": "Warteschlange", "empty": "Deine Warteschlange ist leer" }
+      "queue": { "header": "Warteschlange", "empty": "Deine Warteschlange ist leer." }
     }
   },
   "results": {

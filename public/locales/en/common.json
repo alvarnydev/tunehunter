@@ -31,13 +31,13 @@
     "spotify": {
       "recentlyPlayed": {
         "header": "Recently Played",
-        "empty": "You haven't listed to any songs on Spotify recently "
+        "empty": "You haven't listed to any songs on Spotify recently."
       },
       "topTracks": {
         "header": "Most Played",
-        "empty": "We received no data for your most played songs"
+        "empty": "We received no data for your most played songs."
       },
-      "queue": { "header": "Queue", "empty": "Your queue is currently empty" }
+      "queue": { "header": "Queue", "empty": "Your queue is currently empty." }
     }
   },
   "results": {

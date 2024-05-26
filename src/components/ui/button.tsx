@@ -20,6 +20,8 @@ const buttonVariants = cva(
         ghostDestructive: "text-destructive hover:bg-destructive hover:text-destructive-foreground",
         outline:
           "border border-background bg-transparent hover:bg-accent hover:text-accent-foreground",
+        outlinePrimary:
+          "border border-primary bg-transparent hover:bg-primary hover:text-primary-foreground",
       },
       size: {
         default: "h-10 px-4 py-2",

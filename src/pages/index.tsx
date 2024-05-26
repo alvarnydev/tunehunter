@@ -112,7 +112,7 @@ export const Home: NextPage = () => {
             key={tab}
             onClick={() => setTab(tab)}
             className={cn(
-              "whitespace-nowrap transition-colors hover:text-foreground",
+              "whitespace-nowrap transition-all hover:text-foreground",
               searchTab === tab ? "font-bold text-foreground" : "text-muted-foreground",
             )}
           >
@@ -121,14 +121,16 @@ export const Home: NextPage = () => {
         ))}
       </div>
       <AnimatePresence mode="wait">
-        <motion.div
-          initial={{ opacity: 0, height: "0rem" }}
-          animate={{ opacity: 1, height: "16rem" }}
-          exit={{ opacity: 0, height: "0rem" }}
-          className=" mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-xl px-8 pt-5 shadow-md shadow-primary"
-        >
-          {tableContent[searchTab]}
-        </motion.div>
+        {searchTab !== "" && (
+          <motion.div
+            initial={{ opacity: 0, height: "0rem" }}
+            animate={{ opacity: 1, height: "16rem" }}
+            exit={{ opacity: 0, height: "0rem" }}
+            className="relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary px-8 shadow-md"
+          >
+            {tableContent[searchTab]}
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );

@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useRef, useState } from "react";
 import SearchTableRow from "../SearchTableRow";
-import SearchTable from "../SearchTable";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -41,13 +40,13 @@ const SpotifyTable = () => {
 
   return (
     <>
-      <div className="flex w-full items-center justify-center gap-8 border-b-[1px] border-primary pb-2">
+      <div className="absolute left-1/2 top-0 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
         {spotifyTableTabs.map((spotifyTableTab) => (
           <button
             id={spotifyTableTab}
             className={cn(
-              "whitespace-nowrap transition-colors hover:text-foreground",
-              spotifyTableTab === tab ? "font-bold" : "font-normal",
+              "whitespace-nowrap text-base transition-colors hover:text-foreground",
+              spotifyTableTab === tab ? "text-foreground" : "text-muted-foreground",
             )}
             onClick={() => setTab(spotifyTableTab)}
           >
@@ -55,7 +54,7 @@ const SpotifyTable = () => {
           </button>
         ))}
       </div>
-      <div className="hide-scrollbars w-full overflow-scroll pt-2">
+      <div className="hide-scrollbars h-full w-full overflow-scroll pt-12">
         <table className="w-full">
           <tbody>
             {tab == "recentlyPlayed" && (
@@ -95,7 +94,7 @@ const SpotifyTable = () => {
             {tab == "queue" && (
               <>
                 {spotifyData.queue?.queue.length == 0 ? (
-                  <div className="flex h-full items-center justify-center">
+                  <div className="absolute-center flex items-center justify-center">
                     <p className="text-center">{queueEmpty}</p>
                   </div>
                 ) : (
