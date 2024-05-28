@@ -82,8 +82,8 @@ const SpotifyTable = () => {
   }
 
   return (
-    <div className="h-full w-full px-7">
-      <div className="absolute left-1/2 top-0 z-20 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
+    <div className="h-full w-full px-3 sm:px-5 md:px-7">
+      <div className="absolute left-1/2 top-0 z-10 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
         {spotifyTableTabs.map((spotifyTableTab) => (
           <button
             key={spotifyTableTab}

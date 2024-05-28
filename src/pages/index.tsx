@@ -98,7 +98,7 @@ export const Home: NextPage = () => {
   };
 
   return (
-    <div className="-mt-2 flex w-full flex-col items-center gap-4 md:w-2/3">
+    <div className="-mt-2 flex w-full max-w-4xl flex-col items-center gap-4">
       <div className="w-full">
         <form
           className="relative mx-auto flex max-w-lg flex-col items-center"
@@ -141,7 +141,7 @@ export const Home: NextPage = () => {
             animate={{ opacity: 1, height: "16rem" }}
             exit={{ opacity: 0, height: "0rem" }}
             className={cn(
-              "relative mx-auto mt-4 flex w-4/5 resize-y flex-col items-center overflow-hidden rounded-3xl border-2 ",
+              "relative mx-auto mt-4 flex w-full resize-y flex-col items-center overflow-hidden rounded-3xl border-2 md:w-4/5 ",
               loggedIn
                 ? "border-primary"
                 : "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30",
