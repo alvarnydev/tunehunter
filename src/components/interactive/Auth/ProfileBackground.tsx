@@ -9,11 +9,11 @@ const ProfileBackground: FC<IProps> = ({ open }) => {
   return (
     <div
       className={cn(
-        "z-10 absolute bottom-8 left-1/2 transform -translate-x-1/2 rounded-full bg-gradient-to-t from-primary from-50% to-background h-6 w-6 flex menu-transition",
+        "menu-transition absolute bottom-8 left-1/2 z-40 flex h-6 w-6 -translate-x-1/2 transform rounded-full bg-gradient-to-t from-primary from-50% to-background",
         open ? "scale-[150]" : "scale-0",
       )}
     >
-      <div className="absolute inset-0 backdrop-blur-mdrounded-full" />
+      <div className="backdrop-blur-mdrounded-full absolute inset-0" />
     </div>
   );
 };

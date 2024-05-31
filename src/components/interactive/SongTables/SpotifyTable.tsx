@@ -1,5 +1,6 @@
 import IconButton from "@/components/IconButton";
 import { LoadingIndicator } from "@/components/Indicators";
+import { spotifyMockData } from "@/helpers/mock-spotify-data";
 import { signInWithProvider } from "@/helpers/sign-in";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import useSpotifyData from "@/hooks/useSpotifyData";
@@ -36,135 +37,132 @@ const SpotifyTable = () => {
   const topTracksEmpty = t("search.spotify.topTracks.empty");
   const queueEmpty = t("search.spotify.queue.empty");
   const signInWithProviderText = (provider: string) => t("auth.signIn.withProvider", { provider });
+  const spotifyConnectPrompt = t("search.spotify.connectPrompt");
 
-  if (!loggedIn) {
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <div className="w-fit">
-          <IconButton
-            icon={"spotify"}
-            text={signInWithProviderText("Spotify")}
-            size="lg"
-            onClick={() => signInWithProvider("spotify", router.locale ?? "")}
-          />
-        </div>
-      </div>
-    );
-  }
-
-  if (spotifyAccountDataLoading) {
+  if (loggedIn && (spotifyAccountDataLoading || spotifyDataLoading)) {
     return <LoadingIndicator size={32} />;
-  }
-
-  if (!spotifyAccount) {
-    const spotifyPrompt = t("search.spotify.connectPrompt");
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <div className="w-fit">
-          <IconButton text={spotifyPrompt} icon="spotify" size="lg" />
-        </div>
-      </div>
-    );
-  }
-
-  if (spotifyDataLoading) {
-    return <LoadingIndicator size={32} />;
-  }
-
-  if (!spotifyData) {
-    const dataMissingInfo = t("search.spotify.dataMissing");
-    return (
-      <div className="gradient flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30">
-        <div className="w-fit">
-          <IconButton text={dataMissingInfo} icon="spotify" size="lg" />
-        </div>
-      </div>
-    );
   }
 
   return (
-    <div className="h-full w-full px-3 sm:px-5 md:px-7">
-      <div className="absolute left-1/2 top-0 z-10 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
-        {spotifyTableTabs.map((spotifyTableTab) => (
-          <button
-            key={spotifyTableTab}
-            className={cn(
-              "whitespace-nowrap text-base transition-colors hover:text-foreground",
-              spotifyTableTab === tab ? "text-foreground" : "text-muted-foreground",
-            )}
-            onClick={() => setTab(spotifyTableTab)}
-          >
-            {t(`search.spotify.${spotifyTableTab}.header`)}
-          </button>
-        ))}
-      </div>
-      <div className="hide-scrollbars h-full w-full overflow-scroll pb-6 pt-12">
-        <table className="w-full">
-          <AnimatePresence mode="wait">
-            <motion.tbody
-              key={tab}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15, ease: "easeInOut" }}
+    <>
+      {(!loggedIn || !spotifyAccount || !spotifyData) && (
+        <div className="absolute-center z-30">
+          {(!loggedIn || !spotifyAccount) && (
+            <IconButton
+              icon={"spotify"}
+              variant="primary"
+              text={spotifyConnectPrompt}
+              size="lg"
+              onClick={() => signInWithProvider("spotify", router.locale ?? "")}
+            />
+          )}
+          {loggedIn && spotifyAccount && !spotifyData && <>No spotify data received</>}
+        </div>
+      )}
+      <div className="h-full w-full px-3 sm:px-5 md:px-7">
+        {(!loggedIn || !spotifyAccount || !spotifyData) && (
+          <div className="absolute inset-0 z-20 backdrop-blur-lg" />
+        )}
+        <div className="absolute left-1/2 top-0 z-10 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-x-2 border-b-2 border-primary bg-background px-1 py-[6px]">
+          {spotifyTableTabs.map((spotifyTableTab) => (
+            <button
+              key={spotifyTableTab}
+              className={cn(
+                "whitespace-nowrap text-base transition-colors hover:text-foreground",
+                spotifyTableTab === tab ? "text-foreground" : "text-muted-foreground",
+              )}
+              onClick={() => setTab(spotifyTableTab)}
+              disabled={!spotifyData}
             >
-              {tab == "recentlyPlayed" && (
-                <>
-                  {spotifyData.recentlyPlayed?.items.length == 0 ? (
-                    <div className="flex h-full items-center justify-center">
-                      <p className="text-center">{recentlyPlayedEmpty}</p>
-                    </div>
-                  ) : (
+              {t(`search.spotify.${spotifyTableTab}.header`)}
+            </button>
+          ))}
+        </div>
+        <div
+          className={cn(
+            "hide-scrollbars relative h-full w-full pb-6 pt-12",
+            spotifyData && "overflow-scroll",
+          )}
+        >
+          <table className="w-full">
+            {!spotifyData && (
+              <tbody>
+                {spotifyMockData.topTracks!.items.map((track) => (
+                  <SearchTableRow key={track.id} track={track} />
+                ))}
+              </tbody>
+            )}
+            {spotifyData && (
+              <AnimatePresence mode="wait">
+                <motion.tbody
+                  key={tab}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                >
+                  {tab == "recentlyPlayed" && (
                     <>
-                      {spotifyData.currentlyPlaying?.is_playing && (
-                        <SearchTableRow
-                          key={spotifyData.currentlyPlaying.item.id}
-                          track={spotifyData.currentlyPlaying.item}
-                          currentlyPlaying={true}
-                        />
+                      {spotifyData.recentlyPlayed?.items.length == 0 ? (
+                        <div className="flex h-full items-center justify-center">
+                          <p className="text-center">{recentlyPlayedEmpty}</p>
+                        </div>
+                      ) : (
+                        <>
+                          {spotifyData.currentlyPlaying?.is_playing && (
+                            <SearchTableRow
+                              key={spotifyData.currentlyPlaying.item.id}
+                              track={spotifyData.currentlyPlaying.item}
+                              currentlyPlaying={true}
+                            />
+                          )}
+                          {spotifyData.recentlyPlayed?.items.map((track, index) => (
+                            <SearchTableRow
+                              key={`${track.track.id}/${index}`}
+                              track={track.track}
+                            />
+                          ))}
+                        </>
                       )}
-                      {spotifyData.recentlyPlayed?.items.map((track, index) => (
-                        <SearchTableRow key={`${track.track.id}/${index}`} track={track.track} />
-                      ))}
                     </>
                   )}
-                </>
-              )}
-              {tab == "topTracks" && (
-                <>
-                  {spotifyData.topTracks?.items.length == 0 ? (
-                    <div className="flex h-full items-center justify-center">
-                      <p className="text-center">{topTracksEmpty}</p>
-                    </div>
-                  ) : (
+                  {tab == "topTracks" && (
                     <>
-                      {spotifyData.topTracks?.items.map((track) => (
-                        <SearchTableRow key={track.id} track={track} />
-                      ))}
+                      {spotifyData.topTracks?.items.length == 0 ? (
+                        <div className="flex h-full items-center justify-center">
+                          <p className="text-center">{topTracksEmpty}</p>
+                        </div>
+                      ) : (
+                        <>
+                          {spotifyData.topTracks?.items.map((track) => (
+                            <SearchTableRow key={track.id} track={track} />
+                          ))}
+                        </>
+                      )}
                     </>
                   )}
-                </>
-              )}
-              {tab == "queue" && (
-                <>
-                  {spotifyData.queue?.queue.length == 0 ? (
-                    <div className="absolute-center flex items-center justify-center">
-                      <p className="text-center">{queueEmpty}</p>
-                    </div>
-                  ) : (
+                  {tab == "queue" && (
                     <>
-                      {spotifyData.queue?.queue.map((track, index) => (
-                        <SearchTableRow key={`${track.id}/${index}`} track={track} />
-                      ))}
+                      {spotifyData.queue?.queue.length == 0 ? (
+                        <div className="absolute-center flex items-center justify-center">
+                          <p className="text-center">{queueEmpty}</p>
+                        </div>
+                      ) : (
+                        <>
+                          {spotifyData.queue?.queue.map((track, index) => (
+                            <SearchTableRow key={`${track.id}/${index}`} track={track} />
+                          ))}
+                        </>
+                      )}
                     </>
                   )}
-                </>
-              )}
-            </motion.tbody>
-          </AnimatePresence>
-        </table>
+                </motion.tbody>
+              </AnimatePresence>
+            )}
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

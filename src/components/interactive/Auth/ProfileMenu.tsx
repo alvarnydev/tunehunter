@@ -130,13 +130,15 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
       </div>
 
       <Separator />
-      <IconButton
-        onClick={handleSignOut}
-        text={logOutText}
-        variant="primary"
-        size="lg"
-        icon="signOut"
-      />
+      <div className="w-fit">
+        <IconButton
+          onClick={handleSignOut}
+          text={logOutText}
+          variant="primary"
+          size="lg"
+          icon="signOut"
+        />
+      </div>
     </AuthCard>
   );
 };

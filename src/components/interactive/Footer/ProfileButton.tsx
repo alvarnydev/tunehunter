@@ -41,7 +41,7 @@ const ProfileButton = () => {
         variant="primary"
         size="lg"
         className={cn(
-          "menu-transition relative z-10 w-20",
+          "menu-transition relative z-40 w-20",
           profileModalOpen ? "bg-background text-foreground hover:bg-background/80" : "",
         )}
         onClick={toggleProfileModal}

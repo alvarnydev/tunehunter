@@ -19,6 +19,7 @@ const useSpotifyData = (accessToken: string) => {
         setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     };
 

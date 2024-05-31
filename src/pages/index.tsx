@@ -141,10 +141,7 @@ export const Home: NextPage = () => {
             animate={{ opacity: 1, height: "16rem" }}
             exit={{ opacity: 0, height: "0rem" }}
             className={cn(
-              "relative mx-auto mt-4 flex w-full resize-y flex-col items-center overflow-hidden rounded-3xl border-2 md:w-4/5 ",
-              loggedIn
-                ? "border-primary"
-                : "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-primary/30",
+              "relative mx-auto mt-4 flex w-full resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary md:w-4/5",
             )}
           >
             {tableContent[searchTab]}
