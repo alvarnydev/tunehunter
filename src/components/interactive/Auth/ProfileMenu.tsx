@@ -5,13 +5,12 @@ import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { api } from "@/utils/api";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
 import { Separator } from "../../my-ui/separator";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
-import { Switch } from "../../ui/switch";
 import AuthCard from "./AuthCard";
 
 interface IProps {
@@ -22,8 +21,6 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const { data: sessionData } = useSession();
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
-  const [spotifyConnected, setSpotifyConnected] = useState(false);
-  const [searchForClubMixesOnly, setSearchForClubMixesOnly] = useState(false);
   const { data: userData } = useSession();
   const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
     { userId: userData?.user.id! },
@@ -76,7 +73,6 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const userMailText = t("general.mail");
 
   const settingsText = t("profile.settings.label");
-  const searchForClubMixesOnlyText = t("profile.settings.searchForClubMixesOnly");
   const spotifyText = "Spotify";
   const spotifyConnectedText = t("profile.settings.spotifyConnected");
   const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
@@ -90,9 +86,9 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const logOutText = t("profile.actions.logout");
 
   return (
-    <AuthCard label="" size="big">
+    <AuthCard size="big">
       {/* User */}
-      <div className="flex flex-row items-center gap-4">
+      <div className="flex flex-row items-center gap-4 pt-2">
         <Avatar>
           {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
           {!userImg && <AvatarImage src="/favicons/android-chrome-192x192.png" alt={userImgAlt} />}
@@ -118,27 +114,8 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
         )}
       </div>
 
-      {/* Settings */}
-      <div className="mb-[1px] mt-[2px]" />
-      <Separator borderColor="border-foreground">
-        <p className="px-2 text-sm uppercase">{settingsText}</p>
-      </Separator>
-      <div className="grid w-full grid-cols-2 gap-4">
-        <p className="flex items-center font-thin">{searchForClubMixesOnlyText}</p>
-        <div className="flex h-8 items-center">
-          <Switch checked={searchForClubMixesOnly} onCheckedChange={setSearchForClubMixesOnly} />
-        </div>
-        {/* <p className="flex items-center font-thin">{soundsAllowedText}</p>
-        <div className="flex h-8 items-center">
-          <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
-        </div> */}
-      </div>
-
       {/* Actions */}
       <div className="mb-[1px] mt-[2px]" />
-      <Separator borderColor="border-foreground">
-        <p className="px-2 text-sm uppercase">{actionsText}</p>
-      </Separator>
       <div className="grid w-full grid-cols-2 gap-4">
         <p className="flex items-center font-thin">{haveFeedbackText}</p>
         <IconButton size="xs" className="" icon="mail" variant="primary">
@@ -160,7 +137,7 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
         />
       </div>
 
-      <Separator />
+      <Separator borderColor="border-foreground" />
       <div className="w-fit">
         <IconButton
           onClick={handleSignOut}

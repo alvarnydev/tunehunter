@@ -2,8 +2,8 @@ import { cn } from "@/lib/utils";
 import { type ReactNode } from "react";
 
 interface AuthCardProps {
-  label: string;
   children: ReactNode;
+  label?: string;
   size?: "small" | "default" | "big";
 }
 
@@ -17,7 +17,7 @@ const AuthCard = ({ label, children, size = "default" }: AuthCardProps) => {
         size === "big" && "max-w-4xl",
       )}
     >
-      <p className="text-center">{label}</p>
+      {label && <p className="text-center">{label}</p>}
       {children}
     </div>
   );

@@ -12,8 +12,12 @@ import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import nextI18nConfig from "../../next-i18next.config.mjs";
+const SearchSettings = dynamic(() => import("@/components/interactive/SearchSettings"), {
+  ssr: false,
+});
 
 const tabs = ["trending", "spotify", "history", "wishlist"] as const;
 type Tab = (typeof tabs)[number];
@@ -46,6 +50,7 @@ export const Home: NextPage = () => {
   const [searchTab, setSearchTab] = useState<Tab | "">("");
   const [searchValue, setSearchValue] = useState("");
   const [currentPlaceholder, setCurrentPlaceholder] = useState("");
+
   const { t } = useTranslation("");
 
   const loggedIn = status === "authenticated";
@@ -111,16 +116,19 @@ export const Home: NextPage = () => {
             type="text"
             placeholder={currentPlaceholder}
             sizeVariant="lg"
-            className="overflow-ellipsis border-2 border-primary pr-14 text-lg placeholder:text-muted-foreground focus-visible:ring-primary"
+            className="overflow-ellipsis border-2 border-primary pl-14 pr-14 text-lg placeholder:text-muted-foreground focus-visible:ring-primary"
             value={searchValue}
             onChange={(e) => handleInputChange(e.target.value)}
           />
           <button
-            className="absolute right-0 top-1/2 -translate-x-1/2 -translate-y-1/2 p-2"
+            className="absolute left-8 top-1/2 -translate-x-1/2 -translate-y-1/2"
             type="submit"
           >
             <Search />
           </button>
+          <div className="absolute right-0 top-1/2 flex -translate-x-1/2 -translate-y-1/2 justify-center pr-2">
+            <SearchSettings />
+          </div>
         </form>
       </div>
       <div className="flex min-w-0 flex-wrap justify-center gap-4">
