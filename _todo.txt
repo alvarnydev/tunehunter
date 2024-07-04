@@ -1,4 +1,5 @@
-!! ANY TS version after 5.3.3 fucks up eslint
+Search tables
+iTunes api search debounce
 
 SENTRY & Upstash
 Add rate limiting to search with: 

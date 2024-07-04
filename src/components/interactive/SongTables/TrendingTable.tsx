@@ -3,7 +3,7 @@ import { api } from "@/utils/api";
 import SearchTableRow from "../SearchTableRow";
 
 const TrendingTable = ({}) => {
-  const { data, isLoading } = api.song.getTrending.useQuery();
+  const { data: trendingEntries, isLoading } = api.song.getTrending.useQuery();
 
   if (isLoading) {
     return <LoadingIndicator size={32} />;
@@ -14,7 +14,9 @@ const TrendingTable = ({}) => {
       <div className="hide-scrollbars relative h-full w-full overflow-scroll pb-6 pt-12">
         <table className="w-full">
           <tbody>
-            {data?.map((track, index) => <SearchTableRow key={track.id} track={track} />)}
+            {trendingEntries?.map((trendingEntry) => (
+              <SearchTableRow key={trendingEntry.song.id} track={trendingEntry.song} />
+            ))}
           </tbody>
         </table>
       </div>
