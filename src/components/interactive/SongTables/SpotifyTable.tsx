@@ -36,7 +36,11 @@ const SpotifyTable = () => {
 
   // Waiting for either account data or spotify data
   if ((loggedIn && spotifyAccountDataLoading) || (spotifyAccount && spotifyDataLoading)) {
-    return <LoadingIndicator size={32} />;
+    return (
+      <div className="flex h-full justify-center">
+        <LoadingIndicator size={32} />
+      </div>
+    );
   }
 
   return (
@@ -74,7 +78,7 @@ const SpotifyTable = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
                   >
                     {tab == "recentlyPlayed" && (
                       <>

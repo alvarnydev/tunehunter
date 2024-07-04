@@ -10,9 +10,12 @@ const TrendingTable = ({}) => {
   const nothingTrendingYet = t("search.tabs.trending.empty");
 
   if (isLoading) {
-    return <LoadingIndicator size={32} />;
+    return (
+      <div className="flex h-full justify-center">
+        <LoadingIndicator size={32} />
+      </div>
+    );
   }
-
   if (trendingEntries?.length == 0) {
     return (
       <div className="flex h-full items-center justify-center">

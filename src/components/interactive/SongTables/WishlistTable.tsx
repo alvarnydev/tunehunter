@@ -18,7 +18,11 @@ const WishlistTable = ({}) => {
     return <LoginPromptMockTable promptText={promptText} icon="signIn" />;
   }
   if (isLoading) {
-    return <LoadingIndicator size={32} />;
+    return (
+      <div className="flex h-full justify-center">
+        <LoadingIndicator size={32} />
+      </div>
+    );
   }
   if (wishlistEntries?.length == 0) {
     return (

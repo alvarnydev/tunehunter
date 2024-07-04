@@ -140,14 +140,24 @@ export const Home: NextPage = () => {
       <AnimatePresence mode="wait">
         {searchTab !== "" && (
           <motion.div
-            initial={{ opacity: 0, height: "0rem" }}
-            animate={{ opacity: 1, height: "16rem" }}
-            exit={{ opacity: 0, height: "0rem" }}
-            className={cn(
-              "relative mx-auto mt-4 flex w-full resize-y flex-col items-center overflow-hidden rounded-3xl border-2 border-primary md:w-4/5",
-            )}
+            initial={{ height: "0rem" }}
+            animate={{ height: "16rem" }}
+            exit={{ height: "0rem" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="mt-4 h-full w-full rounded-3xl border-2 border-primary md:w-4/5 "
           >
-            {tableContent[searchTab]}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              key={searchTab}
+              className={cn(
+                "mx-autoflex relative h-full w-full resize-y flex-col items-center overflow-hidden  ",
+              )}
+            >
+              {tableContent[searchTab]}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
