@@ -4,13 +4,13 @@ import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import LoginPromptMockTable from "./LoginPromptMockTable";
 
-const WishlistTable = ({}) => {
-  const { data, isLoading } = api.song.getWishlist.useQuery();
+const HistoryTable = ({}) => {
+  const { data, isLoading } = api.song.getHistory.useQuery();
   const { status } = useSession();
   const { t } = useTranslation();
   const loggedIn = status === "authenticated";
 
-  const promptText = t("auth.prompts.wishlist");
+  const promptText = t("auth.prompts.history");
 
   if (!loggedIn) {
     return <LoginPromptMockTable promptText={promptText} icon="signIn" />;
@@ -22,4 +22,4 @@ const WishlistTable = ({}) => {
   return <div>Hi</div>;
 };
 
-export default WishlistTable;
+export default HistoryTable;

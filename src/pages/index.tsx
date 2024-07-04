@@ -1,4 +1,4 @@
-import HistoryTable from "@/components/interactive/SongTables/HistorTable";
+import HistoryTable from "@/components/interactive/SongTables/HistoryTable";
 import SpotifyTable from "@/components/interactive/SongTables/SpotifyTable";
 import TrendingTable from "@/components/interactive/SongTables/TrendingTable";
 import WishlistTable from "@/components/interactive/SongTables/WishlistTable";
@@ -70,6 +70,8 @@ export const Home: NextPage = () => {
     const searchParam = router.getParams("search");
     if (router.isReady && searchParam && isTab(searchParam)) {
       setSearchTab(searchParam);
+    } else {
+      setSearchTab("");
     }
   }, [router.isReady]);
 
@@ -91,6 +93,7 @@ export const Home: NextPage = () => {
     debounce(() => promptSongConfirmation(), 600),
     [], // dependencies of the useCallback hook
   );
+
   const handleInputChange = (searchTerm: string) => {
     setSearchValue(searchTerm);
     debouncedPromptSongConfirmation.cancel();
@@ -101,7 +104,7 @@ export const Home: NextPage = () => {
     <div className="-mt-2 flex w-full max-w-4xl flex-col items-center gap-4">
       <div className="w-full">
         <form
-          className="relative mx-auto flex max-w-lg flex-col items-center"
+          className="relative mx-auto flex max-w-xl flex-col items-center"
           onSubmit={handleSearchSubmit}
         >
           <Input

@@ -1,5 +1,5 @@
 import { type CustomIconType, type CustomIconVariant } from "@/helpers/custom-icons";
-import { ReactNode, type ButtonHTMLAttributes, type FC } from "react";
+import { type ButtonHTMLAttributes, type FC } from "react";
 import CustomIcon from "./CustomIcon";
 import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "./ui/button";
 
@@ -41,9 +41,7 @@ const IconButton: FC<IProps> = ({
       size={size ?? "default"}
       {...extraProps}
     >
-      {icon && (
-        <CustomIcon icon={icon} height="22px" width="22px" variant={iconVariant ?? "foreground"} />
-      )}
+      {icon && <CustomIcon icon={icon} variant={iconVariant ?? "foreground"} />}
       {text && <p>{text}</p>}
       {children}
     </Button>

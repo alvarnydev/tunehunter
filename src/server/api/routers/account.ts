@@ -10,11 +10,12 @@ export const accountRouter = createTRPCRouter({
     .input(z.object({ userId: z.string() }))
     .query(async ({ ctx, input }) => {
       const userId = input.userId;
+      console.log("userId", userId);
 
       // Get account
       const account = await ctx.db.query.accounts.findFirst({
-        where: (accounts, { eq }) =>
-          eq(accounts.userId, userId) && eq(accounts.provider, "spotify"),
+        where: (accounts, { eq, and }) =>
+          and(eq(accounts.userId, "3"), eq(accounts.provider, "spotify")),
       });
 
       // Check if token is expired
@@ -27,8 +28,8 @@ export const accountRouter = createTRPCRouter({
       }
 
       return ctx.db.query.accounts.findFirst({
-        where: (accounts, { eq }) =>
-          eq(accounts.userId, userId) && eq(accounts.provider, "spotify"),
+        where: (accounts, { eq, and }) =>
+          and(eq(accounts.userId, userId), eq(accounts.provider, "spotify")),
       });
     }),
 });

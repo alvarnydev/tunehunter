@@ -150,13 +150,14 @@ export const wishlistsRelations = relations(wishlists, ({ one }) => ({
 
 export const songs = pgTable("song", {
   id: serial("id").primaryKey(),
-  artist: varchar("artist", { length: 255 }).notNull(),
+  artists: varchar("artists", { length: 255 }).notNull(),
   title: varchar("title", { length: 255 }).notNull(),
   duration: varchar("duration", { length: 255 }).notNull(),
   album: varchar("album", { length: 255 }).notNull(),
+  albumArtUrl: varchar("album_art_url", { length: 255 }).notNull(),
   year: varchar("year", { length: 255 }).notNull(),
   genre: varchar("genre", { length: 255 }).notNull(),
-  spotifyLink: varchar("spotify_link", { length: 255 }).notNull(),
+  spotifyUrl: varchar("spotify_url", { length: 255 }).notNull(),
 });
 
 export const songsRelations = relations(songs, ({ many }) => ({

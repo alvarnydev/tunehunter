@@ -9,8 +9,9 @@
   "profile": {
     "settings": {
       "label": "Settings",
-      "spotifyConnected": "Spotify connected",
-      "soundsAllowed": "Sounds allowed"
+      "spotifyConnected": "Connected",
+      "soundsAllowed": "Sounds allowed",
+      "searchForClubMixesOnly": "Club Mixes only"
     },
     "actions": {
       "label": "Actions",
@@ -30,6 +31,7 @@
     },
     "spotify": {
       "connectPrompt": "Connect your Spotify account",
+      "connectPromptSm": "Connect Spotify",
       "dataMissing": "We could not load your Spotify data. Please try again later.",
       "recentlyPlayed": {
         "header": "Recently Played",
@@ -54,6 +56,10 @@
     "backtostart": "Back to the start"
   },
   "auth": {
+    "prompts": {
+      "wishlist": "Log in to view your wishlist",
+      "history": "Log in to view your history"
+    },
     "redirecting": "Redirecting",
     "returnToSignIn": "Return to sign in page",
     "registration": {
@@ -76,7 +82,7 @@
       "token": "Confirmation token",
       "tokenMissing": "Token is required",
       "tokenError": "Wrong confirmation",
-      "sent": "We sent you a mail with a login link! Click it to login. If you can't find it, please also have a look at your spam folder.",
+      "sent": "We sent you a mail with a login link! Click it to login. If you can't find it, please also have a look in your spam folder.",
       "confirm": "Confirm",
       "openMails": "Open mails"
     },

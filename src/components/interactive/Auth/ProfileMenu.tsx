@@ -1,5 +1,8 @@
 import { playJingle } from "@/helpers/play-jingle";
+import { signInWithProvider } from "@/helpers/sign-in";
 import { wait } from "@/helpers/wait";
+import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
+import { api } from "@/utils/api";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useState, type FC } from "react";
@@ -17,9 +20,18 @@ interface IProps {
 
 const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const { data: sessionData } = useSession();
+  const router = useRouterWithHelpers();
   const { t } = useTranslation("");
-  const [allowSounds, setAllowSounds] = useState(false);
   const [spotifyConnected, setSpotifyConnected] = useState(false);
+  const [searchForClubMixesOnly, setSearchForClubMixesOnly] = useState(false);
+  const { data: userData } = useSession();
+  const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
+    { userId: userData?.user.id! },
+    {
+      refetchOnWindowFocus: false,
+      enabled: !!userData,
+    },
+  );
 
   const signOutText = t("auth.signOut");
   const logoutLoadingText = t("auth.toast.logout.loading");
@@ -28,10 +40,12 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
 
   const handleSignOut = async () => {
     closeModal();
-    if (allowSounds) playJingle("reverse");
+    playJingle("reverse");
 
     toast.promise(
-      wait(500).then(() => signOut({ redirect: false })),
+      wait(500)
+        .then(() => signOut({ redirect: false }))
+        .then(() => router.setParams({ search: "" })),
       {
         loading: logoutLoadingText,
         success: () => {
@@ -62,7 +76,10 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const userMailText = t("general.mail");
 
   const settingsText = t("profile.settings.label");
+  const searchForClubMixesOnlyText = t("profile.settings.searchForClubMixesOnly");
+  const spotifyText = "Spotify";
   const spotifyConnectedText = t("profile.settings.spotifyConnected");
+  const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
   const soundsAllowedText = t("profile.settings.soundsAllowed");
 
   const actionsText = t("profile.actions.label");
@@ -75,22 +92,30 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   return (
     <AuthCard label="" size="big">
       {/* User */}
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-row items-center gap-4">
         <Avatar>
           {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
           {!userImg && <AvatarImage src="/favicons/android-chrome-192x192.png" alt={userImgAlt} />}
         </Avatar>
+        {userName && <p>{userName}</p>}
       </div>
 
       <div className="grid w-full grid-cols-2 gap-4">
-        {userName && (
-          <>
-            <p className="font-thin">{userNameText}</p>
-            <p>{userName}</p>
-          </>
-        )}
         <p className="break-words font-thin">{userMailText}</p>
         <p className="overflow-x-clip text-ellipsis">{userMail}</p>
+        <p className="flex items-center font-thin">{spotifyText}</p>
+        {spotifyAccount && (
+          <p className="overflow-x-clip text-ellipsis text-success">{spotifyConnectedText}</p>
+        )}
+        {!spotifyAccount && (
+          <IconButton
+            icon={"spotify"}
+            variant="primary"
+            text={spotifyConnectPrompt}
+            size="sm"
+            onClick={() => signInWithProvider("spotify", router.locale ?? "")}
+          />
+        )}
       </div>
 
       {/* Settings */}
@@ -99,14 +124,14 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
         <p className="px-2 text-sm uppercase">{settingsText}</p>
       </Separator>
       <div className="grid w-full grid-cols-2 gap-4">
-        <p className="flex items-center font-thin">{soundsAllowedText}</p>
+        <p className="flex items-center font-thin">{searchForClubMixesOnlyText}</p>
+        <div className="flex h-8 items-center">
+          <Switch checked={searchForClubMixesOnly} onCheckedChange={setSearchForClubMixesOnly} />
+        </div>
+        {/* <p className="flex items-center font-thin">{soundsAllowedText}</p>
         <div className="flex h-8 items-center">
           <Switch checked={allowSounds} onCheckedChange={setAllowSounds} />
-        </div>
-        <p className="flex items-center font-thin">{spotifyConnectedText}</p>
-        <div className="flex h-8 items-center">
-          <Switch checked={spotifyConnected} onCheckedChange={setSpotifyConnected} />
-        </div>
+        </div> */}
       </div>
 
       {/* Actions */}
@@ -116,9 +141,15 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
       </Separator>
       <div className="grid w-full grid-cols-2 gap-4">
         <p className="flex items-center font-thin">{haveFeedbackText}</p>
-        <IconButton size="xs" className="justify-self-start" icon="mail" variant="primary">
-          <a href="mailto:hello@tunehunter.app?subject=Feedback">{writeUsPrompt}</a>
+        <IconButton size="xs" className="" icon="mail" variant="primary">
+          <a
+            className="pl-1 font-light uppercase tracking-widest"
+            href="mailto:hello@tunehunter.app?subject=Feedback"
+          >
+            {writeUsPrompt}
+          </a>
         </IconButton>
+
         <p className="flex items-center font-thin">{wantToGoText}</p>
         <IconButton
           onClick={handleDeleteAccount}

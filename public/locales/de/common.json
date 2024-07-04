@@ -9,8 +9,9 @@
   "profile": {
     "settings": {
       "label": "Einstellungen",
-      "spotifyConnected": "Spotify verbunden",
-      "soundsAllowed": "Audio erlaubt"
+      "spotifyConnected": "Verbunden",
+      "soundsAllowed": "Audio erlaubt",
+      "searchForClubMixesOnly": "Nur Club Mixes"
     },
     "actions": {
       "label": "Aktionen",
@@ -30,6 +31,7 @@
     },
     "spotify": {
       "connectPrompt": "Verbinde deinen Spotify-Account",
+      "connectPromptSm": "Verbinde Spotify",
       "dataMissing": "Wir konnten deine Spotify Daten nicht laden. Bitte versuche es später erneut.",
       "recentlyPlayed": {
         "header": "Zuletzt gehört",
@@ -54,6 +56,10 @@
     "backtostart": "Zurück zum Start"
   },
   "auth": {
+    "prompts": {
+      "wishlist": "Logge dich ein für deine Wunschliste",
+      "history": "Logge dich ein für deinen Verlauf"
+    },
     "redirecting": "Weiterleiten",
     "returnToSignIn": "Zurück zum Login",
     "registration": {

@@ -9,8 +9,9 @@
   "profile": {
     "settings": {
       "label": "Ajustes",
-      "spotifyConnected": "Spotify conectado",
-      "soundsAllowed": "Sonidos permitidos"
+      "spotifyConnected": "Conectado",
+      "soundsAllowed": "Sonidos permitidos",
+      "searchForClubMixesOnly": "Solo Club Mixes"
     },
     "actions": {
       "label": "Acciones",
@@ -22,8 +23,6 @@
     }
   },
   "search": {
-    "connectPrompt": "Connect tu cuenta de Spotify",
-    "dataMissing": "No pudimos cargar tu data de Spotify. Por favor intenta de nuevo más tarde.",
     "tabs": {
       "trending": "Trending",
       "spotify": "Spotify",
@@ -31,6 +30,9 @@
       "wishlist": "Lista de deseos"
     },
     "spotify": {
+      "connectPrompt": "Connect tu cuenta de Spotify",
+      "connectPromptSm": "Conectar Spotify",
+      "dataMissing": "No pudimos cargar tu data de Spotify. Por favor intenta de nuevo más tarde.",
       "recentlyPlayed": {
         "header": "Recientes",
         "empty": "No has escuchado canciones en Spotify recientemente."
@@ -54,6 +56,10 @@
     "backtostart": "Volver al principio"
   },
   "auth": {
+    "prompts": {
+      "wishlist": "Inicia sesión para ver tu Lista de deseos",
+      "history": "Inicia sesión para ver tu Historial"
+    },
     "redirecting": "Redirigiendo",
     "returnToSignIn": "Volver a iniciar sesión",
     "register": "Registrarse",
