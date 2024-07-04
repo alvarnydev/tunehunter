@@ -133,7 +133,7 @@ export const Home: NextPage = () => {
               searchTab === tab ? "font-bold text-foreground" : "text-muted-foreground",
             )}
           >
-            {t(`search.tabs.${tab}`)}
+            {t(`search.tabs.${tab}.header`)}
           </button>
         ))}
       </div>

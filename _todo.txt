@@ -1,4 +1,3 @@
-Search tables
 iTunes api search debounce
 
 SENTRY & Upstash

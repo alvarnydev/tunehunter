@@ -1,5 +1,4 @@
 import { LoadingIndicator } from "@/components/Indicators";
-import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import useSpotifyData from "@/hooks/useSpotifyData";
 import { cn } from "@/lib/utils";
 import { api } from "@/utils/api";
@@ -16,7 +15,6 @@ export type SpotifyTableTab = (typeof spotifyTableTabs)[number];
 const SpotifyTable = () => {
   const [tab, setTab] = useState<SpotifyTableTab>("recentlyPlayed");
   const { t } = useTranslation();
-  const router = useRouterWithHelpers();
   const { data: userData, status } = useSession();
   const { data: spotifyAccount, isLoading: spotifyAccountDataLoading } =
     api.account.getSpotifyAccountById.useQuery(

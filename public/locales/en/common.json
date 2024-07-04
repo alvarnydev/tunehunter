@@ -24,10 +24,10 @@
   },
   "search": {
     "tabs": {
-      "trending": "Trending",
-      "spotify": "Spotify",
-      "history": "History",
-      "wishlist": "Wishlist"
+      "trending": { "header": "Trending", "empty": "Nothing's trending right now..." },
+      "spotify": { "header": "Spotify" },
+      "history": { "header": "History", "empty": "You haven't started a search yet." },
+      "wishlist": { "header": "Wishlist", "empty": "Your wishlist is empty." }
     },
     "spotify": {
       "connectPrompt": "Connect your Spotify account",

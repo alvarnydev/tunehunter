@@ -12,12 +12,20 @@ const HistoryTable = ({}) => {
   const loggedIn = status === "authenticated";
 
   const promptText = t("auth.prompts.history");
+  const noHistoryYet = t("search.tabs.history.empty");
 
   if (!loggedIn) {
     return <LoginPromptMockTable promptText={promptText} icon="signIn" />;
   }
   if (isLoading) {
     return <LoadingIndicator size={32} />;
+  }
+  if (historyEntries?.length == 0) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p>{noHistoryYet}</p>
+      </div>
+    );
   }
 
   return (

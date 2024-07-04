@@ -12,12 +12,20 @@ const WishlistTable = ({}) => {
   const loggedIn = status === "authenticated";
 
   const promptText = t("auth.prompts.wishlist");
+  const noWishlistYet = t("search.tabs.wishlist.empty");
 
   if (!loggedIn) {
     return <LoginPromptMockTable promptText={promptText} icon="signIn" />;
   }
   if (isLoading) {
     return <LoadingIndicator size={32} />;
+  }
+  if (wishlistEntries?.length == 0) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p>{noWishlistYet}</p>
+      </div>
+    );
   }
 
   return (
