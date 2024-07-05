@@ -20,7 +20,7 @@ const SearchSettings = dynamic(() => import("@/components/interactive/SearchSett
 });
 
 const tabs = ["trending", "spotify", "history", "wishlist"] as const;
-type Tab = (typeof tabs)[number];
+export type Tab = (typeof tabs)[number];
 const isTab = (tab: string): tab is Tab => tabs.includes(tab as Tab);
 
 const placeholderValues = [
@@ -36,20 +36,20 @@ const placeholderValues = [
   "Ariana Grande - 7 Rings",
 ];
 
-const tableContent = {
-  "": <></>,
-  spotify: <SpotifyTable />,
-  trending: <TrendingTable />,
-  history: <HistoryTable />,
-  wishlist: <WishlistTable />,
-};
-
 export const Home: NextPage = () => {
   const router = useRouterWithHelpers();
   const { status } = useSession();
   const [searchTab, setSearchTab] = useState<Tab | "">("");
   const [searchValue, setSearchValue] = useState("");
   const [currentPlaceholder, setCurrentPlaceholder] = useState("");
+
+  const tableContent = {
+    "": <></>,
+    spotify: <SpotifyTable />,
+    trending: <TrendingTable setSearchTab={setSearchTab} />,
+    history: <HistoryTable />,
+    wishlist: <WishlistTable />,
+  };
 
   const { t } = useTranslation("");
 
@@ -152,7 +152,7 @@ export const Home: NextPage = () => {
             animate={{ height: "16rem" }}
             exit={{ height: "0rem" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="mt-4 h-full w-full rounded-3xl border-2 border-primary md:w-4/5 "
+            className="mt-4 h-full w-full resize-y overflow-hidden rounded-3xl border-[1px] border-foreground/30 bg-primary/10 md:w-4/5 "
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -160,9 +160,7 @@ export const Home: NextPage = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               key={searchTab}
-              className={cn(
-                "mx-autoflex relative h-full w-full resize-y flex-col items-center overflow-hidden  ",
-              )}
+              className={cn("relative mx-auto flex h-full w-full flex-col items-center")}
             >
               {tableContent[searchTab]}
             </motion.div>

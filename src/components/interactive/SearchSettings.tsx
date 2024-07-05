@@ -2,6 +2,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import { Cog } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import { FC } from "react";
+import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Switch } from "../ui/switch";
 
@@ -25,9 +26,15 @@ const SearchSettings: FC<IProps> = ({}) => {
       </PopoverTrigger>
       <PopoverContent>
         <div className="grid w-full grid-cols-[auto_min-content] gap-4">
-          <p className="flex items-center font-thin">{searchForClubMixesOnlyText}</p>
+          <Label htmlFor="clubmixesonly" className="flex items-center font-thin">
+            {searchForClubMixesOnlyText}
+          </Label>
           <div className="flex h-8 items-center">
-            <Switch checked={searchForClubMixesOnly} onCheckedChange={setSearchForClubMixesOnly} />
+            <Switch
+              id="clubmixesonly"
+              checked={searchForClubMixesOnly}
+              onCheckedChange={setSearchForClubMixesOnly}
+            />
           </div>
           {/* <p className="font-thin">Region</p> */}
         </div>

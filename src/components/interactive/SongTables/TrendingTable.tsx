@@ -1,9 +1,15 @@
+import CustomIcon from "@/components/CustomIcon";
 import { LoadingIndicator } from "@/components/Indicators";
+import { Tab } from "@/pages";
 import { api } from "@/utils/api";
 import { useTranslation } from "react-i18next";
 import SearchTableRow from "../SearchTableRow";
 
-const TrendingTable = ({}) => {
+interface TrendingTableProps {
+  setSearchTab: (tab: Tab | "") => void;
+}
+
+const TrendingTable = ({ setSearchTab }: TrendingTableProps) => {
   const { data: trendingEntries, isLoading } = api.song.getTrending.useQuery();
   const { t } = useTranslation();
 
@@ -25,7 +31,10 @@ const TrendingTable = ({}) => {
   }
 
   return (
-    <div className="h-full w-full px-3 sm:px-5 md:px-7">
+    <div className="relative h-full w-full px-3 sm:px-5 md:px-7">
+      <button className="absolute right-0 top-0" onClick={() => setSearchTab("")}>
+        <CustomIcon icon="x" variant="primary" height="24px" width="24px" />
+      </button>
       <div className="hide-scrollbars relative h-full w-full overflow-scroll pb-6 pt-12">
         <table className="w-full">
           <tbody>
