@@ -101,7 +101,19 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
         <p className="overflow-x-clip text-ellipsis">{userMail}</p>
         <p className="flex items-center font-thin">{spotifyText}</p>
         {spotifyAccount && (
-          <p className="overflow-x-clip text-ellipsis text-success">{spotifyConnectedText}</p>
+          // <p className="overflow-x-clip text-ellipsis text-success">{spotifyConnectedText}</p>
+          <a
+            href={`https://open.spotify.com/user/${spotifyAccount.providerAccountId}`}
+            target="_blank"
+          >
+            <IconButton
+              icon="external"
+              iconPosition="right"
+              variant="success"
+              text={spotifyConnectedText}
+              size="sm"
+            />
+          </a>
         )}
         {!spotifyAccount && (
           <IconButton
@@ -118,21 +130,16 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
       <div className="mb-[1px] mt-[2px]" />
       <div className="grid w-full grid-cols-2 gap-4">
         <p className="flex items-center font-thin">{haveFeedbackText}</p>
-        <IconButton size="xs" className="" icon="mail" variant="primary">
-          <a
-            className="pl-1 font-light uppercase tracking-widest"
-            href="mailto:hello@tunehunter.app?subject=Feedback"
-          >
-            {writeUsPrompt}
-          </a>
-        </IconButton>
+        <a href="mailto:hello@tunehunter.app?subject=Feedback">
+          <IconButton text={writeUsPrompt} variant="primary" size="sm" icon="mail" />
+        </a>
 
         <p className="flex items-center font-thin">{wantToGoText}</p>
         <IconButton
           onClick={handleDeleteAccount}
           text={deleteAccountText}
           variant="ghostDestructive"
-          size="xs"
+          size="sm"
           icon="x"
         />
       </div>

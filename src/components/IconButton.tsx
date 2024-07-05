@@ -5,6 +5,7 @@ import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: CustomIconType;
+  iconPosition?: "left" | "right";
   text?: string;
   variant?: CustomButtonVariant;
   size?: CustomButtonSizeVariant;
@@ -16,6 +17,7 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
   secondary: "secondary-foreground",
   accent: "accent-foreground",
   destructive: "destructive-foreground",
+  success: "success-foreground",
 
   link: "link-foreground",
   ghost: "ghost-foreground",
@@ -27,6 +29,7 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
 const IconButton: FC<IProps> = ({
   text,
   icon,
+  iconPosition = "left",
   variant = "default",
   size,
   children,
@@ -41,9 +44,14 @@ const IconButton: FC<IProps> = ({
       size={size ?? "default"}
       {...extraProps}
     >
-      {icon && <CustomIcon icon={icon} variant={iconVariant ?? "foreground"} />}
+      {icon && iconPosition == "left" && (
+        <CustomIcon icon={icon} variant={iconVariant ?? "foreground"} />
+      )}
       {text && <p>{text}</p>}
       {children}
+      {icon && iconPosition == "right" && (
+        <CustomIcon icon={icon} variant={iconVariant ?? "foreground"} />
+      )}
     </Button>
   );
 };
