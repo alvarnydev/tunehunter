@@ -30,7 +30,7 @@
       "wishlist": { "header": "Lista de deseos", "empty": "Tu lista de deseos está vacía." }
     },
     "spotify": {
-      "connectPrompt": "Connect tu cuenta de Spotify",
+      "connectPrompt": "Conecta tu cuenta de Spotify",
       "connectPromptSm": "Conectar Spotify",
       "dataMissing": "No pudimos cargar tu data de Spotify. Por favor intenta de nuevo más tarde.",
       "recentlyPlayed": {
@@ -64,9 +64,11 @@
     "returnToSignIn": "Volver a iniciar sesión",
     "register": "Registrarse",
     "registerPrompt": "Todavía no tienes cuenta?",
-    "signIn": "Iniciar sesión",
-    "signInWithEmail": "Iniciar sesión con correo",
-    "signInWithProvider": "Iniciar sesión con {{provider}}",
+    "signIn": {
+      "signIn": "Iniciar sesión",
+      "withEmail": "Iniciar sesión con correo",
+      "withProvider": "Iniciar sesión con {{provider}}"
+    },
     "signOut": "Cerrar sesión",
     "magicLink": {
       "token": "Token",

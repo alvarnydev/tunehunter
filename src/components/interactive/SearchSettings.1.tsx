@@ -1,12 +1,10 @@
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Cog } from "lucide-react";
 import { useTranslation } from "next-i18next";
-import { FC } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Switch } from "../ui/switch";
-import { IProps } from "./SearchSettings";
 
-export const SearchSettings: FC<IProps> = ({}) => {
+export const SearchSettings = ({}) => {
   const [searchForClubMixesOnly, setSearchForClubMixesOnly] = useLocalStorage(
     "clubmixesonly",
     false,

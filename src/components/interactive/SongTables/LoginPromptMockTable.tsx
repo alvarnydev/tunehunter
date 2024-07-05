@@ -12,6 +12,7 @@ interface IProps {
 
 const LoginPromptMockTable: FC<IProps> = ({ promptText, icon }) => {
   const router = useRouterWithHelpers();
+  console.log("login prompt mock table");
 
   return (
     <>

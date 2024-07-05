@@ -6,13 +6,17 @@ import SearchTableRow from "../SearchTableRow";
 import LoginPromptMockTable from "./LoginPromptMockTable";
 
 const HistoryTable = ({}) => {
-  const { data: historyEntries, isLoading } = api.song.getHistory.useQuery();
   const { status } = useSession();
   const { t } = useTranslation();
   const loggedIn = status === "authenticated";
+  const { data: historyEntries, isLoading } = api.song.getHistory.useQuery(undefined, {
+    enabled: loggedIn,
+  });
 
   const promptText = t("auth.prompts.history");
   const noHistoryYet = t("search.tabs.history.empty");
+
+  console.log(loggedIn);
 
   if (!loggedIn) {
     return <LoginPromptMockTable promptText={promptText} icon="signIn" />;

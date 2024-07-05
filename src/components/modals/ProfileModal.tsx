@@ -20,7 +20,7 @@ const ProfileModal: FC<IProps> = ({ open, closeModal }) => {
         open ? "opacity-100 delay-100" : "pointer-events-none opacity-0 delay-0",
       )}
     >
-      {isLoggedIn ? <ProfileMenu closeModal={closeModal} /> : <AuthMenu />}
+      {isLoggedIn ? <ProfileMenu /> : <AuthMenu />}
     </div>
   );
 };

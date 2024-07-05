@@ -6,10 +6,12 @@ import SearchTableRow from "../SearchTableRow";
 import LoginPromptMockTable from "./LoginPromptMockTable";
 
 const WishlistTable = ({}) => {
-  const { data: wishlistEntries, isLoading } = api.song.getWishlist.useQuery();
   const { status } = useSession();
   const { t } = useTranslation();
   const loggedIn = status === "authenticated";
+  const { data: wishlistEntries, isLoading } = api.song.getWishlist.useQuery(undefined, {
+    enabled: loggedIn,
+  });
 
   const promptText = t("auth.prompts.wishlist");
   const noWishlistYet = t("search.tabs.wishlist.empty");

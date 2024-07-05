@@ -30,8 +30,10 @@ const ProfileButton = () => {
   useEffect(() => {
     if (router.isReady && router.getParams("profile")) {
       setProfileModalOpen(true);
+    } else {
+      setProfileModalOpen(false);
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.query]);
 
   return (
     <>

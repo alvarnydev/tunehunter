@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { playJingle } from "@/helpers/play-jingle";
 import { signInWithProvider } from "@/helpers/sign-in";
 import { wait } from "@/helpers/wait";
@@ -13,15 +24,14 @@ import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
 import AuthCard from "./AuthCard";
 
-interface IProps {
-  closeModal: () => void;
-}
+interface IProps {}
 
-const ProfileMenu: FC<IProps> = ({ closeModal }) => {
+const ProfileMenu: FC<IProps> = () => {
   const { data: sessionData } = useSession();
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
   const { data: userData } = useSession();
+  const deleteAccount = api.user.deleteUserAndAccountsById.useMutation();
   const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
     { userId: userData?.user.id! },
     {
@@ -36,13 +46,11 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const logoutErrorText = t("auth.toast.logout.error");
 
   const handleSignOut = async () => {
-    closeModal();
+    router.push("/");
     playJingle("reverse");
 
     toast.promise(
-      wait(500)
-        .then(() => signOut({ redirect: false }))
-        .then(() => router.setParams({ search: "" })),
+      wait(500).then(() => signOut({ redirect: false })),
       {
         loading: logoutLoadingText,
         success: () => {
@@ -54,7 +62,19 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   };
 
   const handleDeleteAccount = async () => {
-    console.log("deleting account");
+    if (!userData) {
+      throw new Error("User must be logged in to request account deletion.");
+    }
+
+    deleteAccount.mutate(
+      { id: userData.user.id },
+      {
+        onSettled: () => {
+          signOut({ redirect: false });
+          router.push("/");
+        },
+      },
+    );
   };
 
   if (!sessionData)
@@ -69,16 +89,11 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 
-  const userNameText = t("general.userName");
   const userMailText = t("general.mail");
-
-  const settingsText = t("profile.settings.label");
   const spotifyText = "Spotify";
   const spotifyConnectedText = t("profile.settings.spotifyConnected");
   const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
-  const soundsAllowedText = t("profile.settings.soundsAllowed");
 
-  const actionsText = t("profile.actions.label");
   const haveFeedbackText = t("profile.actions.haveFeedback");
   const writeUsPrompt = t("profile.actions.writeUs");
   const wantToGoText = t("profile.actions.wantToGo");
@@ -101,7 +116,6 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
         <p className="overflow-x-clip text-ellipsis">{userMail}</p>
         <p className="flex items-center font-thin">{spotifyText}</p>
         {spotifyAccount && (
-          // <p className="overflow-x-clip text-ellipsis text-success">{spotifyConnectedText}</p>
           <a
             href={`https://open.spotify.com/user/${spotifyAccount.providerAccountId}`}
             target="_blank"
@@ -135,13 +149,30 @@ const ProfileMenu: FC<IProps> = ({ closeModal }) => {
         </a>
 
         <p className="flex items-center font-thin">{wantToGoText}</p>
-        <IconButton
-          onClick={handleDeleteAccount}
-          text={deleteAccountText}
-          variant="ghostDestructive"
-          size="sm"
-          icon="x"
-        />
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <IconButton
+              // onClick={handleDeleteAccount}
+              text={deleteAccountText}
+              variant="ghostDestructive"
+              size="sm"
+              icon="x"
+            />
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your account and remove
+                your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
 
       <Separator borderColor="border-foreground" />
