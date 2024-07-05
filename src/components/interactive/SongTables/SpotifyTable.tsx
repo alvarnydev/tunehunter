@@ -1,10 +1,12 @@
 import { LoadingIndicator } from "@/components/Indicators";
+import { signInWithProvider } from "@/helpers/sign-in";
 import useSpotifyData from "@/hooks/useSpotifyData";
 import { cn } from "@/lib/utils";
 import { api } from "@/utils/api";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import SpotifyTableRow from "../SpotifyTableRow";
 import LoginPromptMockTable from "./LoginPromptMockTable";
@@ -15,6 +17,7 @@ export type SpotifyTableTab = (typeof spotifyTableTabs)[number];
 const SpotifyTable = () => {
   const [tab, setTab] = useState<SpotifyTableTab>("recentlyPlayed");
   const { t } = useTranslation();
+  const router = useRouter();
   const { data: userData, status } = useSession();
   const { data: spotifyAccount, isLoading: spotifyAccountDataLoading } =
     api.account.getSpotifyAccountById.useQuery(
@@ -46,7 +49,11 @@ const SpotifyTable = () => {
   return (
     <>
       {!loggedIn || !spotifyAccount || !spotifyData ? (
-        <LoginPromptMockTable promptText={spotifyConnectPrompt} icon="spotify" />
+        <LoginPromptMockTable
+          promptText={spotifyConnectPrompt}
+          icon="spotify"
+          onClickFunc={() => signInWithProvider("spotify", router.locale ?? "")}
+        />
       ) : (
         <div className="h-full w-full px-3 sm:px-5 md:px-7">
           <div className="border-x-1 absolute left-1/2 top-0 z-10 flex w-full max-w-[450px] -translate-x-1/2 items-center justify-around rounded-b-sm border-b-[1px] border-primary bg-background px-1 py-[6px]">

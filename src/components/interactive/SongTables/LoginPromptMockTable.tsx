@@ -2,17 +2,17 @@ import IconButton from "@/components/IconButton";
 import { CustomIconType } from "@/helpers/custom-icons";
 import { spotifyMockData } from "@/helpers/mock-spotify-data";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import SpotifyTableRow from "../SpotifyTableRow";
 
 interface IProps {
   promptText: string;
   icon?: CustomIconType;
+  onClickFunc?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const LoginPromptMockTable: FC<IProps> = ({ promptText, icon }) => {
+const LoginPromptMockTable: FC<IProps> = ({ promptText, icon, onClickFunc }) => {
   const router = useRouterWithHelpers();
-  console.log("login prompt mock table");
 
   return (
     <>
@@ -22,7 +22,7 @@ const LoginPromptMockTable: FC<IProps> = ({ promptText, icon }) => {
           variant="primary"
           text={promptText}
           size="lg"
-          onClick={() => router.setParams({ profile: "login" }, false)}
+          onClick={onClickFunc ? onClickFunc : () => router.setParams({ profile: "login" }, false)}
         />
       </div>
       <div className="hide-scrollbars relative h-full w-full px-3 py-4 sm:px-5 md:px-7">
