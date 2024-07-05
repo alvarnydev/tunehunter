@@ -155,9 +155,9 @@ export const Home: NextPage = () => {
             className="mt-4 h-full w-full resize-y overflow-hidden rounded-3xl border-[1px] border-foreground/30 bg-primary/10 md:w-4/5 "
           >
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={{ opacity: loggedIn ? 0 : 1 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: loggedIn ? 0 : 1 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               key={searchTab}
               className={cn("relative mx-auto flex h-full w-full flex-col items-center")}

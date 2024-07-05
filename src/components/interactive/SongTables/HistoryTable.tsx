@@ -16,8 +16,6 @@ const HistoryTable = ({}) => {
   const promptText = t("auth.prompts.history");
   const noHistoryYet = t("search.tabs.history.empty");
 
-  console.log(loggedIn);
-
   if (!loggedIn) {
     return <LoginPromptMockTable promptText={promptText} icon="signIn" />;
   }
