@@ -26,7 +26,7 @@ const LoginPromptMockTable: FC<IProps> = ({ promptText, icon, onClickFunc }) => 
         />
       </div>
       <div className="hide-scrollbars relative h-full w-full px-3 py-4 sm:px-5 md:px-7">
-        <div className="absolute inset-0 z-20 backdrop-blur-2xl" />
+        <div className="absolute inset-0 z-20 blur backdrop-blur-2xl" />
         <table className="w-full">
           <tbody>
             {spotifyMockData.topTracks!.items.map((track) => (
