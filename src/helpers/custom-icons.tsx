@@ -67,7 +67,7 @@ const customIcons = {
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="16"
+        strokeWidth="24"
       />
       <polyline
         points="96 88 136 128 96 168"
@@ -75,7 +75,7 @@ const customIcons = {
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="16"
+        strokeWidth="24"
       />
       <polyline
         points="136 40 200 40 200 216 136 216"
@@ -83,7 +83,7 @@ const customIcons = {
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="16"
+        strokeWidth="24"
       />
     </svg>
   ),
