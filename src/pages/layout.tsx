@@ -24,7 +24,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           </div>
         </div>
       </main>
-      <div className="h-[80px] w-full">
+      <div className="h-20 w-full">
         <Footer />
       </div>
     </div>

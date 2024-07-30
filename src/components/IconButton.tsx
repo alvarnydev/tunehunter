@@ -23,7 +23,8 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
   ghost: "ghost-foreground",
   ghostDestructive: "ghost-destructive-foreground",
   outline: "outline-foreground",
-  outlinePrimary: "primary-foreground",
+  outlinePrimary: "primary",
+  outlineSuccess: "success-foreground",
 };
 
 const IconButton: FC<IProps> = ({
@@ -39,7 +40,7 @@ const IconButton: FC<IProps> = ({
 
   return (
     <Button
-      className="group flex w-full gap-2 border-[1px] border-background font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
+      className="group flex w-full gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
       variant={variant ?? "default"}
       size={size ?? "default"}
       {...extraProps}

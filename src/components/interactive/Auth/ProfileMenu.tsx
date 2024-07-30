@@ -123,7 +123,7 @@ const ProfileMenu: FC<IProps> = () => {
             <IconButton
               icon="external"
               iconPosition="right"
-              variant="success"
+              variant="outlineSuccess"
               text={spotifyConnectedText}
               size="sm"
             />
@@ -132,7 +132,7 @@ const ProfileMenu: FC<IProps> = () => {
         {!spotifyAccount && (
           <IconButton
             icon={"spotify"}
-            variant="primary"
+            variant="outlinePrimary"
             text={spotifyConnectPrompt}
             size="sm"
             onClick={() => signInWithProvider("spotify", router.locale ?? "")}
@@ -145,7 +145,7 @@ const ProfileMenu: FC<IProps> = () => {
       <div className="grid w-full grid-cols-2 gap-4">
         <p className="flex items-center font-thin">{haveFeedbackText}</p>
         <a href="mailto:hello@tunehunter.app?subject=Feedback">
-          <IconButton text={writeUsPrompt} variant="primary" size="sm" icon="mail" />
+          <IconButton text={writeUsPrompt} variant="outlinePrimary" size="sm" icon="mail" />
         </a>
 
         <p className="flex items-center font-thin">{wantToGoText}</p>

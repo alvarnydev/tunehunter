@@ -23,7 +23,7 @@ const CustomIcon: FC<CustomIconProps> = ({
       case "background":
         return "fill-background";
       case "primary":
-        return "fill-primary";
+        return "fill-primary group-hover:fill-primary-foreground";
       case "secondary":
         return "fill-secondary";
       case "accent":
