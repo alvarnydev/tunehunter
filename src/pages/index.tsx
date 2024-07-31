@@ -1,3 +1,4 @@
+import { LoadingIndicator } from "@/components/Indicators";
 import HistoryTable from "@/components/interactive/SongTables/HistoryTable";
 import SpotifyTable from "@/components/interactive/SongTables/SpotifyTable";
 import TrendingTable from "@/components/interactive/SongTables/TrendingTable";
@@ -42,6 +43,7 @@ export const Home: NextPage = () => {
   const [searchTab, setSearchTab] = useState<Tab | "">("");
   const [searchValue, setSearchValue] = useState("");
   const [currentPlaceholder, setCurrentPlaceholder] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const tableContent = {
     "": <></>,
@@ -87,22 +89,28 @@ export const Home: NextPage = () => {
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    promptSongConfirmation();
+    displaySongMatches();
   };
 
-  const promptSongConfirmation = async () => {
+  const displaySongMatches = async () => {
+    setIsLoading(true);
     // Query itunes api
+    console.log("hiii");
+    // Simulate 3s timeout
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
 
-  const debouncedPromptSongConfirmation = useCallback(
-    debounce(() => promptSongConfirmation(), 600),
+  const debouncedDisplaySongMatches = useCallback(
+    debounce(() => displaySongMatches(), 600),
     [], // dependencies of the useCallback hook
   );
 
   const handleInputChange = (searchTerm: string) => {
     setSearchValue(searchTerm);
-    debouncedPromptSongConfirmation.cancel();
-    debouncedPromptSongConfirmation();
+    debouncedDisplaySongMatches.cancel();
+    debouncedDisplaySongMatches();
   };
 
   return (
@@ -124,7 +132,25 @@ export const Home: NextPage = () => {
             className="absolute left-8 top-1/2 -translate-x-1/2 -translate-y-1/2"
             type="submit"
           >
-            <Search />
+            {isLoading && (
+              <AnimatePresence>
+                <motion.div
+                  className="flex h-8 justify-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <LoadingIndicator size={20} />
+                </motion.div>
+              </AnimatePresence>
+            )}
+            {!isLoading && (
+              <AnimatePresence>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  <Search />
+                </motion.div>
+              </AnimatePresence>
+            )}
           </button>
           <div className="absolute right-0 top-1/2 flex -translate-x-1/2 -translate-y-1/2 justify-center pr-2">
             <SearchSettings />

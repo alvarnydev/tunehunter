@@ -41,7 +41,7 @@ const SpotifyTable = () => {
   if ((loggedIn && spotifyAccountDataLoading) || (spotifyAccount && spotifyDataLoading)) {
     return (
       <div className="flex h-full justify-center">
-        <LoadingIndicator size={32} />
+        <LoadingIndicator size={60} />
       </div>
     );
   }

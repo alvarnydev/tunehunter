@@ -91,14 +91,14 @@ const ProfileMenu: FC<IProps> = () => {
 
   const userMailText = t("general.mail");
   const spotifyText = "Spotify";
-  const spotifyConnectedText = t("profile.settings.spotifyConnected");
+  const spotifyConnectedText = t("search.settings.spotifyConnected");
   const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
 
-  const haveFeedbackText = t("profile.actions.haveFeedback");
-  const writeUsPrompt = t("profile.actions.writeUs");
-  const wantToGoText = t("profile.actions.wantToGo");
-  const deleteAccountText = t("profile.actions.deleteAccount");
-  const logOutText = t("profile.actions.logout");
+  const haveFeedbackText = t("profile.haveFeedback");
+  const writeUsPrompt = t("profile.writeUs");
+  const wantToGoText = t("profile.wantToGo");
+  const deleteAccountText = t("profile.deleteAccount");
+  const logOutText = t("profile.logout");
 
   return (
     <AuthCard size="big">

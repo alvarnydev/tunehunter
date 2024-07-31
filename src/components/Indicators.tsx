@@ -14,7 +14,7 @@ export const MusicPlayingIndicator = ({ size }: { size: number }) => {
 };
 
 export const LoadingIndicator = ({ size }: { size: number }) => {
-  return <MoonLoader color={"hsl(var(--primary))"} className="m-auto" />;
+  return <MoonLoader color={"hsl(var(--primary))"} size={size} className="m-auto" />;
 };
 
 export const RedirectIndicator = ({ size }: { size: number }) => {

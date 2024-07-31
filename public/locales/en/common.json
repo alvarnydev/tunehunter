@@ -7,22 +7,20 @@
     "search": "Search"
   },
   "profile": {
-    "settings": {
-      "label": "Settings",
-      "spotifyConnected": "Connected",
-      "soundsAllowed": "Sounds allowed",
-      "searchForClubMixesOnly": "Club / Extended Mixes only"
-    },
-    "actions": {
-      "label": "Actions",
-      "haveFeedback": "Have feedback?",
-      "writeUs": "Write us",
-      "logout": "Log out",
-      "wantToGo": "Want to go?",
-      "deleteAccount": "Delete account"
-    }
+    "label": "Actions",
+    "haveFeedback": "Have feedback?",
+    "writeUs": "Write us",
+    "logout": "Log out",
+    "wantToGo": "Want to go?",
+    "deleteAccount": "Delete account"
   },
   "search": {
+    "settings": {
+      "spotifyConnected": "Connected",
+      "searchForClubMixesOnly": "Club / Extended Mixes only",
+      "setMinimumLength": "Set minimum length",
+      "resultsView": "Show results on"
+    },
     "tabs": {
       "trending": { "header": "Trending", "empty": "Nothing's trending right now..." },
       "spotify": { "header": "Spotify" },

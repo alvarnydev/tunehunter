@@ -22,7 +22,7 @@ const HistoryTable = ({}) => {
   if (isLoading) {
     return (
       <div className="flex h-full justify-center">
-        <LoadingIndicator size={32} />
+        <LoadingIndicator size={60} />
       </div>
     );
   }
