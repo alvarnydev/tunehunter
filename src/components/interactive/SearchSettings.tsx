@@ -97,7 +97,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           <Label htmlFor="resultsview" className="flex items-center font-thin">
             {resultsViewText}
           </Label>
-          <div className="flex h-10 items-end justify-center">
+          <div className="flex h-12 items-end justify-center">
             <RadioGroup defaultValue="new-page" onValueChange={setResultsView} value={resultsView}>
               <div className="flex items-center space-x-2 ">
                 <RadioGroupItem
