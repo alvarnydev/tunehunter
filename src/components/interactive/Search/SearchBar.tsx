@@ -1,9 +1,11 @@
 import { LoadingIndicator } from "@/components/Indicators";
 import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { AnimatePresence, motion } from "framer-motion";
 import { debounce } from "lodash";
 import { Search } from "lucide-react";
+import { useTranslation } from "next-i18next";
 import dynamic from "next/dynamic";
 import { FC, FormEvent, useCallback, useEffect, useState } from "react";
 const SearchSettings = dynamic(() => import("@/components/interactive/SearchSettings"), {
@@ -30,6 +32,9 @@ const SearchBar: FC<IProps> = ({}) => {
   const [searchValue, setSearchValue] = useState("");
   const [currentPlaceholder, setCurrentPlaceholder] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation("");
+
+  const settingsTooltip = t("tooltip.settings");
 
   useEffect(() => {
     const rndPlaceholderIndex = Math.floor(Math.random() * placeholderValues.length);
@@ -82,7 +87,7 @@ const SearchBar: FC<IProps> = ({}) => {
           value={searchValue}
           onChange={(e) => handleInputChange(e.target.value)}
         />
-        <button className="absolute left-8 top-1/2 -translate-x-1/2 -translate-y-1/2" type="submit">
+        <span className="absolute left-8 top-1/2 -translate-x-1/2 -translate-y-1/2">
           {isLoading && (
             <AnimatePresence>
               <motion.div
@@ -102,9 +107,14 @@ const SearchBar: FC<IProps> = ({}) => {
               </motion.div>
             </AnimatePresence>
           )}
-        </button>
-        <div className="absolute right-0 top-1/2 flex -translate-x-1/2 -translate-y-1/2 justify-center pr-2">
-          <SearchSettings />
+        </span>
+        <div className="absolute right-2 top-1/2 flex -translate-x-1/2 -translate-y-[13px] items-center justify-center">
+          <Tooltip>
+            <TooltipTrigger>
+              <SearchSettings />
+            </TooltipTrigger>
+            <TooltipContent>{settingsTooltip}</TooltipContent>
+          </Tooltip>
         </div>
       </form>
     </div>

@@ -12,6 +12,7 @@ import Layout from "./layout";
 
 import { Toaster } from "sonner";
 
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { DefaultSeo } from "next-seo";
 import SEO from "../../next-seo.config";
 
@@ -34,11 +35,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <DefaultSeo {...SEO} />
       <Toaster position="top-right" toastOptions={toastOptions} closeButton richColors />
       <SessionProvider session={session}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
+        <TooltipProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </TooltipProvider>
       </SessionProvider>
     </>
   );

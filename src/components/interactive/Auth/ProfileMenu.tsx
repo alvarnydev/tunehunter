@@ -112,8 +112,8 @@ const ProfileMenu: FC<IProps> = () => {
       </div>
 
       <div className="grid w-full grid-cols-2 gap-4">
-        <p className="break-words font-thin">{userMailText}</p>
-        <p className="overflow-x-clip text-ellipsis">{userMail}</p>
+        <p className="flex items-center font-thin">{userMailText}</p>
+        <p className="overflow-x-clip text-ellipsis font-thin">{userMail}</p>
         <p className="flex items-center font-thin">{spotifyText}</p>
         {spotifyAccount && (
           <a

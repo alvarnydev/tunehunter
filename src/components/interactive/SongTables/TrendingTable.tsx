@@ -1,8 +1,8 @@
 import CustomIcon from "@/components/CustomIcon";
 import { LoadingIndicator } from "@/components/Indicators";
-import { Tab } from "@/pages";
 import { api } from "@/utils/api";
 import { useTranslation } from "react-i18next";
+import { Tab } from "../Search/SearchTabs";
 import SearchTableRow from "../SearchTableRow";
 
 interface TrendingTableProps {

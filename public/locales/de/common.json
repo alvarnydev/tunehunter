@@ -6,6 +6,12 @@
     "continue": "Weiter",
     "search": "Suchen"
   },
+  "tooltip": {
+    "settings": "Einstellungen",
+    "theme": "Theme",
+    "profile": "Profil",
+    "language": "Sprache"
+  },
   "profile": {
     "label": "Aktionen",
     "haveFeedback": "Hast du Feedback?",

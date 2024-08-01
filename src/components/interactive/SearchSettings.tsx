@@ -78,7 +78,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           {minimumLengthOption == true && (
             <AnimatePresence>
               <motion.div
-                className="col-span-2 mx-auto flex w-2/3 items-center justify-center"
+                className="col-span-2 mx-auto flex w-2/3 cursor-pointer items-center justify-center"
                 initial={{ opacity: 0, marginTop: -12 }}
                 animate={{ opacity: 1, marginTop: 0 }}
                 exit={{ opacity: 0, marginTop: -12 }}
@@ -97,7 +97,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           <Label htmlFor="resultsview" className="flex items-center font-thin">
             {resultsViewText}
           </Label>
-          <div className="flex h-12 items-end justify-center">
+          <div className="flex h-10 items-end justify-center">
             <RadioGroup defaultValue="new-page" onValueChange={setResultsView} value={resultsView}>
               <div className="flex items-center space-x-2 ">
                 <RadioGroupItem
