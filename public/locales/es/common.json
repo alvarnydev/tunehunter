@@ -17,9 +17,11 @@
   "search": {
     "settings": {
       "spotifyConnected": "Conectado",
-      "searchForClubMixesOnly": "Solo Club / Extended Mixes",
-      "setMinimumLength": "Establecer duración mínima",
-      "resultsView": "Mostrar resultados en"
+      "searchForClubMixesOnly": "Solo club / extended mixes",
+      "setMinimumLength": "Duración mínima",
+      "resultsView": "Mostrar resultados en",
+      "newPage": "Nueva página",
+      "below": "Debajo"
     },
     "tabs": {
       "trending": { "header": "Trending", "empty": "Nada está en tendencia en este momento..." },

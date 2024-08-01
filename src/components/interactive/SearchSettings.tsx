@@ -20,14 +20,22 @@ const SearchSettings: FC<IProps> = ({}) => {
     "minimumlengthoption",
     false,
   );
-  const [minimumLength, setMinimumLength] = useLocalStorage("minimumlength", 120);
-  const [resultsView, setResultsView] = useLocalStorage("resultsview", "next-page"); // Or below
+  const [minimumLengthSeconds, setMinimumLengthSeconds] = useLocalStorage("minimumlength", 120);
+  const [resultsView, setResultsView] = useLocalStorage("resultsview", "new-page"); // Or below
   const { t } = useTranslation("");
 
   const searchForClubMixesOnlyText = t("search.settings.searchForClubMixesOnly");
   const minimumLengthText = t("search.settings.setMinimumLength");
-  const minutesText = t("search.settings.minutes");
   const resultsViewText = t("search.settings.resultsView");
+  const newPageText = t("search.settings.newPage");
+  const belowText = t("search.settings.below");
+
+  const minimumLengthDisplayMinutes = Math.floor(minimumLengthSeconds / 60)
+    .toString()
+    .padStart(2, "0");
+  const minimumLengthDisplaySeconds = (minimumLengthSeconds % 60).toString().padStart(2, "0");
+
+  console.log(searchForClubMixesOnly, minimumLengthOption, minimumLengthSeconds, resultsView);
 
   return (
     <Popover>
@@ -41,7 +49,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           <Label htmlFor="clubmixesonly" className="flex items-center font-thin">
             {searchForClubMixesOnlyText}
           </Label>
-          <div className="flex h-8 items-center">
+          <div className="flex h-10 items-center justify-end">
             <Switch
               id="clubmixesonly"
               checked={searchForClubMixesOnly}
@@ -50,9 +58,16 @@ const SearchSettings: FC<IProps> = ({}) => {
           </div>
 
           <Label htmlFor="minimumlength" className="flex items-center font-thin">
-            <p>{minimumLengthText}</p>
+            <p>
+              {minimumLengthText}{" "}
+              {minimumLengthOption && (
+                <span className="font-normal">
+                  ({minimumLengthDisplayMinutes}:{minimumLengthDisplaySeconds})
+                </span>
+              )}
+            </p>
           </Label>
-          <div className="flex h-8 items-center">
+          <div className="flex h-10 items-center justify-end">
             <Switch
               id="minimumlength"
               checked={minimumLengthOption}
@@ -63,25 +78,17 @@ const SearchSettings: FC<IProps> = ({}) => {
           {minimumLengthOption == true && (
             <AnimatePresence>
               <motion.div
-                className="flex h-8 items-center justify-end"
+                className="col-span-2 mx-auto flex w-2/3 items-center justify-center"
                 initial={{ opacity: 0, marginTop: -12 }}
                 animate={{ opacity: 1, marginTop: 0 }}
                 exit={{ opacity: 0, marginTop: -12 }}
-              >
-                <span>{minimumLength}:00</span>
-              </motion.div>
-              <motion.div
-                className="flex items-center justify-center"
-                initial={{ opacity: 0, marginTop: -12 }}
-                animate={{ opacity: 1, marginTop: 0 }}
-                exit={{ opacity: 0, marginTop: -12 }}
+                key="mnimumlengthslider"
               >
                 <Slider
-                  defaultValue={[minimumLength]}
+                  defaultValue={[minimumLengthSeconds]}
                   max={600}
-                  step={1}
-                  // value={minimumLength}
-                  // on={setMinimumLength}
+                  value={[minimumLengthSeconds]}
+                  onValueChange={(value) => setMinimumLengthSeconds(value[0] ?? 0)}
                 />
               </motion.div>
             </AnimatePresence>
@@ -90,20 +97,26 @@ const SearchSettings: FC<IProps> = ({}) => {
           <Label htmlFor="resultsview" className="flex items-center font-thin">
             {resultsViewText}
           </Label>
-          <RadioGroup defaultValue="page">
-            <div className="flex items-center space-x-2 ">
-              <RadioGroupItem
-                value="next-page"
-                id="next-page"
-                onChange={() => setResultsView("next-page")}
-              />
-              <Label htmlFor="next-page">Next Page</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-two" id="below" />
-              <Label htmlFor="below">Below</Label>
-            </div>
-          </RadioGroup>
+          <div className="flex h-10 items-end justify-center">
+            <RadioGroup defaultValue="new-page" onValueChange={setResultsView} value={resultsView}>
+              <div className="flex items-center space-x-2 ">
+                <RadioGroupItem
+                  value="new-page"
+                  id="new-pageoption"
+                  onChange={() => setResultsView("new-page")}
+                />
+                <Label htmlFor="new-pageoption" className="cursor-pointer">
+                  {newPageText}
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="below" id="belowoption" />
+                <Label htmlFor="belowoption" className="cursor-pointer">
+                  {belowText}
+                </Label>
+              </div>
+            </RadioGroup>
+          </div>
         </div>
       </PopoverContent>
     </Popover>

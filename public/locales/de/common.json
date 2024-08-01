@@ -18,8 +18,10 @@
     "settings": {
       "spotifyConnected": "Verbunden",
       "searchForClubMixesOnly": "Nur Club / Extended Mixes",
-      "setMinimumLength": "Mindestlänge setzen",
-      "resultsView": "Ergebnisse anzeigen auf"
+      "setMinimumLength": "Mindestlänge",
+      "resultsView": "Ergebnisse anzeigen auf",
+      "newPage": "Neuer Seite",
+      "below": "Unten"
     },
     "tabs": {
       "trending": { "header": "Aktuell", "empty": "Keine Einträge bisher..." },
