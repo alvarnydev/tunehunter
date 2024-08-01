@@ -1,3 +1,12 @@
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cog } from "lucide-react";
@@ -24,9 +33,10 @@ const SearchSettings: FC<IProps> = ({}) => {
   const [resultsView, setResultsView] = useLocalStorage("resultsview", "new-page"); // Or below
   const { t } = useTranslation("");
 
-  const searchForClubMixesOnlyText = t("search.settings.searchForClubMixesOnly");
+  const regionText = t("search.settings.region");
   const minimumLengthText = t("search.settings.setMinimumLength");
   const resultsViewText = t("search.settings.resultsView");
+  const searchForClubMixesOnlyText = t("search.settings.searchForClubMixesOnly");
   const newPageText = t("search.settings.newPage");
   const belowText = t("search.settings.below");
 
@@ -35,7 +45,21 @@ const SearchSettings: FC<IProps> = ({}) => {
     .padStart(2, "0");
   const minimumLengthDisplaySeconds = (minimumLengthSeconds % 60).toString().padStart(2, "0");
 
-  console.log(searchForClubMixesOnly, minimumLengthOption, minimumLengthSeconds, resultsView);
+  // console.log(searchForClubMixesOnly, minimumLengthOption, minimumLengthSeconds, resultsView);
+
+  // console.log(navigator);
+  // console.log(
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       const latitude = position.coords.latitude;
+  //       const longitude = position.coords.longitude;
+  //       console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+  //     },
+  //     () => {
+  //       console.log("Unable to retrieve your location");
+  //     },
+  //   ),
+  // );
 
   return (
     <Popover>
@@ -46,17 +70,27 @@ const SearchSettings: FC<IProps> = ({}) => {
       </PopoverTrigger>
       <PopoverContent>
         <div className="grid grid-cols-[auto_minmax(100px,_max-content)] gap-x-8 gap-y-6">
-          <Label htmlFor="clubmixesonly" className="flex items-center font-thin">
-            {searchForClubMixesOnlyText}
+          {/* Region */}
+          <Label htmlFor="region" className="flex items-center font-thin">
+            {regionText}
           </Label>
-          <div className="flex h-10 items-center justify-end">
-            <Switch
-              id="clubmixesonly"
-              checked={searchForClubMixesOnly}
-              onCheckedChange={setSearchForClubMixesOnly}
-            />
-          </div>
-
+          <Select>
+            <SelectTrigger className="w-auto">
+              <SelectValue placeholder="" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>EU</SelectLabel>
+                <SelectItem value="apple">DE</SelectItem>
+                <SelectItem value="blueberry">ES</SelectItem>
+              </SelectGroup>
+              <SelectGroup>
+                <SelectLabel>US</SelectLabel>
+                <SelectItem value="apple">US</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          {/* Minimum length */}
           <Label htmlFor="minimumlength" className="flex items-center font-thin">
             <p>
               {minimumLengthText}{" "}
@@ -74,7 +108,6 @@ const SearchSettings: FC<IProps> = ({}) => {
               onCheckedChange={setMinimumLengthOption}
             />
           </div>
-
           {minimumLengthOption == true && (
             <AnimatePresence>
               <motion.div
@@ -94,6 +127,19 @@ const SearchSettings: FC<IProps> = ({}) => {
             </AnimatePresence>
           )}
 
+          {/* Club Mixes only */}
+          <Label htmlFor="clubmixesonly" className="flex items-center font-thin">
+            {searchForClubMixesOnlyText}
+          </Label>
+          <div className="flex h-10 items-center justify-end">
+            <Switch
+              id="clubmixesonly"
+              checked={searchForClubMixesOnly}
+              onCheckedChange={setSearchForClubMixesOnly}
+            />
+          </div>
+
+          {/* Results view */}
           <Label htmlFor="resultsview" className="flex items-center font-thin">
             {resultsViewText}
           </Label>

@@ -57,21 +57,23 @@ const SearchBar: FC<IProps> = ({}) => {
     }, 3000);
   };
 
-  const debouncedDisplaySongMatches = useCallback(
-    debounce(() => displaySongMatches(), 600),
-    [], // dependencies of the useCallback hook
-  );
-
+  // On enter
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     displaySongMatches();
   };
 
+  // On debounce
   const handleInputChange = (searchTerm: string) => {
     setSearchValue(searchTerm);
     debouncedDisplaySongMatches.cancel();
     debouncedDisplaySongMatches();
   };
+
+  const debouncedDisplaySongMatches = useCallback(
+    debounce(() => displaySongMatches(), 600),
+    [],
+  );
 
   return (
     <div className="w-full">

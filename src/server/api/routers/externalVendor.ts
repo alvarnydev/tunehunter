@@ -2,7 +2,7 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 
 export const externalVendorRouter = createTRPCRouter({
-  getItunesData: publicProcedure
+  getSongData: publicProcedure
     .input(z.object({ queryTerm: z.string(), country: z.string() }))
     .query(async ({ ctx, input }) => {
       // const apiUrl = new URL(
@@ -29,6 +29,37 @@ export const externalVendorRouter = createTRPCRouter({
       //   previewData.sort(sortByMatchingDuration(duration));
       // }
       // return previewData;
+    }),
+
+  getItunesData: publicProcedure
+    .input(z.object({ songId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      // 1. Try DB first (will hit because of ID search before)
+      // If no DB, hit external API
+    }),
+
+  getBeatportData: publicProcedure
+    .input(z.object({ songId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      // 1. Try DB first
+      // If no DB, hit external API
+      // If no external API, hit scraper
+    }),
+
+  getAmazonData: publicProcedure
+    .input(z.object({ songId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      // 1. Try DB first
+      // If no DB, hit external API
+      // If no external API, hit scraper
+    }),
+
+  getBandcampData: publicProcedure
+    .input(z.object({ songId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      // 1. Try DB first
+      // If no DB, hit external API
+      // If no external API, hit scraper
     }),
 });
 

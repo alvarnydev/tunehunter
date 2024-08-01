@@ -20,8 +20,9 @@ export const users = pgTable("user", {
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  darkMode: varchar("dark_mode", { length: 255 }),
+  theme: varchar("theme", { length: 255 }),
   language: varchar("language", { length: 255 }),
+  region: varchar("region", { length: 255 }),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

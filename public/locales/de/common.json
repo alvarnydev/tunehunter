@@ -23,6 +23,7 @@
   "search": {
     "settings": {
       "spotifyConnected": "Verbunden",
+      "region": "Region",
       "searchForClubMixesOnly": "Nur Club / Extended Mixes",
       "setMinimumLength": "Mindestlänge",
       "resultsView": "Ergebnisse anzeigen auf",

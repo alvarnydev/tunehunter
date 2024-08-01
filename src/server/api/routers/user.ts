@@ -55,4 +55,39 @@ export const userRouter = createTRPCRouter({
         where: (users, { eq }) => eq(users.email, input.email),
       });
     }),
+
+  getUserSettings: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.id, input.id),
+      });
+      if (!user) return { error: "userNotFound" };
+      return {
+        id: user.id,
+        language: user.language,
+        theme: user.theme,
+        region: user.region,
+      };
+    }),
+
+  setUserSettings: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        language: z.string().optional(),
+        theme: z.string().optional(),
+        region: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(users)
+        .set({
+          language: input.language ?? ctx.session.user.language,
+          theme: input.theme ?? ctx.session.user.theme,
+          region: input.region ?? ctx.session.user.region,
+        })
+        .where(eq(users.id, input.id));
+    }),
 });

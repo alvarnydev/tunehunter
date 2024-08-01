@@ -23,15 +23,15 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
-    } & DefaultSession["user"];
+    } & DefaultSession["user"] &
+      UserSettings;
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface UserSettings {
+    language: string;
+    theme: string;
+    region: string;
+  }
 }
 
 /**
@@ -41,14 +41,29 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
-    signIn: async ({ user, account, profile, email, credentials }) => {
+    // We're using an adapter, so we're using the 'database' strategy and there is no JWT; instead there is a sessionToken cookie which is used to look up the session in the DB
+    // If we had been using JWT, we could access the DB here, add stuff to the token and then retrieve that in the 'session' callback to propagate fields to the client
+    // jwt: ({ token, account, user }) => {
+    //   console.log("jwt", token, account, user);
+    //   if (account) {
+    //     token.id = user.id;
+    //     token.language = "EN";
+    //   }
+    //   return token;
+    // },
+
+    // So the question remains, why does the AdapterUser not have access to language, region and theme from our DB?
+    session: ({ session, user }) => {
+      return {
+        expires: session.expires,
+        user: {
+          ...session.user,
+          id: user.id,
+        },
+      };
+    },
+
+    signIn: async ({ user, account }) => {
       if (account?.expires_at && account?.refresh_token && Date.now() / 1000 > account.expires_at) {
         const { access_token, expires_at } = await refreshAccessToken(account.refresh_token);
         await db
