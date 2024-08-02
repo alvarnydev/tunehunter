@@ -35,7 +35,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <DefaultSeo {...SEO} />
       <Toaster position="top-right" toastOptions={toastOptions} closeButton richColors />
       <SessionProvider session={session}>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={100}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Layout>
               <Component {...pageProps} />

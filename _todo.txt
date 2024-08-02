@@ -1,3 +1,6 @@
+Save user settings in DB
+Region select styles invert
+
 iTunes api search debounce
 
 SENTRY & Upstash

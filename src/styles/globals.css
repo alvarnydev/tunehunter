@@ -155,6 +155,12 @@
   right: 7%;
 }
 
+@media (pointer: coarse) {
+  div[data-radix-popper-content-wrapper] {
+    display: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border tracking-wider;

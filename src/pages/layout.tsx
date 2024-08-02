@@ -11,11 +11,11 @@ import dynamic from "next/dynamic";
 import { type PropsWithChildren } from "react";
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   return (
     <div className="relative flex h-screen rotate-0 flex-col items-center justify-between overflow-hidden bg-background text-foreground">
-      {theme !== "light" && (
+      {resolvedTheme === "dark" && (
         <Particles className="animate-fade-in absolute inset-0 -z-10" quantity={100} />
       )}
       <main className="page-container relative flex max-h-[calc(100%-80px)] flex-1 flex-col items-center justify-center">
