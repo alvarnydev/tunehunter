@@ -156,7 +156,7 @@
 }
 
 @media (pointer: coarse) {
-  div[data-radix-popper-content-wrapper] {
+  div[aria-description="tooltip"] {
     display: none;
   }
 }
