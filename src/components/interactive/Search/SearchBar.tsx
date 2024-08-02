@@ -1,6 +1,6 @@
 import { LoadingIndicator } from "@/components/Indicators";
 import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { AnimatePresence, motion } from "framer-motion";
 import { debounce } from "lodash";
@@ -116,8 +116,8 @@ const SearchBar: FC<IProps> = ({}) => {
               <SearchSettings />
             </TooltipTrigger>
             <TooltipContent>
-              <TooltipArrow width={12} height={5} />
               {settingsTooltip}
+              {/* <TooltipArrow width={12} height={5} /> */}
             </TooltipContent>
           </Tooltip>
         </div>
