@@ -114,14 +114,16 @@ const SearchSettings: FC<IProps> = ({}) => {
               {regionText}
             </Label>
 
-            <IconButton
-              variant="ghostReduced"
-              size="xs"
-              icon="pin"
-              bordered="noBorder"
-              text={locateMeText}
-              onClick={locateUser}
-            />
+            <div className="w-auto">
+              <IconButton
+                variant="ghostReduced"
+                size="xs"
+                icon="pin"
+                bordered="noBorder"
+                text={locateMeText}
+                onClick={locateUser}
+              />
+            </div>
           </div>
           <div className="flex h-10 items-center justify-end">
             <Select onValueChange={changeRegion} value={region}>
