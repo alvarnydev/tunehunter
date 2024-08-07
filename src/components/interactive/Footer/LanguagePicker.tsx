@@ -1,37 +1,50 @@
-import { Locales, type Locale } from "@/helpers/lang";
+import { isLocale, Locales, type Locale } from "@/helpers/lang";
 import useDeviceSize from "@/hooks/useDeviceSize";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { type FC } from "react";
+import { useEffect } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 
-const LanguagePicker: FC = () => {
+interface LanguagePickerProps {
+  preferredLanguage?: string | null;
+  updatePreferredLanguage?: (language: Locale) => void;
+}
+
+const LanguagePicker = ({ preferredLanguage, updatePreferredLanguage }: LanguagePickerProps) => {
   const router = useRouter();
   const { isSmallDevice } = useDeviceSize();
   const { t } = useTranslation("");
   const { pathname, asPath, query } = router;
-  const { status, data: userData } = useSession();
+  const { status } = useSession();
   const loggedIn = status === "authenticated";
-
-  console.log(userData);
-  // const { data, isLoading } = api.user.getPreferredLanguage.useQuery(userData?.user.id);
+  console.log("rendering picker");
 
   const placeholderValue = isSmallDevice ? "EN" : t(`lang.${router.locale}`);
   const languageText = (locale: string) =>
     isSmallDevice ? locale.toUpperCase() : t(`lang.${locale}`);
 
-  const getUserLanguage = () => {
-    let preferredLang = router.locale;
-    if (loggedIn) {
-    }
-    return router.locale;
-  };
-
   const changeLanguage = async (newLocale: Locale) => {
+    console.log("changing language");
+    if (loggedIn) {
+      console.log("updating preferred lang");
+      updatePreferredLanguage?.(newLocale);
+    }
+
     document.cookie = `NEXT_LOCALE=${newLocale}; max-age=31536000; SameSite=Lax; path=/`;
+    console.log("newLocale", newLocale);
     await router.push({ pathname, query }, asPath, { locale: newLocale });
   };
+
+  // Set language from DB
+  useEffect(() => {
+    console.log("hi from effect");
+    const currentLanguage = router.locale;
+    if (preferredLanguage && isLocale(preferredLanguage) && preferredLanguage !== currentLanguage) {
+      console.log(" > yes");
+      changeLanguage(preferredLanguage);
+    }
+  }, [preferredLanguage]);
 
   return (
     <Select onValueChange={changeLanguage} value={router.locale}>

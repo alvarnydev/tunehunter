@@ -32,8 +32,8 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   useEffect(() => {
     setTimeout(() => {
       if (router.isReady) {
-        const redirectUrl = router.query.redirectUrl as string;
-        router.push(redirectUrl);
+        const redirectPath = router.query.redirectPath as string;
+        router.push(redirectPath);
       }
     }, 2000);
   }, [router]);

@@ -1,5 +1,7 @@
 Save user settings in DB
 Region select styles invert
+Spotify Account link mismatch
+- The Spotify Account you're currently loggin in on Spotify's Web Platform is already linked to another account on our platform. Do you want to link it to yours instead?
 
 iTunes api search debounce
 
@@ -26,3 +28,7 @@ Auth flow:
 ----- MAYBE
 Add cypress tests
 Roll your own auth
+
+
+----- Qs
+! and enabled pattern in useQuery (to figure out a way to conditionally query for user settings)

@@ -1,7 +1,7 @@
 import { Separator } from "@/components/my-ui/separator";
 import { Input } from "@/components/ui/input";
 import { isCustomIcon } from "@/helpers/custom-icons";
-import { buildRedirectUrl, signInWithProvider } from "@/helpers/sign-in";
+import { buildRedirectPath, signInWithProvider } from "@/helpers/sign-in";
 import { type Providers } from "@/interfaces/providers";
 import { api } from "@/utils/api";
 import { getProviders, signIn } from "next-auth/react";
@@ -85,7 +85,7 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   };
 
   const handleSignInWithProvider = async (providerId: string) => {
-    const redirectPath = buildRedirectUrl();
+    const redirectPath = buildRedirectPath();
     const callbackUrl = `/${router.locale}/auth_callback/?redirectUrl=${redirectPath}`;
     signInWithProvider(providerId, callbackUrl);
   };

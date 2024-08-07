@@ -57,10 +57,10 @@ export const userRouter = createTRPCRouter({
     }),
 
   getUserSettings: protectedProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ userId: z.string() }))
     .query(async ({ ctx, input }) => {
       const user = await ctx.db.query.users.findFirst({
-        where: (users, { eq }) => eq(users.id, input.id),
+        where: (users, { eq }) => eq(users.id, input.userId),
       });
       if (!user) return { error: "userNotFound" };
       return {
