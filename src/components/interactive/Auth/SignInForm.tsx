@@ -44,9 +44,9 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const signInWithMailText = t("auth.signIn.withEmail");
   const signInWithProviderText = (provider: string) => t("auth.signIn.withProvider", { provider });
 
-  const mailSendLoadingText = t("auth.toast.login.mail.loading");
-  const mailSendErrorText = t("auth.toast.login.mail.error");
-  const mailSendSuccessText = t("auth.toast.login.mail.success");
+  const mailSendLoadingText = t("toast.login.mail.loading");
+  const mailSendErrorText = t("toast.login.mail.error");
+  const mailSendSuccessText = t("toast.login.mail.success");
 
   const handleSignInWithEmail = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

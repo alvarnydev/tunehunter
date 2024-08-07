@@ -24,6 +24,7 @@
     "settings": {
       "spotifyConnected": "Conectado",
       "region": "Región",
+      "locateMe": "Búscame",
       "searchForClubMixesOnly": "Solo club / extended mixes",
       "setMinimumLength": "Duración mínima",
       "resultsView": "Mostrar resultados en",
@@ -84,23 +85,28 @@
       "sent": "Te eviamos un correo con un enlace de inicio de sesión! Por favor haz clic en él para iniciar sesión. Si no lo puedes encontrar, por favor echa un ojo a tu carpeta de spam.",
       "confirm": "Confirmar",
       "openMails": "Abrir correo"
+    }
+  },
+  "toast": {
+    "retrieveLocation": {
+      "loading": "Recuperando ubicación...",
+      "success": "Encontrado en",
+      "error": "No pudimos encontrarte"
     },
-    "toast": {
-      "login": {
-        "loading": "Iniciando sesión...",
-        "success": "Sesión iniciada correctamente",
-        "error": "Error al intentar iniciar sesión",
-        "mail": {
-          "loading": "Intentando enviarte un correo...",
-          "success": "Un correo con un enlace de inicio de sesión fue enviado a tu correo",
-          "error": "No pudimos enviar un correo a la dirección especificada"
-        }
-      },
-      "logout": {
-        "loading": "Cerrando sesión...",
-        "success": "Sesión cerrada correctamente",
-        "error": "Error al intentar cerrar sesión"
+    "login": {
+      "loading": "Iniciando sesión...",
+      "success": "Sesión iniciada correctamente",
+      "error": "Error al intentar iniciar sesión",
+      "mail": {
+        "loading": "Intentando enviarte un correo...",
+        "success": "Un correo con un enlace de inicio de sesión fue enviado a tu correo",
+        "error": "No pudimos enviar un correo a la dirección especificada"
       }
+    },
+    "logout": {
+      "loading": "Cerrando sesión...",
+      "success": "Sesión cerrada correctamente",
+      "error": "Error al intentar cerrar sesión"
     }
   },
   "lang": {

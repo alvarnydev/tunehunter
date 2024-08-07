@@ -24,6 +24,7 @@
     "settings": {
       "spotifyConnected": "Connected",
       "region": "Region",
+      "locateMe": "Find me",
       "searchForClubMixesOnly": "Club / extended mixes only",
       "setMinimumLength": "Minimum length",
       "resultsView": "Show results on",
@@ -92,23 +93,28 @@
       "sent": "We sent you a mail with a login link! Click it to login. If you can't find it, please also have a look in your spam folder.",
       "confirm": "Confirm",
       "openMails": "Open mails"
+    }
+  },
+  "toast": {
+    "retrieveLocation": {
+      "loading": "Retrieving your location...",
+      "success": "Found you in",
+      "error": "Could not find you"
     },
-    "toast": {
-      "login": {
-        "loading": "Logging you in...",
-        "success": "Successfully logged in",
-        "error": "Error when trying to log you in",
-        "mail": {
-          "loading": "Trying to send you an e-mail...",
-          "success": "An e-mail with a login link was sent to your mail",
-          "error": "We could not send an e-mail to the specified address"
-        }
-      },
-      "logout": {
-        "loading": "Logging you out...",
-        "success": "Successfully logged out",
-        "error": "Error when trying to log you out"
+    "login": {
+      "loading": "Logging you in...",
+      "success": "Successfully logged in",
+      "error": "Error when trying to log you in",
+      "mail": {
+        "loading": "Trying to send you an e-mail...",
+        "success": "An e-mail with a login link was sent to your mail",
+        "error": "We could not send an e-mail to the specified address"
       }
+    },
+    "logout": {
+      "loading": "Logging you out...",
+      "success": "Successfully logged out",
+      "error": "Error when trying to log you out"
     }
   },
   "lang": {

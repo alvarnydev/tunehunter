@@ -1,9 +1,15 @@
 import { type CustomIconType, type CustomIconVariant } from "@/helpers/custom-icons";
 import { type ButtonHTMLAttributes, type FC } from "react";
 import CustomIcon from "./CustomIcon";
-import { Button, type CustomButtonSizeVariant, type CustomButtonVariant } from "./ui/button";
+import {
+  Button,
+  CustomButtonBorderedVariant,
+  type CustomButtonSizeVariant,
+  type CustomButtonVariant,
+} from "./ui/button";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  bordered?: CustomButtonBorderedVariant;
   icon?: CustomIconType;
   iconPosition?: "left" | "right";
   text?: string;
@@ -21,7 +27,9 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
 
   link: "link-foreground",
   ghost: "ghost-foreground",
+  ghostReduced: "ghost-foreground",
   ghostDestructive: "ghost-destructive-foreground",
+  ghostPrimary: "ghost-primary-foreground",
   outline: "outline-foreground",
   outlinePrimary: "primary",
   outlineSuccess: "success-foreground",
@@ -32,6 +40,7 @@ const IconButton: FC<IProps> = ({
   icon,
   iconPosition = "left",
   variant = "default",
+  bordered,
   size,
   children,
   ...extraProps
@@ -43,6 +52,7 @@ const IconButton: FC<IProps> = ({
       className="group flex w-full gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
       variant={variant ?? "default"}
       size={size ?? "default"}
+      bordered={bordered}
       {...extraProps}
     >
       {icon && iconPosition == "left" && (

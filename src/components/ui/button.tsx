@@ -5,9 +5,13 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "border border-background inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
+      bordered: {
+        default: "border border-background",
+        noBorder: "border-0",
+      },
       variant: {
         default: "bg-background text-foreground hover:bg-background/80",
         primary: "bg-primary text-primary-foreground hover:bg-primary/80",
@@ -17,8 +21,12 @@ const buttonVariants = cva(
         success: "bg-success text-success-foreground hover:bg-success/80",
 
         link: "text-primary underline-offset-4 hover:underline",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+
+        ghost: "hover:bg-background hover:text-foreground",
+        ghostReduced: "hover:bg-background/60 hover:text-foreground",
         ghostDestructive: "text-destructive hover:bg-destructive hover:text-destructive-foreground",
+        ghostPrimary: "text-primary hover:bg-primary hover:text-primary-foreground",
+
         outline:
           "border border-background bg-transparent hover:bg-accent hover:text-accent-foreground",
         outlinePrimary:
@@ -35,6 +43,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
+      bordered: "default",
       variant: "default",
       size: "default",
     },
@@ -49,12 +58,17 @@ export interface ButtonProps
 
 export type CustomButtonVariant = NonNullable<VariantProps<typeof buttonVariants>["variant"]>;
 export type CustomButtonSizeVariant = VariantProps<typeof buttonVariants>["size"];
+export type CustomButtonBorderedVariant = VariantProps<typeof buttonVariants>["bordered"];
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, bordered, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+      <Comp
+        className={cn(buttonVariants({ variant, size, bordered, className }))}
+        ref={ref}
+        {...props}
+      />
     );
   },
 );

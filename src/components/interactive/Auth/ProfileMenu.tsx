@@ -41,9 +41,9 @@ const ProfileMenu: FC<IProps> = () => {
   );
 
   const signOutText = t("auth.signOut");
-  const logoutLoadingText = t("auth.toast.logout.loading");
-  const logoutSuccessText = t("auth.toast.logout.success");
-  const logoutErrorText = t("auth.toast.logout.error");
+  const logoutLoadingText = t("toast.logout.loading");
+  const logoutSuccessText = t("toast.logout.success");
+  const logoutErrorText = t("toast.logout.error");
 
   const handleSignOut = async () => {
     router.push("/");

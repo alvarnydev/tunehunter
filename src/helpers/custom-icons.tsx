@@ -49,6 +49,40 @@ const customIcons = {
       <path d="M228.44,89.34l-96-64a8,8,0,0,0-8.88,0l-96,64A8,8,0,0,0,24,96V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V96A8,8,0,0,0,228.44,89.34ZM96.72,152,40,192V111.53Zm16.37,8h29.82l56.63,40H56.46Zm46.19-8L216,111.53V192ZM128,41.61l81.91,54.61-67,47.78H113.11l-67-47.78Z" />
     </svg>
   ),
+
+  pin: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+      <rect width="256" height="256" fill="none" />
+      <line
+        x1="56"
+        y1="232"
+        x2="200"
+        y2="232"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="16"
+      />
+      <circle
+        cx="128"
+        cy="104"
+        r="32"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="16"
+      />
+      <path
+        d="M208,104c0,72-80,128-80,128S48,176,48,104a80,80,0,0,1,160,0Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="16"
+      />
+    </svg>
+  ),
   search: (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8" />
@@ -133,6 +167,7 @@ export type CustomIconVariant =
   | "success-foreground"
   | "ghost-foreground"
   | "ghost-destructive-foreground"
+  | "ghost-primary-foreground"
   | "outline-foreground"
   | "link-foreground";
 

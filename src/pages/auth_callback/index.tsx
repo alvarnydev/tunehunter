@@ -17,8 +17,8 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   const { status } = useSession();
 
   const redirectingText = t("auth.redirecting");
-  const loginSuccessText = t("auth.toast.login.success");
-  const loginErrorText = t("auth.toast.login.error");
+  const loginSuccessText = t("toast.login.success");
+  const loginErrorText = t("toast.login.error");
 
   useEffect(() => {
     if (status === "authenticated") {

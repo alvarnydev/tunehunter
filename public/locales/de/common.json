@@ -24,6 +24,7 @@
     "settings": {
       "spotifyConnected": "Verbunden",
       "region": "Region",
+      "locateMe": "Finde mich",
       "searchForClubMixesOnly": "Nur Club / Extended Mixes",
       "setMinimumLength": "Mindestlänge",
       "resultsView": "Ergebnisse anzeigen auf",
@@ -92,23 +93,28 @@
       "sent": "Wir haben dir eine Mail mit einem Login-Link gesendet! Klick' ihn an, um dich einzuloggen. Falls du sie nicht findest, wirf bitte auch einen Blick in deinen Spam-Ordner.",
       "confirm": "Bestätigen",
       "openMails": "Mails öffnen"
+    }
+  },
+  "toast": {
+    "retrieveLocation": {
+      "loading": "Ortung läuft...",
+      "success": "Gefunden in",
+      "error": "Suche fehlgeschlagen"
     },
-    "toast": {
-      "login": {
-        "loading": "Einloggen...",
-        "success": "Erfolgreich eingeloggt",
-        "error": "Fehler beim Einloggen",
-        "mail": {
-          "loading": "Wir versuchen dir eine E-Mail zu senden...",
-          "success": "Eine E-Mail mit dem Login-Link wurde versendet",
-          "error": "Wir konnten keine E-Mail an die angegebene Adresse senden"
-        }
-      },
-      "logout": {
-        "loading": "Ausloggen...",
-        "success": "Erfolgreich ausgeloggt",
-        "error": "Fehler beim Ausloggen"
+    "login": {
+      "loading": "Einloggen...",
+      "success": "Erfolgreich eingeloggt",
+      "error": "Fehler beim Einloggen",
+      "mail": {
+        "loading": "Wir versuchen dir eine E-Mail zu senden...",
+        "success": "Eine E-Mail mit dem Login-Link wurde versendet",
+        "error": "Wir konnten keine E-Mail an die angegebene Adresse senden"
       }
+    },
+    "logout": {
+      "loading": "Ausloggen...",
+      "success": "Erfolgreich ausgeloggt",
+      "error": "Fehler beim Ausloggen"
     }
   },
   "lang": {

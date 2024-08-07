@@ -5,14 +5,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { isRegion, Region } from "@/helpers/region";
+import { isRegion, Region, Regions } from "@/helpers/region";
 import useUserSettings from "@/hooks/useUserSettings";
+import { iso1A2Code } from "@rapideditor/country-coder"; // ESM import named
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cog } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { FC, useEffect } from "react";
+import { toast } from "sonner";
+import IconButton from "../IconButton";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Slider } from "../ui/slider";
@@ -52,6 +55,9 @@ const SearchSettings: FC<IProps> = ({}) => {
     .toString()
     .padStart(2, "0");
   const minimumLengthDisplaySeconds = (minimumLengthSeconds % 60).toString().padStart(2, "0");
+  const locateMeText = t("search.settings.locateMe");
+  const locationRetrievalErrorText = t("toast.retrieveLocation.error");
+  const locationRetrievalSuccessText = t("toast.retrieveLocation.success");
 
   // Set region from DB
   useEffect(() => {
@@ -66,53 +72,68 @@ const SearchSettings: FC<IProps> = ({}) => {
       updatePreferredRegion?.(newRegion);
     }
     setRegion(newRegion);
-    console.log(newRegion);
   };
 
-  // console.log(searchForClubMixesOnly, minimumLengthOption, minimumLengthSeconds, resultsView);
+  const locateUser = () => {
+    const userLocation = {
+      longitude: 0,
+      latitude: 0,
+    };
 
-  // console.log(navigator);
-  // console.log(
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       const latitude = position.coords.latitude;
-  //       const longitude = position.coords.longitude;
-  //       console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-  //     },
-  //     () => {
-  //       console.log("Unable to retrieve your location");
-  //     },
-  //   ),
-  // );
+    // Get coordinates from geolocation API
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        userLocation.longitude = position.coords.longitude;
+        userLocation.latitude = position.coords.latitude;
+
+        const countryCode = iso1A2Code([userLocation.longitude, userLocation.latitude]);
+
+        if (countryCode) {
+          changeRegion(countryCode.toLowerCase());
+          toast.success(`${locationRetrievalSuccessText} ${countryCode}`);
+        } else {
+          toast.error(locationRetrievalErrorText);
+        }
+      },
+      () => {
+        toast.error(locationRetrievalErrorText);
+      },
+    );
+  };
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button>
-          <Cog />
-        </button>
+        <Cog />
       </PopoverTrigger>
       <PopoverContent>
         <div className="grid grid-cols-[auto_minmax(100px,_max-content)] gap-x-4 gap-y-3  ">
           {/* Region */}
-          <Label htmlFor="region" className="flex items-center font-thin">
-            {regionText}
-          </Label>
-          <div className="flex h-10 justify-end">
+          <div className="flex items-center gap-2">
+            <Label htmlFor="region" className="flex items-center font-thin">
+              {regionText}
+            </Label>
+
+            <IconButton
+              variant="ghostReduced"
+              size="xs"
+              icon="pin"
+              bordered="noBorder"
+              text={locateMeText}
+              onClick={locateUser}
+            />
+          </div>
+          <div className="flex h-10 items-center justify-end">
             <Select onValueChange={changeRegion} value={region}>
               <SelectTrigger className="h-9 w-20" invert>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent invert>
-                <SelectItem invert value="de">
-                  DE
-                </SelectItem>
-                <SelectItem invert value="es">
-                  ES
-                </SelectItem>
-                <SelectItem invert value="us">
-                  US
-                </SelectItem>
+                {Regions.map((region) => (
+                  <SelectItem invert value={region.toLowerCase()}>
+                    {region}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
