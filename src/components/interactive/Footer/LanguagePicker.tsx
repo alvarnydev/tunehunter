@@ -18,37 +18,31 @@ const LanguagePicker = ({ preferredLanguage, updatePreferredLanguage }: Language
   const { pathname, asPath, query } = router;
   const { status } = useSession();
   const loggedIn = status === "authenticated";
-  console.log("rendering picker");
 
   const placeholderValue = isSmallDevice ? "EN" : t(`lang.${router.locale}`);
   const languageText = (locale: string) =>
     isSmallDevice ? locale.toUpperCase() : t(`lang.${locale}`);
 
   const changeLanguage = async (newLocale: Locale) => {
-    console.log("changing language");
     if (loggedIn) {
-      console.log("updating preferred lang");
       updatePreferredLanguage?.(newLocale);
     }
 
     document.cookie = `NEXT_LOCALE=${newLocale}; max-age=31536000; SameSite=Lax; path=/`;
-    console.log("newLocale", newLocale);
     await router.push({ pathname, query }, asPath, { locale: newLocale });
   };
 
   // Set language from DB
   useEffect(() => {
-    console.log("hi from effect");
     const currentLanguage = router.locale;
     if (preferredLanguage && isLocale(preferredLanguage) && preferredLanguage !== currentLanguage) {
-      console.log(" > yes");
       changeLanguage(preferredLanguage);
     }
   }, [preferredLanguage]);
 
   return (
     <Select onValueChange={changeLanguage} value={router.locale}>
-      <SelectTrigger className="w-20 border-[1px] border-foreground/30 md:w-32">
+      <SelectTrigger className="h-[50px] w-20 border-[1px] border-foreground/30 md:w-32">
         <SelectValue placeholder={placeholderValue} />
       </SelectTrigger>
       <SelectContent>

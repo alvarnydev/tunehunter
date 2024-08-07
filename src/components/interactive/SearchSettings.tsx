@@ -1,20 +1,20 @@
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { isRegion, Region } from "@/helpers/region";
+import useUserSettings from "@/hooks/useUserSettings";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cog } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Slider } from "../ui/slider";
 import { Switch } from "../ui/switch";
 
@@ -29,9 +29,17 @@ const SearchSettings: FC<IProps> = ({}) => {
     "minimumlengthoption",
     false,
   );
+  const [region, setRegion] = useLocalStorage("region", "de");
   const [minimumLengthSeconds, setMinimumLengthSeconds] = useLocalStorage("minimumlength", 120);
   const [resultsView, setResultsView] = useLocalStorage("resultsview", "new-page"); // Or below
   const { t } = useTranslation("");
+  const { status, data: userData } = useSession();
+  const loggedIn = status === "authenticated";
+  const {
+    getUserSettings,
+    userSettingsUpdaters: { updatePreferredRegion },
+  } = useUserSettings(userData?.user.id);
+  const userSettings = getUserSettings();
 
   const regionText = t("search.settings.region");
   const minimumLengthText = t("search.settings.setMinimumLength");
@@ -44,6 +52,22 @@ const SearchSettings: FC<IProps> = ({}) => {
     .toString()
     .padStart(2, "0");
   const minimumLengthDisplaySeconds = (minimumLengthSeconds % 60).toString().padStart(2, "0");
+
+  // Set region from DB
+  useEffect(() => {
+    const preferredRegion = userSettings?.region;
+    if (preferredRegion && isRegion(preferredRegion) && preferredRegion !== region) {
+      changeRegion(preferredRegion);
+    }
+  }, [userSettings]);
+
+  const changeRegion = (newRegion: Region) => {
+    if (loggedIn) {
+      updatePreferredRegion?.(newRegion);
+    }
+    setRegion(newRegion);
+    console.log(newRegion);
+  };
 
   // console.log(searchForClubMixesOnly, minimumLengthOption, minimumLengthSeconds, resultsView);
 
@@ -69,27 +93,29 @@ const SearchSettings: FC<IProps> = ({}) => {
         </button>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="grid grid-cols-[auto_minmax(100px,_max-content)] gap-x-8 gap-y-6">
+        <div className="grid grid-cols-[auto_minmax(100px,_max-content)] gap-x-4 gap-y-3  ">
           {/* Region */}
           <Label htmlFor="region" className="flex items-center font-thin">
             {regionText}
           </Label>
-          <Select>
-            <SelectTrigger className="w-auto">
-              <SelectValue placeholder="" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>EU</SelectLabel>
-                <SelectItem value="apple">DE</SelectItem>
-                <SelectItem value="blueberry">ES</SelectItem>
-              </SelectGroup>
-              <SelectGroup>
-                <SelectLabel>US</SelectLabel>
-                <SelectItem value="apple">US</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <div className="flex h-10 justify-end">
+            <Select onValueChange={changeRegion} value={region}>
+              <SelectTrigger className="h-9 w-20" invert>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent invert>
+                <SelectItem invert value="de">
+                  DE
+                </SelectItem>
+                <SelectItem invert value="es">
+                  ES
+                </SelectItem>
+                <SelectItem invert value="us">
+                  US
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           {/* Minimum length */}
           <Label htmlFor="minimumlength" className="flex items-center font-thin">
             <p>
@@ -109,7 +135,7 @@ const SearchSettings: FC<IProps> = ({}) => {
             />
           </div>
           {minimumLengthOption == true && (
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
               <motion.div
                 className="col-span-2 mx-auto flex w-2/3 cursor-pointer items-center justify-center"
                 initial={{ opacity: 0, marginTop: -12 }}
@@ -120,6 +146,7 @@ const SearchSettings: FC<IProps> = ({}) => {
                 <Slider
                   defaultValue={[minimumLengthSeconds]}
                   max={600}
+                  min={1}
                   value={[minimumLengthSeconds]}
                   onValueChange={(value) => setMinimumLengthSeconds(value[0] ?? 0)}
                 />
@@ -140,7 +167,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           </div>
 
           {/* Results view */}
-          <Label htmlFor="resultsview" className="flex items-center font-thin">
+          {/* <Label htmlFor="resultsview" className="flex items-center font-thin">
             {resultsViewText}
           </Label>
           <div className="flex h-10 items-end justify-center">
@@ -162,7 +189,7 @@ const SearchSettings: FC<IProps> = ({}) => {
                 </Label>
               </div>
             </RadioGroup>
-          </div>
+          </div> */}
         </div>
       </PopoverContent>
     </Popover>
