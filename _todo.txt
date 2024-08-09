@@ -1,4 +1,3 @@
-Delete account 
 Spotify Account link mismatch
 - The Spotify Account you're currently loggin in on Spotify's Web Platform is already linked to another account on our platform. Do you want to link it to yours instead?
 

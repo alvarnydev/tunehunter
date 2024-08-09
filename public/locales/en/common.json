@@ -1,6 +1,7 @@
 {
   "general": {
     "or": "or",
+    "cancel": "Cancel",
     "userName": "User name",
     "mail": "Mail",
     "continue": "Continue",
@@ -18,7 +19,11 @@
     "writeUs": "Write us",
     "logout": "Log out",
     "wantToGo": "Want to go?",
-    "deleteAccount": "Delete account"
+    "deleteAccount": {
+      "button": "Delete account",
+      "promptTitle": "Are you absolutely sure?",
+      "promptText": "This action cannot be undone. This will permanently delete your account and all related data."
+    }
   },
   "search": {
     "settings": {
@@ -115,6 +120,11 @@
       "loading": "Logging you out...",
       "success": "Successfully logged out",
       "error": "Error when trying to log you out"
+    },
+    "deleteAccount": {
+      "loading": "Deleting account...",
+      "error": "Could not delete your account",
+      "success": "Account successfully deleted! All the best 👋"
     }
   },
   "lang": {

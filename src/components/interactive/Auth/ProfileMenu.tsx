@@ -45,6 +45,26 @@ const ProfileMenu: FC<IProps> = () => {
   const logoutSuccessText = t("toast.logout.success");
   const logoutErrorText = t("toast.logout.error");
 
+  const continueText = t("general.continue");
+  const cancelText = t("general.cancel");
+
+  const userMailText = t("general.mail");
+  const spotifyText = "Spotify";
+  const spotifyConnectedText = t("search.settings.spotifyConnected");
+  const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
+
+  const haveFeedbackText = t("profile.haveFeedback");
+  const writeUsPrompt = t("profile.writeUs");
+  const wantToGoText = t("profile.wantToGo");
+  const logOutText = t("profile.logout");
+
+  const deleteAccountText = t("profile.deleteAccount.button");
+  const promptTitle = t("profile.deleteAccount.promptTitle");
+  const promptText = t("profile.deleteAccount.promptText");
+  const deleteLoadingText = t("toast.deleteAccount.loading");
+  const deleteSuccessText = t("toast.deleteAccount.success");
+  const deleteErrorText = t("toast.deleteAccount.error");
+
   const handleSignOut = async () => {
     router.push("/");
     playJingle("reverse");
@@ -66,15 +86,22 @@ const ProfileMenu: FC<IProps> = () => {
       throw new Error("User must be logged in to request account deletion.");
     }
 
-    deleteAccount.mutate(
-      { id: userData.user.id },
-      {
-        onSettled: () => {
-          signOut({ redirect: false });
-          router.push("/");
-        },
-      },
-    );
+    toast.success(deleteSuccessText);
+
+    // const loadingToast = toast.loading(deleteLoadingText);
+    // deleteAccount.mutate(
+    //   { id: userData.user.id },
+    //   {
+    //     onSuccess: () => {
+    //       signOut({ redirect: false });
+    //       router.push("/");
+    //       toast.success(deleteSuccessText, { id: loadingToast });
+    //     },
+    //     onError: () => {
+    //       toast.error(deleteErrorText, { id: loadingToast });
+    //     },
+    //   },
+    // );
   };
 
   if (!sessionData)
@@ -88,17 +115,6 @@ const ProfileMenu: FC<IProps> = () => {
   const userMail = sessionData.user.email;
   const userImg = sessionData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
-
-  const userMailText = t("general.mail");
-  const spotifyText = "Spotify";
-  const spotifyConnectedText = t("search.settings.spotifyConnected");
-  const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
-
-  const haveFeedbackText = t("profile.haveFeedback");
-  const writeUsPrompt = t("profile.writeUs");
-  const wantToGoText = t("profile.wantToGo");
-  const deleteAccountText = t("profile.deleteAccount");
-  const logOutText = t("profile.logout");
 
   return (
     <AuthCard size="big">
@@ -151,25 +167,16 @@ const ProfileMenu: FC<IProps> = () => {
         <p className="flex items-center font-thin">{wantToGoText}</p>
         <AlertDialog>
           <AlertDialogTrigger>
-            <IconButton
-              // onClick={handleDeleteAccount}
-              text={deleteAccountText}
-              variant="ghostDestructive"
-              size="sm"
-              icon="x"
-            />
+            <IconButton text={deleteAccountText} variant="ghostDestructive" size="sm" icon="x" />
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your account and remove
-                your data from our servers.
-              </AlertDialogDescription>
+              <AlertDialogTitle>{promptTitle}</AlertDialogTitle>
+              <AlertDialogDescription>{promptText}</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
+              <AlertDialogCancel>{cancelText}</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDeleteAccount}>{continueText}</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

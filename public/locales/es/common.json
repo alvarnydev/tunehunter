@@ -1,6 +1,7 @@
 {
   "general": {
     "or": "o",
+    "cancel": "Cancelar",
     "userName": "Nombre de usuario",
     "mail": "Correo",
     "continue": "Continuar",
@@ -18,7 +19,11 @@
     "writeUs": "Escríbenos",
     "logout": "Cerrar sesión",
     "wantToGo": "¿Quieres salir?",
-    "deleteAccount": "Eliminar cuenta"
+    "deleteAccount": {
+      "button": "Eliminar cuenta",
+      "promptTitle": "¿Estás seguro/a?",
+      "promptText": "Esta acción no se puede deshacer. Esto eliminará permanentemente tu cuenta y todos los datos relacionados."
+    }
   },
   "search": {
     "settings": {
@@ -107,6 +112,11 @@
       "loading": "Cerrando sesión...",
       "success": "Sesión cerrada correctamente",
       "error": "Error al intentar cerrar sesión"
+    },
+    "deleteAccount": {
+      "loading": "Eliminando cuenta...",
+      "error": "No pudimos eliminar tu cuenta",
+      "success": "Cuenta eliminada correctamente! Cuidate 👋"
     }
   },
   "lang": {

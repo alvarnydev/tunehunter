@@ -1,6 +1,7 @@
 {
   "general": {
     "or": "oder",
+    "cancel": "Abbrechen",
     "mail": "E-Mail",
     "userName": "Nutzername",
     "continue": "Weiter",
@@ -18,7 +19,11 @@
     "writeUs": "Schreib' uns",
     "logout": "Ausloggen",
     "wantToGo": "Willst du gehen?",
-    "deleteAccount": "Account löschen"
+    "deleteAccount": {
+      "button": "Account löschen",
+      "promptTitle": "Bist du dir sicher?",
+      "promptText": "Diese Aktion kann nicht rückgängig gemacht werden. Dies löscht deinen Account sowie alle dazugehörigen Daten endgültig."
+    }
   },
   "search": {
     "settings": {
@@ -115,6 +120,11 @@
       "loading": "Ausloggen...",
       "success": "Erfolgreich ausgeloggt",
       "error": "Fehler beim Ausloggen"
+    },
+    "deleteAccount": {
+      "loading": "Account löschen...",
+      "error": "Account konnte nicht gelöscht werden",
+      "success": "Account erfolgreich gelöscht! Mach's gut 👋"
     }
   },
   "lang": {
