@@ -1,4 +1,5 @@
 import { type CustomIconType, type CustomIconVariant } from "@/helpers/custom-icons";
+import { cn } from "@/lib/utils";
 import { type ButtonHTMLAttributes, type FC } from "react";
 import CustomIcon from "./CustomIcon";
 import {
@@ -9,6 +10,7 @@ import {
 } from "./ui/button";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
   bordered?: CustomButtonBorderedVariant;
   icon?: CustomIconType;
   iconPosition?: "left" | "right";
@@ -36,6 +38,7 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
 };
 
 const IconButton: FC<IProps> = ({
+  className,
   text,
   icon,
   iconPosition = "left",
@@ -49,7 +52,10 @@ const IconButton: FC<IProps> = ({
 
   return (
     <Button
-      className="group flex w-full gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50"
+      className={cn(
+        "group flex w-full gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50",
+        className,
+      )}
       variant={variant ?? "default"}
       size={size ?? "default"}
       bordered={bordered}

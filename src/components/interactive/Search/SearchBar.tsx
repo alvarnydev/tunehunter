@@ -34,6 +34,7 @@ const SearchBar: FC<IProps> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation("");
 
+  console.log("isloading", isLoading);
   const settingsTooltip = t("tooltip.settings");
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const SearchBar: FC<IProps> = ({}) => {
   // On enter
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    displaySongMatches();
+    // displaySongMatches();
   };
 
   // On debounce

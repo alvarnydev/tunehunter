@@ -28,7 +28,7 @@ const buttonVariants = cva(
         ghostPrimary: "text-primary hover:bg-primary hover:text-primary-foreground",
 
         outline:
-          "border border-background bg-transparent hover:bg-accent hover:text-accent-foreground",
+          "border border-background bg-transparent hover:bg-background/80 hover:text-accent-foreground",
         outlinePrimary:
           "border-[1.5px] border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground",
         outlineSuccess:
@@ -36,7 +36,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-4 py-2",
-        xs: "h-8 rounded-md px-2",
+        xs: "h-8 rounded-md px-3",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8 py-6",
         icon: "h-10 w-10",

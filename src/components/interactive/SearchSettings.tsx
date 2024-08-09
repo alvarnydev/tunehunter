@@ -55,7 +55,7 @@ const SearchSettings: FC<IProps> = ({}) => {
     .toString()
     .padStart(2, "0");
   const minimumLengthDisplaySeconds = (minimumLengthSeconds % 60).toString().padStart(2, "0");
-  const locateMeText = t("search.settings.locateMe");
+  const findMeText = t("search.settings.locateMe");
   const locationRetrievalErrorText = t("toast.retrieveLocation.error");
   const locationRetrievalSuccessText = t("toast.retrieveLocation.success");
 
@@ -74,7 +74,7 @@ const SearchSettings: FC<IProps> = ({}) => {
     setRegion(newRegion);
   };
 
-  const locateUser = () => {
+  const findUser = () => {
     const userLocation = {
       longitude: 0,
       latitude: 0,
@@ -116,12 +116,13 @@ const SearchSettings: FC<IProps> = ({}) => {
 
             <div className="w-auto">
               <IconButton
-                variant="ghostReduced"
+                variant="outline"
+                className="gap-1 text-xs"
                 size="xs"
                 icon="pin"
                 bordered="noBorder"
-                text={locateMeText}
-                onClick={locateUser}
+                text={findMeText}
+                onClick={findUser}
               />
             </div>
           </div>
