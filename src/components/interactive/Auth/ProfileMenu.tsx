@@ -86,22 +86,20 @@ const ProfileMenu: FC<IProps> = () => {
       throw new Error("User must be logged in to request account deletion.");
     }
 
-    toast.success(deleteSuccessText);
-
-    // const loadingToast = toast.loading(deleteLoadingText);
-    // deleteAccount.mutate(
-    //   { id: userData.user.id },
-    //   {
-    //     onSuccess: () => {
-    //       signOut({ redirect: false });
-    //       router.push("/");
-    //       toast.success(deleteSuccessText, { id: loadingToast });
-    //     },
-    //     onError: () => {
-    //       toast.error(deleteErrorText, { id: loadingToast });
-    //     },
-    //   },
-    // );
+    const loadingToast = toast.loading(deleteLoadingText);
+    deleteAccount.mutate(
+      { id: userData.user.id },
+      {
+        onSuccess: () => {
+          signOut({ redirect: false });
+          router.push("/");
+          toast.success(deleteSuccessText, { id: loadingToast });
+        },
+        onError: () => {
+          toast.error(deleteErrorText, { id: loadingToast });
+        },
+      },
+    );
   };
 
   if (!sessionData)

@@ -83,22 +83,22 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
   return (
     <AuthCard label={registerPrompt} size="small">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-6">
-          <div className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-11">
+          <div className="flex flex-col space-y-6">
             {/* TODO: Add avatar */}
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{mailText}</FormLabel>
+                  <FormLabel className="text-base font-normal">{mailText}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       placeholder="john.doe@example.com"
                       type="email"
                       disabled
-                      className="border-2 border-primary placeholder:text-muted-foreground focus-visible:ring-primary"
+                      className="border-2 border-primary text-base placeholder:text-muted-foreground focus-visible:ring-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -110,14 +110,14 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{usernameText}</FormLabel>
+                  <FormLabel className="text-base font-normal">{usernameText}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       placeholder="TrebleMaker"
                       type="text"
                       disabled={isPending}
-                      className="border-2 border-primary placeholder:text-muted-foreground focus-visible:ring-primary"
+                      className="border-2 border-primary text-base placeholder:text-muted-foreground focus-visible:ring-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -127,20 +127,26 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
+
           {!accountCreated && (
-            <div className="flex flex-col items-center gap-2">
-              <IconButton
-                type="submit"
-                text={registerText}
-                disabled={isPending}
-                icon="signUp"
-                size="lg"
-                variant="primary"
-              />
-              <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
-                {returnText}
-              </Button>
-            </div>
+            <>
+              {/* <div className="pt-4">
+                <Separator borderColor="border-foreground" />
+              </div> */}
+              <div className="flex flex-col items-center gap-2">
+                <IconButton
+                  type="submit"
+                  text={registerText}
+                  disabled={isPending}
+                  icon="signUp"
+                  size="lg"
+                  variant="primary"
+                />
+                <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
+                  {returnText}
+                </Button>
+              </div>
+            </>
           )}
         </form>
       </Form>
