@@ -69,6 +69,18 @@
     "backtostart": "Zurück zum Start"
   },
   "auth": {
+    "errors": {
+      "OAuthSignin": "",
+      "OAuthCallback": "",
+      "OAuthCreateAccount": "",
+      "EmailCreateAccount": "",
+      "Callback": "",
+      "OAuthAccountNotLinked": "Der Spotify Account, mit dem du aktuell auf Spotify's Webplattform eingeloggt bist, ist bereits mit einem anderen Account auf unserer Plattform verknüpft. Bitte trenne ihn zuerst oder versuche es mit einem anderen Account!",
+      "EmailSignin": "",
+      "CredentialsSignin": "",
+      "SessionRequired": "",
+      "Default": ""
+    },
     "prompts": {
       "wishlist": "Logge dich ein für deine Wunschliste",
       "history": "Logge dich ein für deinen Verlauf"

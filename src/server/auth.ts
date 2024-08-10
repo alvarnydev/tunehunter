@@ -43,7 +43,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/?profile=login",
     signOut: "/?profile",
-    error: "/?profile=login",
+    error: "/?profile=login", // &error=errorCode is added by Next Auth
   },
   callbacks: {
     // We're using an adapter, so we're using the 'database' strategy and there is no JWT; instead there is a sessionToken cookie which is used to look up the session in the DB

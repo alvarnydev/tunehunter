@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { isNextAuthError, NextAuthError } from "@/helpers/nextauth-errors";
 import { playJingle } from "@/helpers/play-jingle";
 import { signInWithProvider } from "@/helpers/sign-in";
 import { wait } from "@/helpers/wait";
@@ -16,7 +17,7 @@ import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { api } from "@/utils/api";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
 import { Separator } from "../../my-ui/separator";
@@ -28,6 +29,7 @@ interface IProps {}
 
 const ProfileMenu: FC<IProps> = () => {
   const { data: sessionData } = useSession();
+  const [error, setError] = useState<NextAuthError | null>(null);
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
   const { data: userData } = useSession();
@@ -39,6 +41,15 @@ const ProfileMenu: FC<IProps> = () => {
       enabled: !!userData,
     },
   );
+
+  console.log(error);
+  // Check for errors in URL
+  useEffect(() => {
+    const errorParams = router.getParams("error");
+    if (!errorParams) return;
+
+    if (isNextAuthError(errorParams)) setError(errorParams);
+  }, [router.isReady]);
 
   const signOutText = t("auth.signOut");
   const logoutLoadingText = t("toast.logout.loading");
@@ -52,6 +63,7 @@ const ProfileMenu: FC<IProps> = () => {
   const spotifyText = "Spotify";
   const spotifyConnectedText = t("search.settings.spotifyConnected");
   const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
+  const getNextAuthErrorText = (errorString: string) => t(`auth.errors.${errorString}`);
 
   const haveFeedbackText = t("profile.haveFeedback");
   const writeUsPrompt = t("profile.writeUs");
@@ -126,6 +138,7 @@ const ProfileMenu: FC<IProps> = () => {
         {userName && <p>{userName}</p>}
       </div>
 
+      {/* User data */}
       <div className="grid w-full grid-cols-2 gap-4">
         <p className="flex items-center font-thin">{userMailText}</p>
         <p className="overflow-x-clip text-ellipsis font-thin">{userMail}</p>
@@ -152,6 +165,13 @@ const ProfileMenu: FC<IProps> = () => {
             size="sm"
             onClick={() => signInWithProvider("spotify", router.locale ?? "")}
           />
+        )}
+        {error === "OAuthAccountNotLinked" && (
+          <div className="col-span-2 px-4 pt-2">
+            <div className="col-span-2 rounded-lg border border-info px-6 py-4 text-info">
+              {getNextAuthErrorText(error)}
+            </div>
+          </div>
         )}
       </div>
 
@@ -181,6 +201,7 @@ const ProfileMenu: FC<IProps> = () => {
         </AlertDialog>
       </div>
 
+      {/* Log out */}
       <Separator borderColor="border-foreground" />
       <div className="w-fit">
         <IconButton

@@ -34,7 +34,6 @@ const SearchBar: FC<IProps> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation("");
 
-  console.log("isloading", isLoading);
   const settingsTooltip = t("tooltip.settings");
 
   useEffect(() => {

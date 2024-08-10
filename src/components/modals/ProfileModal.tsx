@@ -16,12 +16,12 @@ const ProfileModal: FC<IProps> = ({ open, enableAnimation }) => {
   return (
     <div
       className={cn(
-        "page-container absolute left-1/2 top-1/2 z-50 flex max-h-[70vh] -translate-x-1/2 -translate-y-1/2 transform justify-center",
+        "page-container absolute left-1/2 top-1/2 z-50 flex max-h-[70vh] -translate-x-1/2 -translate-y-1/2 transform cursor-default justify-center",
         enableAnimation && "menu-transition",
         open ? "opacity-100 delay-100" : "pointer-events-none opacity-0 delay-0",
       )}
     >
-      {isLoggedIn ? <ProfileMenu /> : <AuthMenu />}
+      <div className="max-w-xl">{isLoggedIn ? <ProfileMenu /> : <AuthMenu />}</div>
     </div>
   );
 };
