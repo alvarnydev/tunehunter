@@ -40,6 +40,11 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: "/?profile=login",
+    signOut: "/?profile",
+    error: "/?profile=login",
+  },
   callbacks: {
     // We're using an adapter, so we're using the 'database' strategy and there is no JWT; instead there is a sessionToken cookie which is used to look up the session in the DB
     // If we had been using JWT, we could access the DB here, add stuff to the token and then retrieve that in the 'session' callback to propagate fields to the client

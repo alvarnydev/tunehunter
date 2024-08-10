@@ -9,15 +9,18 @@ import ProfileBackground from "../Auth/ProfileBackground";
 
 const ProfileButton = () => {
   const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [enableModalAnimation, setEnableModalAnimation] = useState(false);
   const router = useRouterWithHelpers();
   const { status } = useSession();
 
   const openProfileModal = () => {
+    setEnableModalAnimation(true);
     setProfileModalOpen(true);
     router.setParams({ profile: status === "authenticated" ? "settings" : "login" });
   };
 
   const closeProfileModal = () => {
+    setEnableModalAnimation(true);
     setProfileModalOpen(false);
     router.setParams({ profile: "" });
   };
@@ -27,7 +30,9 @@ const ProfileButton = () => {
     else openProfileModal();
   };
 
+  // Restore user profile if "profile" param is present
   useEffect(() => {
+    setEnableModalAnimation(false);
     if (router.isReady && router.getParams("profile")) {
       setProfileModalOpen(true);
     } else {
@@ -37,8 +42,8 @@ const ProfileButton = () => {
 
   return (
     <>
-      <ProfileModal open={profileModalOpen} closeModal={closeProfileModal} />
-      <ProfileBackground open={profileModalOpen} />
+      <ProfileModal open={profileModalOpen} enableAnimation={enableModalAnimation} />
+      <ProfileBackground open={profileModalOpen} enableAnimation={enableModalAnimation} />
       <Button
         variant="primary"
         size="lg"
