@@ -82,7 +82,8 @@
         "accountCreated": "Account successfully created",
         "generalError": "Could not create account",
         "invalidFields": "Please check your input",
-        "accountAlreadyExists": "Account already exists"
+        "accountAlreadyExists": "An account with this mail already exists",
+        "usernameAlreadyExists": "This username is already in use"
       }
     },
     "signIn": {

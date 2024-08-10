@@ -11,10 +11,14 @@ export const userRouter = createTRPCRouter({
     if (!validatedFields.success) return { error: "invalidFields" };
 
     // Check existing user
-    const existingUser = await ctx.db.query.users.findFirst({
+    const mailInUse = await ctx.db.query.users.findFirst({
       where: (users, { eq }) => eq(users.email, input.email),
     });
-    if (existingUser) return { error: "accountAlreadyExists" };
+    if (mailInUse) return { error: "accountAlreadyExists" };
+    const usernameInUse = await ctx.db.query.users.findFirst({
+      where: (users, { eq }) => eq(users.name, input.name),
+    });
+    if (usernameInUse) return { error: "usernameAlreadyExists" };
 
     // Create user
     await ctx.db.insert(users).values({ name: input.name, email: input.email });

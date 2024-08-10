@@ -75,8 +75,17 @@
     },
     "redirecting": "Restableciendo configuración y redirigiendo",
     "returnToSignIn": "Volver a iniciar sesión",
-    "register": "Registrarse",
-    "registerPrompt": "Todavía no tienes cuenta?",
+    "registration": {
+      "register": "Registrarse",
+      "registerPrompt": "Todavía no tienes cuenta?",
+      "process": {
+        "accountCreated": "Cuenta creada correctamente",
+        "generalError": "No se pudo crear la cuenta",
+        "invalidFields": "Por favor revisa tu entrada",
+        "accountAlreadyExists": "Ya existe una cuenta con este correo",
+        "usernameAlreadyExists": "Este nombre de usuario ya está en uso"
+      }
+    },
     "signIn": {
       "signIn": "Iniciar sesión",
       "withEmail": "Iniciar sesión con correo",

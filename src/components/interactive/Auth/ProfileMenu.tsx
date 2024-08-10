@@ -93,6 +93,7 @@ const ProfileMenu: FC<IProps> = () => {
         onSuccess: () => {
           signOut({ redirect: false });
           router.push("/");
+          playJingle("reverse");
           toast.success(deleteSuccessText, { id: loadingToast });
         },
         onError: () => {

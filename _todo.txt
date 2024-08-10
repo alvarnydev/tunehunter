@@ -1,24 +1,17 @@
 Spotify Account link mismatch
 - The Spotify Account you're currently loggin in on Spotify's Web Platform is already linked to another account on our platform. Do you want to link it to yours instead?
+Settings edit functionality: username, picture
 
 iTunes api search debounce
+
+Results styles & functionality
+
+
+
 
 SENTRY & Upstash
 Add rate limiting to search with: 
 - const { success } = ratelimit.limit(user.id);
-
-Copy styles and functionality from tunehunter repo
-
-Auth flow:
-- TRPC & DB
-  - Check user existence: 
-  - if user doesn't exist -> woosh, register (image, user name)
-  - if user does exist -> woosh, mail
-- Settings functionality
-  - user functionality: edit username, picture
-  - settings functionality: spotify, audio
-  - actions functionality: delete account
-
 
 
 
