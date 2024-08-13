@@ -1,5 +1,6 @@
 import { signIn } from "next-auth/react";
 
+// Takes the URL and removes the locale (/de) and profile parameter (?profile) from it
 export const buildRedirectPath = () => {
   const url = new URL(window.location.href);
 
@@ -9,9 +10,18 @@ export const buildRedirectPath = () => {
     url.pathname = url.pathname.slice(3);
   }
 
-  // Remove profile parameter (-> close profile menu after redirect)
+  /**
+   * Remove the following parameters
+   * - profile: close profile menu after redirect
+   * - callbackUrl: only present if the prior callback hasn't worked -> no need to double in the next one
+   * - error: only present if something went wrong -> no need to double in the next one
+   * - disableAnimation: only present if something went wrong -> no need to double in the next one
+   */
   const params = new URLSearchParams(url.search);
   params.delete("profile");
+  params.delete("callbackUrl");
+  params.delete("error");
+  params.delete("disableAnimation");
   url.search = params.toString();
 
   // Put back together
@@ -21,6 +31,6 @@ export const buildRedirectPath = () => {
 
 export const signInWithProvider = async (providerId: string, locale: string) => {
   const redirectPath = buildRedirectPath();
-  const callbackUrl = `/${locale}/auth_callback/?redirectPath=${redirectPath}`;
-  await signIn(providerId, { callbackUrl });
+  const callbackUrl = `/${locale}/auth_callback/?redirectPath=${redirectPath}`; // Normally go to
+  await signIn(providerId, { callbackUrl: callbackUrl });
 };

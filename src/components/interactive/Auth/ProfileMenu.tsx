@@ -47,7 +47,10 @@ const ProfileMenu: FC<IProps> = () => {
     const errorParams = router.getParams("error");
     if (!errorParams) return;
 
-    if (isNextAuthError(errorParams)) setError(errorParams);
+    if (isNextAuthError(errorParams)) {
+      setError(errorParams);
+      router.setParams({ disableAnimation: "true" });
+    }
   }, [router.isReady]);
 
   const signOutText = t("auth.signOut");
@@ -127,7 +130,7 @@ const ProfileMenu: FC<IProps> = () => {
   const userImgAlt = `Avatar image of ${userName}`;
 
   return (
-    <AuthCard size="big">
+    <AuthCard size="default">
       {/* User */}
       <div className="flex flex-row items-center gap-4 pt-2">
         <Avatar>

@@ -1,7 +1,4 @@
 Unlink spotify account
-Doubly callbackUrl
-
-Spotify Designs
 
 Settings edit functionality: username, picture
 most listened: weekly, monthly, yearly, all time

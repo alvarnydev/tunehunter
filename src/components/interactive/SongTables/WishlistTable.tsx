@@ -17,7 +17,7 @@ const WishlistTable = ({}) => {
   const noWishlistYet = t("search.tabs.wishlist.empty");
 
   if (!loggedIn) {
-    return <LoginPromptMockTable promptText={promptText} icon="signIn" />;
+    return <LoginPromptMockTable promptText={promptText} icon="userBold" />;
   }
   if (isLoading) {
     return (

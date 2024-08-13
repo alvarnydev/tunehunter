@@ -17,7 +17,7 @@ const HistoryTable = ({}) => {
   const noHistoryYet = t("search.tabs.history.empty");
 
   if (!loggedIn) {
-    return <LoginPromptMockTable promptText={promptText} icon="signIn" />;
+    return <LoginPromptMockTable promptText={promptText} icon="userBold" />;
   }
   if (isLoading) {
     return (

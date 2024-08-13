@@ -32,7 +32,15 @@ const ProfileButton = () => {
 
   // Restore user profile if "profile" param is present
   useEffect(() => {
-    setEnableModalAnimation(false);
+    // Check animation status
+    if (router.isReady && router.getParams("disableAnimation")) {
+      setEnableModalAnimation(false);
+      console.log("setting aniation to false");
+    } else {
+      setEnableModalAnimation(true);
+    }
+
+    // Open modal
     if (router.isReady && router.getParams("profile")) {
       setProfileModalOpen(true);
     } else {
