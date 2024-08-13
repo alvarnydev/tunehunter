@@ -50,7 +50,7 @@ const SearchBar: FC<IProps> = ({}) => {
   const displaySongMatches = async () => {
     setIsLoading(true);
     // Query itunes api
-    console.log("hiii");
+    console.log("displaying song matches");
     // Simulate 3s timeout
     setTimeout(() => {
       setIsLoading(false);

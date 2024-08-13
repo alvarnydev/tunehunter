@@ -21,7 +21,7 @@ const ProfileModal: FC<IProps> = ({ open, enableAnimation }) => {
         open ? "opacity-100 delay-100" : "pointer-events-none opacity-0 delay-0",
       )}
     >
-      <div className="max-w-xl">{isLoggedIn ? <ProfileMenu /> : <AuthMenu />}</div>
+      {isLoggedIn ? <ProfileMenu /> : <AuthMenu />}
     </div>
   );
 };

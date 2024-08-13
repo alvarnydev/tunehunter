@@ -44,7 +44,6 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
       name: "",
     },
   });
-  form.setValue("email", email);
 
   const continueText = t("general.continue");
   const registerText = t("auth.registration.register");
@@ -52,6 +51,10 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
   const registerPrompt = t("auth.registration.registerPrompt");
   const usernameText = t("general.userName");
   const mailText = t("general.mail");
+
+  useEffect(() => {
+    form.setValue("email", email);
+  }, []);
 
   useEffect(() => {
     setError("");

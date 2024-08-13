@@ -15,7 +15,7 @@ const ProfileBackground: FC<IProps> = ({ open, enableAnimation = true }) => {
         open ? "scale-[250]" : "scale-0",
       )}
     >
-      <div className="backdrop-blur-mdrounded-full absolute inset-0" />
+      <div className="absolute inset-0 rounded-full backdrop-blur-md" />
     </div>
   );
 };

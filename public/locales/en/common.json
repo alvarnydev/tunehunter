@@ -108,7 +108,7 @@
       "token": "Confirmation token",
       "tokenMissing": "Token is required",
       "tokenError": "Wrong confirmation",
-      "sent": "We sent you a mail with a login link! Click it to login. If you can't find it, please also have a look in your spam folder.",
+      "sent": "We sent you a mail with a login link! If you can't find it, please also have a look in your spam folder.",
       "confirm": "Confirm",
       "openMails": "Open mails"
     }

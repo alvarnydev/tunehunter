@@ -108,7 +108,7 @@
       "token": "Token",
       "tokenMissing": "Falta el token",
       "tokenError": "Token inválido",
-      "sent": "Te eviamos un correo con un enlace de inicio de sesión! Por favor haz clic en él para iniciar sesión. Si no lo puedes encontrar, por favor echa un ojo a tu carpeta de spam.",
+      "sent": "Te eviamos un correo con un enlace de inicio de sesión! Si no lo puedes encontrar, por favor echa un ojo a tu carpeta de spam.",
       "confirm": "Confirmar",
       "openMails": "Abrir correo"
     }

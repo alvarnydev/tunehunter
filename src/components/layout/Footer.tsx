@@ -5,7 +5,6 @@ import { Suspense } from "react";
 import LanguagePicker from "../interactive/Footer/LanguagePicker";
 import ProfileButton from "../interactive/Footer/ProfileButton";
 import { ThemeToggle } from "../interactive/Footer/ThemeToggle";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const Footer = () => {
   const { t } = useTranslation("");
@@ -24,34 +23,19 @@ const Footer = () => {
     <Suspense>
       <div className="flex h-20 w-full items-center bg-muted">
         <div className="flex flex-1 justify-center">
-          <Tooltip>
-            <TooltipTrigger>
-              <ThemeToggle
-                preferredTheme={userSettings?.theme}
-                updatePreferredTheme={updatePreferredTheme}
-              />
-            </TooltipTrigger>
-            <TooltipContent>{themeTooltip}</TooltipContent>
-          </Tooltip>
+          <ThemeToggle
+            preferredTheme={userSettings?.theme}
+            updatePreferredTheme={updatePreferredTheme}
+          />
         </div>
         <div className="flex flex-1 justify-center">
-          <Tooltip>
-            <TooltipTrigger>
-              <ProfileButton />
-            </TooltipTrigger>
-            <TooltipContent>{profileTooltip}</TooltipContent>
-          </Tooltip>
+          <ProfileButton />
         </div>
         <div className="flex flex-1 justify-center">
-          <Tooltip>
-            <TooltipTrigger>
-              <LanguagePicker
-                preferredLanguage={userSettings?.language}
-                updatePreferredLanguage={updatePreferredLanguage}
-              />
-            </TooltipTrigger>
-            <TooltipContent>{languageTooltip}</TooltipContent>
-          </Tooltip>
+          <LanguagePicker
+            preferredLanguage={userSettings?.language}
+            updatePreferredLanguage={updatePreferredLanguage}
+          />
         </div>
       </div>
     </Suspense>

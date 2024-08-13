@@ -108,7 +108,7 @@
       "token": "Bestätigungscode",
       "tokenMissing": "Bestätigungscode erforderlich",
       "tokenError": "Falscher Bestätigungscode",
-      "sent": "Wir haben dir eine Mail mit einem Login-Link gesendet! Klick' ihn an, um dich einzuloggen. Falls du sie nicht findest, wirf bitte auch einen Blick in deinen Spam-Ordner.",
+      "sent": "Wir haben dir eine Mail mit einem Login-Link gesendet! Falls du sie nicht findest, wirf bitte auch einen Blick in deinen Spam-Ordner.",
       "confirm": "Bestätigen",
       "openMails": "Mails öffnen"
     }

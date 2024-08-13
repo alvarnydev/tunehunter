@@ -1,12 +1,15 @@
 Unlink spotify account
+Doubly callbackUrl
+
+Spotify Designs
+
 Settings edit functionality: username, picture
+most listened: weekly, monthly, yearly, all time
 
 iTunes api search debounce
-
 Results styles & functionality
 
 Supporter & Stripe
-
 SENTRY & Upstash
 Add rate limiting to search with: 
 - const { success } = ratelimit.limit(user.id);

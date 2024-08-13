@@ -133,7 +133,7 @@ const SearchSettings: FC<IProps> = ({}) => {
               </SelectTrigger>
               <SelectContent invert>
                 {Regions.map((region) => (
-                  <SelectItem invert value={region.toLowerCase()}>
+                  <SelectItem key={region} invert value={region.toLowerCase()}>
                     {region}
                   </SelectItem>
                 ))}

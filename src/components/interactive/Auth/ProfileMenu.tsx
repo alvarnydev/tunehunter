@@ -42,7 +42,6 @@ const ProfileMenu: FC<IProps> = () => {
     },
   );
 
-  console.log(error);
   // Check for errors in URL
   useEffect(() => {
     const errorParams = router.getParams("error");
