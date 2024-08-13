@@ -52,23 +52,8 @@ export const userRouter = createTRPCRouter({
     if (usernameInUse) return { error: "usernameAlreadyExists" };
 
     // Create user
-    await ctx.db.insert(users).values({ name: input.name, email: input.email }).returning();
-
-    // // Get user id
-    // const user = await ctx.db.query.users.findFirst({
-    //   where: (users, { eq }) => eq(users.email, input.email),
-    // });
-    // if (!user) return { error: "generalError" };
-
-    // // Create account
-    // await ctx.db.insert(accounts).values({
-    //   userId: user.id,
-    //   type: "email",
-    //   provider: "email",
-    //   providerAccountId: `email-${user.id}`,
-    // });
-
-    // return { success: "accountCreated" };
+    await ctx.db.insert(users).values({ name: input.name, email: input.email });
+    return { success: "accountCreated" };
   }),
 
   deleteUserAndAccountsByUserId: protectedProcedure
