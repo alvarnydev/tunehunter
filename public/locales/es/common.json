@@ -28,6 +28,10 @@
   "search": {
     "settings": {
       "spotifyConnected": "Conectado",
+      "unlink": {
+        "title": "¿Desvincular cuenta de Spotify?",
+        "text": "Por favor confirma que deseas desvincular tu cuenta de Spotify."
+      },
       "region": "Región",
       "locateMe": "Búscame",
       "searchForClubMixesOnly": "Solo club / extended mixes",
@@ -138,6 +142,11 @@
       "loading": "Eliminando cuenta...",
       "error": "No pudimos eliminar tu cuenta",
       "success": "Cuenta eliminada correctamente! Cuidate 👋"
+    },
+    "unlinkSpotify": {
+      "loading": "Desvinculando Spotify...",
+      "error": "No pudimos desvincular tu cuenta de Spotify",
+      "success": "Cuenta de Spotify desvinculada correctamente"
     }
   },
   "lang": {

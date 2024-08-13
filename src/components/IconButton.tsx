@@ -14,6 +14,7 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   bordered?: CustomButtonBorderedVariant;
   icon?: CustomIconType;
   iconPosition?: "left" | "right";
+  iconSize?: string;
   text?: string;
   variant?: CustomButtonVariant;
   size?: CustomButtonSizeVariant;
@@ -32,9 +33,13 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
   ghostReduced: "ghost-foreground",
   ghostDestructive: "ghost-destructive-foreground",
   ghostPrimary: "ghost-primary-foreground",
+  ghostAccent: "accent-foreground",
+  ghostSuccess: "success-foreground",
   outline: "outline-foreground",
   outlinePrimary: "primary",
   outlineSuccess: "success-foreground",
+  outlineDestructive: "ghost-destructive-foreground",
+  outlineAccent: "accent-foreground",
 };
 
 const IconButton: FC<IProps> = ({
@@ -42,6 +47,7 @@ const IconButton: FC<IProps> = ({
   text,
   icon,
   iconPosition = "left",
+  iconSize,
   variant = "default",
   bordered,
   size,
@@ -55,6 +61,7 @@ const IconButton: FC<IProps> = ({
       className={cn(
         "group flex w-full gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50",
         className,
+        size === "icon" && `h-8 w-8`,
       )}
       variant={variant ?? "default"}
       size={size ?? "default"}
@@ -62,12 +69,22 @@ const IconButton: FC<IProps> = ({
       {...extraProps}
     >
       {icon && iconPosition == "left" && (
-        <CustomIcon icon={icon} variant={iconVariant ?? "foreground"} />
+        <CustomIcon
+          icon={icon}
+          variant={iconVariant ?? "foreground"}
+          width={iconSize}
+          height={iconSize}
+        />
       )}
       {text && <p>{text}</p>}
       {children}
       {icon && iconPosition == "right" && (
-        <CustomIcon icon={icon} variant={iconVariant ?? "foreground"} />
+        <CustomIcon
+          icon={icon}
+          variant={iconVariant ?? "foreground"}
+          width={iconSize}
+          height={iconSize}
+        />
       )}
     </Button>
   );

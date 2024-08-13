@@ -24,6 +24,8 @@ const buttonVariants = cva(
 
         ghost: "hover:bg-background hover:text-foreground",
         ghostReduced: "hover:bg-background/60 hover:text-foreground",
+        ghostAccent: "text-accent hover:bg-accent hover:text-accent-foreground",
+        ghostSuccess: "text-success hover:bg-success hover:text-success-foreground",
         ghostDestructive: "text-destructive hover:bg-destructive hover:text-destructive-foreground",
         ghostPrimary: "text-primary hover:bg-primary hover:text-primary-foreground",
 
@@ -33,6 +35,10 @@ const buttonVariants = cva(
           "border-[1.5px] border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground",
         outlineSuccess:
           "border-[1.5px] border-success text-success bg-transparent hover:bg-success hover:text-success-foreground",
+        outlineDestructive:
+          "border-[1.5px] border-destructive text-destructive bg-transparent hover:bg-destructive hover:text-destructive-foreground",
+        outlineAccent:
+          "border-[1.5px] border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground",
       },
       size: {
         default: "h-10 px-4 py-2",

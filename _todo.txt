@@ -1,4 +1,4 @@
-Unlink spotify account
+Unlink
 
 Settings edit functionality: username, picture
 most listened: weekly, monthly, yearly, all time

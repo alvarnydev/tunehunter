@@ -28,6 +28,10 @@
   "search": {
     "settings": {
       "spotifyConnected": "Connected",
+      "unlink": {
+        "title": "Unlink Spotify account?",
+        "text": "Please confirm that you want to unlink your Spotify account."
+      },
       "region": "Region",
       "locateMe": "Find me",
       "searchForClubMixesOnly": "Club / extended mixes only",
@@ -138,6 +142,11 @@
       "loading": "Deleting account...",
       "error": "Could not delete your account",
       "success": "Account successfully deleted! All the best 👋"
+    },
+    "unlinkSpotify": {
+      "loading": "Unlinking Spotify account...",
+      "error": "Could not unlink your Spotify account",
+      "success": "Spotify account successfully unlinked"
     }
   },
   "lang": {

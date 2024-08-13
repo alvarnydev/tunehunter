@@ -22,7 +22,7 @@ const ProfileButton = () => {
   const closeProfileModal = () => {
     setEnableModalAnimation(true);
     setProfileModalOpen(false);
-    router.setParams({ profile: "" });
+    router.setParams({ profile: "", callbackUrl: "", error: "", disableAnimation: "" });
   };
 
   const toggleProfileModal = () => {
@@ -32,16 +32,17 @@ const ProfileButton = () => {
 
   // Restore user profile if "profile" param is present
   useEffect(() => {
+    if (!router.isReady) return;
+
     // Check animation status
-    if (router.isReady && router.getParams("disableAnimation")) {
+    if (router.getParams("disableAnimation")) {
       setEnableModalAnimation(false);
-      console.log("setting aniation to false");
     } else {
       setEnableModalAnimation(true);
     }
 
     // Open modal
-    if (router.isReady && router.getParams("profile")) {
+    if (router.getParams("profile")) {
       setProfileModalOpen(true);
     } else {
       setProfileModalOpen(false);

@@ -54,9 +54,6 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
 
   useEffect(() => {
     form.setValue("email", email);
-  }, []);
-
-  useEffect(() => {
     setError("");
     setSuccess("");
     setAccountCreated(false);

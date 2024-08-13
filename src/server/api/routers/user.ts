@@ -6,51 +6,12 @@ import { accounts, users } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 
 export const userRouter = createTRPCRouter({
-  createAccount: publicProcedure.input(RegisterSchema).mutation(async ({ ctx, input }) => {
-    const validatedFields = RegisterSchema.safeParse(input);
-    if (!validatedFields.success) return { error: "invalidFields" };
-
-    // Check existing user
-    const mailInUse = await ctx.db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.email, input.email),
-    });
-    if (mailInUse) return { error: "accountAlreadyExists" };
-    const usernameInUse = await ctx.db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.name, input.name),
-    });
-    if (usernameInUse) return { error: "usernameAlreadyExists" };
-
-    // Create user
-    await ctx.db.insert(users).values({ name: input.name, email: input.email });
-
-    // Get user id
-    const user = await ctx.db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.email, input.email),
-    });
-    if (!user) return { error: "generalError" };
-
-    // Create account
-    await ctx.db.insert(accounts).values({
-      userId: user.id,
-      type: "email",
-      provider: "email",
-      providerAccountId: `email-${user.id}`,
-    });
-
-    return { success: "accountCreated" };
-  }),
-
+  // ********* Queries *********
   getUserById: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
     return ctx.db.query.users.findFirst({
       where: (users, { eq }) => eq(users.id, input.id),
     });
   }),
-
-  deleteUserAndAccountsById: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(async ({ ctx, input }) => {
-      await ctx.db.delete(users).where(eq(users.id, input.id)).returning();
-    }),
 
   getUserByEmail: publicProcedure
     .input(z.object({ email: z.string().email() }))
@@ -75,6 +36,47 @@ export const userRouter = createTRPCRouter({
       };
     }),
 
+  // ********* Mutations *********
+  createAccount: publicProcedure.input(RegisterSchema).mutation(async ({ ctx, input }) => {
+    const validatedFields = RegisterSchema.safeParse(input);
+    if (!validatedFields.success) return { error: "invalidFields" };
+
+    // Check existing user
+    const mailInUse = await ctx.db.query.users.findFirst({
+      where: (users, { eq }) => eq(users.email, input.email),
+    });
+    if (mailInUse) return { error: "accountAlreadyExists" };
+    const usernameInUse = await ctx.db.query.users.findFirst({
+      where: (users, { eq }) => eq(users.name, input.name),
+    });
+    if (usernameInUse) return { error: "usernameAlreadyExists" };
+
+    // Create user
+    await ctx.db.insert(users).values({ name: input.name, email: input.email }).returning();
+
+    // // Get user id
+    // const user = await ctx.db.query.users.findFirst({
+    //   where: (users, { eq }) => eq(users.email, input.email),
+    // });
+    // if (!user) return { error: "generalError" };
+
+    // // Create account
+    // await ctx.db.insert(accounts).values({
+    //   userId: user.id,
+    //   type: "email",
+    //   provider: "email",
+    //   providerAccountId: `email-${user.id}`,
+    // });
+
+    // return { success: "accountCreated" };
+  }),
+
+  deleteUserAndAccountsByUserId: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.delete(users).where(eq(users.id, input.userId)).returning();
+    }),
+
   setUserSettings: protectedProcedure
     .input(
       z.object({
@@ -93,5 +95,11 @@ export const userRouter = createTRPCRouter({
           region: input.region ?? ctx.session.user.region,
         })
         .where(eq(users.id, input.id));
+    }),
+
+  unlinkSpotifyAccount: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.delete(accounts).where(eq(accounts.userId, input.userId)).returning();
     }),
 });

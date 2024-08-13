@@ -3,6 +3,6 @@
     "**/node_modules": false
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.tsserver.log": "verbose",
+  "typescript.tsserver.log": "off",
   "typescript.disableAutomaticTypeAcquisition": false
 }

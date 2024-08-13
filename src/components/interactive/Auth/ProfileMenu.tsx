@@ -1,14 +1,4 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Separator } from "@/components/my-ui/separator";
 import { isNextAuthError, NextAuthError } from "@/helpers/nextauth-errors";
 import { playJingle } from "@/helpers/play-jingle";
 import { signInWithProvider } from "@/helpers/sign-in";
@@ -20,20 +10,21 @@ import { useTranslation } from "next-i18next";
 import { useEffect, useState, type FC } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
-import { Separator } from "../../my-ui/separator";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
+import ConfirmationPrompt from "../Prompts/ConfirmationPrompt";
 import AuthCard from "./AuthCard";
 
 interface IProps {}
 
 const ProfileMenu: FC<IProps> = () => {
-  const { data: sessionData } = useSession();
   const [error, setError] = useState<NextAuthError | null>(null);
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
   const { data: userData } = useSession();
-  const deleteAccount = api.user.deleteUserAndAccountsById.useMutation();
+  const deleteAccount = api.user.deleteUserAndAccountsByUserId.useMutation();
+  const unlinkSpotifyAccount = api.user.unlinkSpotifyAccount.useMutation();
+
   const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
     { userId: userData?.user.id! },
     {
@@ -58,13 +49,16 @@ const ProfileMenu: FC<IProps> = () => {
   const logoutSuccessText = t("toast.logout.success");
   const logoutErrorText = t("toast.logout.error");
 
-  const continueText = t("general.continue");
-  const cancelText = t("general.cancel");
-
   const userMailText = t("general.mail");
   const spotifyText = "Spotify";
   const spotifyConnectedText = t("search.settings.spotifyConnected");
   const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
+  const unlinkSpotifyPromptTitle = t("search.settings.unlink.title");
+  const unlinkSpotifyPromptText = t("search.settings.unlink.text");
+  const unlinkSpotifyLoadingText = t("toast.unlinkSpotify.loading");
+  const unlinkSpotifySuccessText = t("toast.unlinkSpotify.success");
+  const unlinkSpotifyErrorText = t("toast.unlinkSpotify.error");
+
   const getNextAuthErrorText = (errorString: string) => t(`auth.errors.${errorString}`);
 
   const haveFeedbackText = t("profile.haveFeedback");
@@ -73,8 +67,8 @@ const ProfileMenu: FC<IProps> = () => {
   const logOutText = t("profile.logout");
 
   const deleteAccountText = t("profile.deleteAccount.button");
-  const promptTitle = t("profile.deleteAccount.promptTitle");
-  const promptText = t("profile.deleteAccount.promptText");
+  const deleteAccountPromptTitle = t("profile.deleteAccount.promptTitle");
+  const deleteAccountPromptText = t("profile.deleteAccount.promptText");
   const deleteLoadingText = t("toast.deleteAccount.loading");
   const deleteSuccessText = t("toast.deleteAccount.success");
   const deleteErrorText = t("toast.deleteAccount.error");
@@ -102,7 +96,7 @@ const ProfileMenu: FC<IProps> = () => {
 
     const loadingToast = toast.loading(deleteLoadingText);
     deleteAccount.mutate(
-      { id: userData.user.id },
+      { userId: userData.user.id },
       {
         onSuccess: () => {
           signOut({ redirect: false });
@@ -117,16 +111,35 @@ const ProfileMenu: FC<IProps> = () => {
     );
   };
 
-  if (!sessionData)
+  const handleUnlinkSpotify = async () => {
+    if (!userData) {
+      throw new Error("User must be logged in to request account deletion.");
+    }
+
+    const loadingToast = toast.loading(unlinkSpotifyLoadingText);
+    unlinkSpotifyAccount.mutate(
+      { userId: userData.user.id },
+      {
+        onSuccess: () => {
+          toast.success(unlinkSpotifySuccessText, { id: loadingToast });
+        },
+        onError: () => {
+          toast.error(unlinkSpotifyErrorText, { id: loadingToast });
+        },
+      },
+    );
+  };
+
+  if (!userData)
     return (
       <Button onClick={handleSignOut} className="px-8 py-6 font-thin uppercase tracking-widest">
         <p>{signOutText}</p>
       </Button>
     );
 
-  const userName = sessionData.user.name;
-  const userMail = sessionData.user.email;
-  const userImg = sessionData.user.image;
+  const userName = userData.user.name;
+  const userMail = userData.user.email;
+  const userImg = userData.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
 
   return (
@@ -146,18 +159,24 @@ const ProfileMenu: FC<IProps> = () => {
         <p className="overflow-x-clip text-ellipsis font-thin">{userMail}</p>
         <p className="flex items-center font-thin">{spotifyText}</p>
         {spotifyAccount && (
-          <a
-            href={`https://open.spotify.com/user/${spotifyAccount.providerAccountId}`}
-            target="_blank"
-          >
-            <IconButton
-              icon="external"
-              iconPosition="right"
-              variant="outlineSuccess"
-              text={spotifyConnectedText}
-              size="sm"
-            />
-          </a>
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-success">{spotifyConnectedText}</p>
+            <div className="flex gap-2">
+              <a
+                href={`https://open.spotify.com/user/${spotifyAccount.providerAccountId}`}
+                target="_blank"
+              >
+                <IconButton icon="external" variant="ghostSuccess" size="icon" iconSize="22px" />
+              </a>
+              <ConfirmationPrompt
+                dialogAction={handleUnlinkSpotify}
+                dialogText={unlinkSpotifyPromptText}
+                dialogTitle={unlinkSpotifyPromptTitle}
+              >
+                <IconButton icon="x" variant="ghostDestructive" size="icon" iconSize="22px" />
+              </ConfirmationPrompt>
+            </div>
+          </div>
         )}
         {!spotifyAccount && (
           <IconButton
@@ -186,25 +205,17 @@ const ProfileMenu: FC<IProps> = () => {
         </a>
 
         <p className="flex items-center font-thin">{wantToGoText}</p>
-        <AlertDialog>
-          <AlertDialogTrigger>
-            <IconButton text={deleteAccountText} variant="ghostDestructive" size="sm" icon="x" />
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>{promptTitle}</AlertDialogTitle>
-              <AlertDialogDescription>{promptText}</AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDeleteAccount}>{continueText}</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <ConfirmationPrompt
+          dialogAction={handleDeleteAccount}
+          dialogText={deleteAccountPromptText}
+          dialogTitle={deleteAccountPromptTitle}
+        >
+          <IconButton text={deleteAccountText} variant="ghostDestructive" size="sm" icon="x" />
+        </ConfirmationPrompt>
       </div>
 
       {/* Log out */}
-      <Separator borderColor="border-foreground" />
+      <Separator borderColor="border-background" />
       <div className="w-fit">
         <IconButton
           onClick={handleSignOut}

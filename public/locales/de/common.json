@@ -28,6 +28,10 @@
   "search": {
     "settings": {
       "spotifyConnected": "Verbunden",
+      "unlink": {
+        "title": "Spotify-Verknüfung löschen?",
+        "text": "Bitte bestätige, dass du die Verknüpfung zu deinem Spotify-Account löschen möchtest."
+      },
       "region": "Region",
       "locateMe": "Finde mich",
       "searchForClubMixesOnly": "Nur Club / Extended Mixes",
@@ -138,6 +142,11 @@
       "loading": "Account löschen...",
       "error": "Account konnte nicht gelöscht werden",
       "success": "Account erfolgreich gelöscht! Mach's gut 👋"
+    },
+    "unlinkSpotify": {
+      "loading": "Spotify-Verknüpfung löschen...",
+      "error": "Spotify-Verknüpfung konnte nicht gelöscht werden",
+      "success": "Spotify-Verknüpfung erfolgreich gelöscht"
     }
   },
   "lang": {
