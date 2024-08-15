@@ -1,4 +1,7 @@
-Unlink
+Link spotify -> other toast + 
+Log in: 'pop' tabs
+
+errors toast -> notification channel + sentry
 
 Settings edit functionality: username, picture
 most listened: weekly, monthly, yearly, all time
@@ -16,7 +19,6 @@ Add rate limiting to search with:
 
 ----- MAYBE
 Add cypress tests
-Roll your own auth
 
 
 ----- Qs

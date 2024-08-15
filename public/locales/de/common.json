@@ -30,7 +30,7 @@
       "spotifyConnected": "Verbunden",
       "unlink": {
         "title": "Spotify-Verknüfung löschen?",
-        "text": "Bitte bestätige, dass du die Verknüpfung zu deinem Spotify-Account löschen möchtest."
+        "text": "Bitte bestätige, dass du die Verbindung zu deinem Spotify-Account löschen möchtest."
       },
       "region": "Region",
       "locateMe": "Finde mich",
@@ -79,13 +79,15 @@
       "OAuthCreateAccount": "",
       "EmailCreateAccount": "",
       "Callback": "",
-      "OAuthAccountNotLinked": "Der Spotify Account, mit dem du aktuell auf Spotify's Webplattform eingeloggt bist, ist bereits mit einem anderen Account auf unserer Plattform verknüpft. Bitte trenne ihn zuerst oder versuche es mit einem anderen Account!",
+      "OAuthAccountNotLinked": "Der Spotify Account, mit dem du aktuell auf Spotify's Webplattform eingeloggt bist, ist bereits mit einem anderen Account auf unserer Plattform verbunden. Bitte trenne ihn zuerst oder versuche es mit einem anderen Account!",
       "EmailSignin": "",
       "CredentialsSignin": "",
       "SessionRequired": "",
       "Default": ""
     },
     "prompts": {
+      "login": "Du bist nicht eingeloggt",
+      "spotify": "Kein Spotify Account verbunden",
       "wishlist": "Logge dich ein für deine Wunschliste",
       "history": "Logge dich ein für deinen Verlauf"
     },
@@ -96,7 +98,7 @@
       "registerPrompt": "Hast du noch keinen Account?",
       "process": {
         "accountCreated": "Account erfolgreich erstellt",
-        "generalError": "Account konnte nicht erstellt werden",
+        "generalError": "Etwas ist schiefgelaufen und wir konnten deinen Account nicht erstellen, sorry! Bitte versuche es später erneut.",
         "invalidFields": "Bitte überprüfe deine Eingabe",
         "accountAlreadyExists": "Ein Account mit dieser E-Mail existiert bereits",
         "usernameAlreadyExists": "Dieser Nutzername ist bereits vergeben"
@@ -121,32 +123,32 @@
     "retrieveLocation": {
       "loading": "Ortung läuft...",
       "success": "Gefunden in",
-      "error": "Suche fehlgeschlagen"
+      "error": "Wir konnten dich nicht finden. Bitte wähle den Ort manuell oder versuche es später erneut."
     },
     "login": {
       "loading": "Einloggen...",
       "success": "Erfolgreich eingeloggt",
-      "error": "Fehler beim Einloggen",
+      "error": "Etwas ist schiefgelaufen und wir konnten dich nicht einloggen, sorry! Bitte versuche es später erneut.",
       "mail": {
         "loading": "Wir versuchen dir eine E-Mail zu senden...",
         "success": "Eine E-Mail mit dem Login-Link wurde versendet",
-        "error": "Wir konnten keine E-Mail an die angegebene Adresse senden"
+        "error": "Wir konnten keine E-Mail an die angegebene Adresse senden. Bitte überprüfe deine Eingabe oder versuche es später erneut."
       }
     },
     "logout": {
       "loading": "Ausloggen...",
       "success": "Erfolgreich ausgeloggt",
-      "error": "Fehler beim Ausloggen"
+      "error": "Etwas ist schiefgelaufen und wir konnten dich nicht ausloggen, sorry! Bitte versuche es später erneut."
     },
     "deleteAccount": {
       "loading": "Account löschen...",
-      "error": "Account konnte nicht gelöscht werden",
+      "error": "Etwas ist schiefgelaufen und wir konnten deinen Account nicht löschen, sorry! Bitte versuche es später erneut.",
       "success": "Account erfolgreich gelöscht! Mach's gut 👋"
     },
     "unlinkSpotify": {
-      "loading": "Spotify-Verknüpfung löschen...",
-      "error": "Spotify-Verknüpfung konnte nicht gelöscht werden",
-      "success": "Spotify-Verknüpfung erfolgreich gelöscht"
+      "loading": "Verbindung zu deinem Spotify-Account wird entfernt...",
+      "error": "Etwas ist schiefgelaufen und wir konnten die Verbindung zu deinem Spotify-Account nicht trennen, sorry! Bitte versuche es später.",
+      "success": "Verbindung zu deinem Spotify-Account wurde erfolgreich entfernt"
     }
   },
   "lang": {

@@ -86,6 +86,8 @@
       "Default": ""
     },
     "prompts": {
+      "login": "No has iniciado sesión",
+      "spotify": "No cuenta de Spotify conectada",
       "wishlist": "Inicia sesión para ver tu Lista de deseos",
       "history": "Inicia sesión para ver tu Historial"
     },
@@ -96,7 +98,7 @@
       "registerPrompt": "Todavía no tienes cuenta?",
       "process": {
         "accountCreated": "Cuenta creada correctamente",
-        "generalError": "No se pudo crear la cuenta",
+        "generalError": "Algo salió mal y no pudimos crear tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
         "invalidFields": "Por favor revisa tu entrada",
         "accountAlreadyExists": "Ya existe una cuenta con este correo",
         "usernameAlreadyExists": "Este nombre de usuario ya está en uso"
@@ -121,31 +123,31 @@
     "retrieveLocation": {
       "loading": "Recuperando ubicación...",
       "success": "Encontrado en",
-      "error": "No pudimos encontrarte"
+      "error": "No pudimos encontrarte. Por favor elige la ubicación manualmente o intenta de nuevo más tarde."
     },
     "login": {
       "loading": "Iniciando sesión...",
       "success": "Sesión iniciada correctamente",
-      "error": "Error al intentar iniciar sesión",
+      "error": "Algo salió mal y no pudimos iniciar sesión, lo siento! Por favor intenta de nuevo más tarde.",
       "mail": {
         "loading": "Intentando enviarte un correo...",
         "success": "Un correo con un enlace de inicio de sesión fue enviado a tu correo",
-        "error": "No pudimos enviar un correo a la dirección especificada"
+        "error": "No pudimos enviar un correo a la dirección especificada. Por favor revisa la dirección o intenta de nuevo más tarde."
       }
     },
     "logout": {
       "loading": "Cerrando sesión...",
       "success": "Sesión cerrada correctamente",
-      "error": "Error al intentar cerrar sesión"
+      "error": "Algo salió mal y no pudimos cerrar sesión, lo siento! Por favor intenta de nuevo más tarde."
     },
     "deleteAccount": {
       "loading": "Eliminando cuenta...",
-      "error": "No pudimos eliminar tu cuenta",
+      "error": "Algo salió mal y no pudimos eliminar tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
       "success": "Cuenta eliminada correctamente! Cuidate 👋"
     },
     "unlinkSpotify": {
       "loading": "Desvinculando Spotify...",
-      "error": "No pudimos desvincular tu cuenta de Spotify",
+      "error": "Algo salió mal y no pudimos desvincular tu cuenta de Spotify, lo siento! Por favor intenta de nuevo más tarde.",
       "success": "Cuenta de Spotify desvinculada correctamente"
     }
   },
