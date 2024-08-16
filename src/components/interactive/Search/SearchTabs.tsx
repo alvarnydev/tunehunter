@@ -1,5 +1,7 @@
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { cn } from "@/lib/utils";
+import { api } from "@/utils/api";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
@@ -15,13 +17,43 @@ const tabs = ["trending", "spotify", "history", "wishlist"] as const;
 export type Tab = (typeof tabs)[number];
 const isTab = (tab: string): tab is Tab => tabs.includes(tab as Tab);
 
+type AccessScopes = "all" | "signed-in-to-spotify" | "signed-in";
+const tabAccessMap: Record<Tab, AccessScopes> = {
+  trending: "all",
+  spotify: "signed-in-to-spotify",
+  history: "signed-in",
+  wishlist: "signed-in",
+};
+
 const SearchTabs: FC<IProps> = ({}) => {
   const { t } = useTranslation("");
-  const { status } = useSession();
+  const { data: userData, status: sessionStatus } = useSession();
   const router = useRouterWithHelpers();
   const [searchTab, setSearchTab] = useState<Tab | "">("");
-  const loggedIn = status === "authenticated";
+  const loggedIn = sessionStatus === "authenticated";
+  const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
+    { userId: userData?.user.id! },
+    {
+      refetchOnWindowFocus: false,
+      enabled: !!userData,
+    },
+  );
 
+  const tabName = (tab: Tab) => t(`search.tabs.${tab}.header`);
+  const loginPrompt = t("auth.prompts.login");
+  const connectSpotifyPrompt = t("auth.prompts.spotify");
+
+  const isDisabledTab = (tab: Tab) => {
+    // Disabled if no spotify data
+    if (tabAccessMap[tab] === "signed-in-to-spotify") return !spotifyAccount?.data;
+    // Disabled if not logged in
+    if (tabAccessMap[tab] === "signed-in") return !loggedIn;
+
+    // Enabled otherwise
+    return false;
+  };
+
+  // Restore tab if param is present
   useEffect(() => {
     const searchParam = router.getParams("search");
     if (router.isReady && searchParam && isTab(searchParam)) {
@@ -29,7 +61,7 @@ const SearchTabs: FC<IProps> = ({}) => {
     } else {
       setSearchTab("");
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.query]);
 
   const tableContent = {
     "": <></>,
@@ -56,12 +88,22 @@ const SearchTabs: FC<IProps> = ({}) => {
           <button
             key={tab}
             onClick={() => setTab(tab)}
+            disabled={isDisabledTab(tab)}
             className={cn(
-              "whitespace-nowrap transition-all hover:text-foreground",
+              "whitespace-nowrap transition-all enabled:hover:text-foreground",
               searchTab === tab ? "font-bold text-foreground" : "text-muted-foreground",
             )}
           >
-            {t(`search.tabs.${tab}.header`)}
+            {isDisabledTab(tab) ? (
+              <Tooltip>
+                <TooltipTrigger className="cursor-not-allowed text-muted-foreground/30">
+                  {tabName(tab)}
+                </TooltipTrigger>
+                <TooltipContent>{loggedIn ? connectSpotifyPrompt : loginPrompt}</TooltipContent>
+              </Tooltip>
+            ) : (
+              <p>{tabName(tab)}</p>
+            )}
           </button>
         ))}
       </div>

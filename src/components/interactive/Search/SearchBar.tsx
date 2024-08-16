@@ -115,10 +115,7 @@ const SearchBar: FC<IProps> = ({}) => {
             <TooltipTrigger>
               <SearchSettings />
             </TooltipTrigger>
-            <TooltipContent>
-              {settingsTooltip}
-              {/* <TooltipArrow width={12} height={5} /> */}
-            </TooltipContent>
+            <TooltipContent>{settingsTooltip}</TooltipContent>
           </Tooltip>
         </div>
       </form>

@@ -22,9 +22,10 @@ const ProfileMenu: FC<IProps> = () => {
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
   const { data: userData } = useSession();
+  const utils = api.useUtils();
+
   const deleteAccount = api.user.deleteUserAndAccountsByUserId.useMutation();
   const unlinkSpotifyAccount = api.user.unlinkSpotifyAccount.useMutation();
-
   const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
     { userId: userData?.user.id! },
     {
@@ -48,7 +49,6 @@ const ProfileMenu: FC<IProps> = () => {
   const logoutLoadingText = t("toast.logout.loading");
   const logoutSuccessText = t("toast.logout.success");
   const logoutErrorText = t("toast.logout.error");
-
   const userMailText = t("general.mail");
   const spotifyText = "Spotify";
   const spotifyConnectedText = t("search.settings.spotifyConnected");
@@ -58,14 +58,11 @@ const ProfileMenu: FC<IProps> = () => {
   const unlinkSpotifyLoadingText = t("toast.unlinkSpotify.loading");
   const unlinkSpotifySuccessText = t("toast.unlinkSpotify.success");
   const unlinkSpotifyErrorText = t("toast.unlinkSpotify.error");
-
   const getNextAuthErrorText = (errorString: string) => t(`auth.errors.${errorString}`);
-
   const haveFeedbackText = t("profile.haveFeedback");
   const writeUsPrompt = t("profile.writeUs");
   const wantToGoText = t("profile.wantToGo");
   const logOutText = t("profile.logout");
-
   const deleteAccountText = t("profile.deleteAccount.button");
   const deleteAccountPromptTitle = t("profile.deleteAccount.promptTitle");
   const deleteAccountPromptText = t("profile.deleteAccount.promptText");
@@ -75,6 +72,7 @@ const ProfileMenu: FC<IProps> = () => {
 
   const handleSignOut = async () => {
     router.push("/");
+    router.setParams({ search: "" });
     playJingle("reverse");
 
     toast.promise(
@@ -121,7 +119,9 @@ const ProfileMenu: FC<IProps> = () => {
       { userId: userData.user.id },
       {
         onSuccess: () => {
-          toast.success(unlinkSpotifySuccessText, { id: loadingToast });
+          utils.account.getSpotifyAccountById
+            .invalidate()
+            .then(() => toast.success(unlinkSpotifySuccessText, { id: loadingToast }));
         },
         onError: () => {
           toast.error(unlinkSpotifyErrorText, { id: loadingToast });
@@ -158,12 +158,12 @@ const ProfileMenu: FC<IProps> = () => {
         <p className="flex items-center font-thin">{userMailText}</p>
         <p className="overflow-x-clip text-ellipsis font-thin">{userMail}</p>
         <p className="flex items-center font-thin">{spotifyText}</p>
-        {spotifyAccount && (
+        {spotifyAccount?.data && (
           <div className="flex items-center justify-between gap-2">
-            <p className="text-success">{spotifyConnectedText}</p>
+            <p className="font-thin text-success">{spotifyConnectedText}</p>
             <div className="flex gap-2">
               <a
-                href={`https://open.spotify.com/user/${spotifyAccount.providerAccountId}`}
+                href={`https://open.spotify.com/user/${spotifyAccount.data.providerAccountId}`}
                 target="_blank"
               >
                 <IconButton icon="external" variant="ghostSuccess" size="icon" iconSize="22px" />
@@ -178,7 +178,7 @@ const ProfileMenu: FC<IProps> = () => {
             </div>
           </div>
         )}
-        {!spotifyAccount && (
+        {!spotifyAccount?.data && (
           <IconButton
             icon={"spotify"}
             variant="outlinePrimary"

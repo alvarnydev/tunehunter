@@ -28,7 +28,7 @@ const SpotifyTable = () => {
       },
     );
   const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
-    spotifyAccount?.access_token || "",
+    spotifyAccount?.data?.access_token || "",
   );
 
   const loggedIn = status === "authenticated";

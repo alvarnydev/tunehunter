@@ -17,7 +17,9 @@ export const accountRouter = createTRPCRouter({
           and(eq(accounts.userId, userId), eq(accounts.provider, "spotify")),
       });
 
-      // Check if token is expired
+      if (account === undefined) return { error: "Account not found" };
+
+      // Update token if expired
       if (account?.expires_at && account?.refresh_token && Date.now() / 1000 > account.expires_at) {
         const { access_token, expires_at } = await refreshAccessToken(account.refresh_token);
         await db
@@ -26,9 +28,14 @@ export const accountRouter = createTRPCRouter({
           .where(eq(accounts.userId, userId));
       }
 
-      return ctx.db.query.accounts.findFirst({
+      // Return account
+      const accountUpdated = await ctx.db.query.accounts.findFirst({
         where: (accounts, { eq, and }) =>
           and(eq(accounts.userId, userId), eq(accounts.provider, "spotify")),
       });
+
+      if (accountUpdated === undefined) return { error: "Account not found after update" };
+
+      return { data: accountUpdated };
     }),
 });
