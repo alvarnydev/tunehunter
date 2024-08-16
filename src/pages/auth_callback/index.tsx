@@ -25,7 +25,7 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
       toast.success(loginSuccessText, { duration: 1800 });
       playJingle("normal");
     } else if (status === "unauthenticated") {
-      toast.error(loginErrorText, { duration: 1800 });
+      toast.error(loginErrorText, { dismissible: true, duration: Infinity });
     }
   }, [status]);
 

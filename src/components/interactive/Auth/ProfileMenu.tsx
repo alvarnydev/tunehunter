@@ -1,5 +1,5 @@
 import { Separator } from "@/components/my-ui/separator";
-import { isNextAuthError, NextAuthError } from "@/helpers/nextauth-errors";
+import { isNextAuthError } from "@/helpers/nextauth-errors";
 import { playJingle } from "@/helpers/play-jingle";
 import { signInWithProvider } from "@/helpers/sign-in";
 import { wait } from "@/helpers/wait";
@@ -7,7 +7,7 @@ import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { api } from "@/utils/api";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { useEffect, useState, type FC } from "react";
+import { useEffect, type FC } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
 import { Avatar, AvatarImage } from "../../ui/avatar";
@@ -18,7 +18,6 @@ import AuthCard from "./AuthCard";
 interface IProps {}
 
 const ProfileMenu: FC<IProps> = () => {
-  const [error, setError] = useState<NextAuthError | null>(null);
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
   const { data: userData } = useSession();
@@ -40,8 +39,8 @@ const ProfileMenu: FC<IProps> = () => {
     if (!errorParams) return;
 
     if (isNextAuthError(errorParams)) {
-      setError(errorParams);
-      router.setParams({ disableAnimation: "true" });
+      const errorText = getNextAuthErrorText(errorParams);
+      toast.error(errorText, { dismissible: true, duration: Infinity });
     }
   }, [router.isReady]);
 
@@ -103,7 +102,7 @@ const ProfileMenu: FC<IProps> = () => {
           toast.success(deleteSuccessText, { id: loadingToast });
         },
         onError: () => {
-          toast.error(deleteErrorText, { id: loadingToast });
+          toast.error(deleteErrorText, { id: loadingToast, dismissible: true, duration: Infinity });
         },
       },
     );
@@ -124,7 +123,11 @@ const ProfileMenu: FC<IProps> = () => {
             .then(() => toast.success(unlinkSpotifySuccessText, { id: loadingToast }));
         },
         onError: () => {
-          toast.error(unlinkSpotifyErrorText, { id: loadingToast });
+          toast.error(unlinkSpotifyErrorText, {
+            id: loadingToast,
+            dismissible: true,
+            duration: Infinity,
+          });
         },
       },
     );
@@ -186,13 +189,6 @@ const ProfileMenu: FC<IProps> = () => {
             size="sm"
             onClick={() => signInWithProvider("spotify", router.locale ?? "")}
           />
-        )}
-        {error === "OAuthAccountNotLinked" && (
-          <div className="col-span-2 px-4 pt-2">
-            <div className="col-span-2 rounded-lg border border-info px-6 py-4 text-info">
-              {getNextAuthErrorText(error)}
-            </div>
-          </div>
         )}
       </div>
 

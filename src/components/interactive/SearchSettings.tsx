@@ -92,11 +92,11 @@ const SearchSettings: FC<IProps> = ({}) => {
           changeRegion(countryCode.toLowerCase());
           toast.success(`${locationRetrievalSuccessText} ${countryCode}`);
         } else {
-          toast.error(locationRetrievalErrorText);
+          toast.error(locationRetrievalErrorText, { dismissible: true, duration: Infinity });
         }
       },
       () => {
-        toast.error(locationRetrievalErrorText);
+        toast.error(locationRetrievalErrorText, { dismissible: true, duration: Infinity });
       },
     );
   };
