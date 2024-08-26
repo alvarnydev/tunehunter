@@ -1001,3 +1001,24 @@ export const countryNamesSpanish: Record<string, string> = {
   ZM: "Zambia",
   ZW: "Zimbabue",
 };
+
+// Helpers
+export const getRegionNames = (language: string): Record<string, string> => {
+  switch (language) {
+    case "de":
+      return countryNamesGerman;
+    case "es":
+      return countryNamesSpanish;
+    default:
+      return countryNamesEnglish;
+  }
+};
+
+export const sortRegions = (regions: string[], language: string): string[] => {
+  const regionNames = getRegionNames(language);
+  return regions.sort((a, b) => {
+    const nameA = regionNames[a] || a;
+    const nameB = regionNames[b] || b;
+    return nameA.localeCompare(nameB);
+  });
+};

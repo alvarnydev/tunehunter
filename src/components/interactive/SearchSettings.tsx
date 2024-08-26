@@ -5,6 +5,7 @@ import {
   isRegion,
   Region,
   Regions,
+  sortRegions,
 } from "@/helpers/region";
 import useUserSettings from "@/hooks/useUserSettings";
 import { iso1A2Code } from "@rapideditor/country-coder"; // ESM import named
@@ -57,6 +58,8 @@ const SearchSettings: FC<IProps> = ({}) => {
   const findMeText = t("search.settings.locateMe");
   const locationRetrievalErrorText = t("toast.retrieveLocation.error");
   const locationRetrievalSuccessText = t("toast.retrieveLocation.success");
+
+  const sortedRegions = sortRegions(Regions, router.locale || "en");
 
   // Set region from DB
   useEffect(() => {
@@ -135,7 +138,7 @@ const SearchSettings: FC<IProps> = ({}) => {
                 </motion.div>
               </SelectTrigger>
               <SelectContent invert>
-                {Regions.map((region) => (
+                {sortedRegions.map((region) => (
                   <SelectItem key={region} invert value={region.toLowerCase()}>
                     {createRegionName(region)}
                   </SelectItem>
