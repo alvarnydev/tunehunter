@@ -1,3 +1,4 @@
+import CustomIcon from "@/components/CustomIcon";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { cn } from "@/lib/utils";
@@ -83,29 +84,43 @@ const SearchTabs: FC<IProps> = ({}) => {
 
   return (
     <>
-      <div className="flex min-w-0 flex-wrap justify-center gap-4">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setTab(tab)}
-            disabled={isDisabledTab(tab)}
-            className={cn(
-              "whitespace-nowrap transition-all enabled:hover:text-foreground",
-              searchTab === tab ? "font-bold text-foreground" : "text-muted-foreground",
-            )}
-          >
-            {isDisabledTab(tab) ? (
+      <div className="flex min-w-0 flex-wrap justify-center gap-6">
+        {tabs.map((tab) => {
+          const TabElement = ({ disabled = false }) => (
+            <p className="flex items-center gap-2">
+              <CustomIcon icon={tab} variant={disabled ? "primary-muted" : "primary"} />
+              {tabName(tab)}
+            </p>
+          );
+
+          if (isDisabledTab(tab)) {
+            return (
               <Tooltip>
                 <TooltipTrigger className="cursor-not-allowed text-muted-foreground/30">
-                  {tabName(tab)}
+                  <TabElement disabled={true} />
                 </TooltipTrigger>
                 <TooltipContent>{loggedIn ? connectSpotifyPrompt : loginPrompt}</TooltipContent>
               </Tooltip>
-            ) : (
-              <p>{tabName(tab)}</p>
-            )}
-          </button>
-        ))}
+            );
+          }
+
+          return (
+            <motion.button
+              key={tab}
+              onClick={() => setTab(tab)}
+              disabled={isDisabledTab(tab)}
+              className={cn(
+                "whitespace-nowrap  text-foreground transition-all enabled:hover:text-foreground",
+                searchTab === tab ? "font-bold" : "",
+              )}
+              initial={{}}
+              animate={{}}
+              transition={{}}
+            >
+              <TabElement />
+            </motion.button>
+          );
+        })}
       </div>
       <AnimatePresence mode="wait">
         {searchTab !== "" && (

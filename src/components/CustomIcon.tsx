@@ -24,12 +24,16 @@ const CustomIcon: FC<CustomIconProps> = ({
         return "fill-background";
       case "primary":
         return "fill-primary group-hover:fill-primary-foreground";
+      case "primary-muted":
+        return "fill-primary/30";
       case "secondary":
         return "fill-secondary";
       case "accent":
         return "fill-accent";
       case "destructive":
         return "fill-destructive";
+      case "info":
+        return "fill-info";
 
       // For buttons
       case "foreground":
