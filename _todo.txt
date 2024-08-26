@@ -1,7 +1,6 @@
-Link spotify -> other toast + 
 Log in: 'pop' tabs
 
-errors toast -> notification channel + sentry
+Sentry
 
 Settings edit functionality: username, picture
 most listened: weekly, monthly, yearly, all time

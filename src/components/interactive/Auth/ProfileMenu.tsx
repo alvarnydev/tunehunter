@@ -133,6 +133,10 @@ const ProfileMenu: FC<IProps> = () => {
     );
   };
 
+  const handleLinkSpotify = async () => {
+    await signInWithProvider("spotify", router.locale ?? "", "link");
+  };
+
   if (!userData)
     return (
       <Button onClick={handleSignOut} className="px-8 py-6 font-thin uppercase tracking-widest">
@@ -187,7 +191,7 @@ const ProfileMenu: FC<IProps> = () => {
             variant="outlinePrimary"
             text={spotifyConnectPrompt}
             size="sm"
-            onClick={() => signInWithProvider("spotify", router.locale ?? "")}
+            onClick={handleLinkSpotify}
           />
         )}
       </div>

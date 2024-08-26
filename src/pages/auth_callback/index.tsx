@@ -1,10 +1,10 @@
 import { RedirectIndicator } from "@/components/Indicators";
 import { playJingle } from "@/helpers/play-jingle";
+import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import nextI18nConfig from "../../../next-i18next.config.mjs";
@@ -12,37 +12,49 @@ import nextI18nConfig from "../../../next-i18next.config.mjs";
 interface IPageProps {}
 
 const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
-  const router = useRouter();
+  const router = useRouterWithHelpers();
   const { t } = useTranslation();
   const { status } = useSession();
+  const loggedIn = status === "authenticated";
+  const notLoggedIn = status === "unauthenticated";
 
   const redirectingText = t("auth.redirecting");
+  const connectSuccessText = t("toast.connect.success");
   const loginSuccessText = t("toast.login.success");
   const loginErrorText = t("toast.login.error");
 
   useEffect(() => {
-    if (status === "authenticated") {
-      toast.success(loginSuccessText, { duration: 1800 });
-      playJingle("normal");
-    } else if (status === "unauthenticated") {
-      toast.error(loginErrorText, { dismissible: true, duration: Infinity });
+    if (!loggedIn || !router.isReady) {
+      return;
     }
-  }, [status]);
 
-  useEffect(() => {
+    const redirectPath = router.query.redirectPath as string;
+    const actionParam = router.getParams("action");
+
+    // Toast
+    if (actionParam === "link") {
+      toast.success(connectSuccessText, { duration: 1800 });
+    } else {
+      toast.success(loginSuccessText, { duration: 1800 });
+    }
+
+    // Redirect
+    playJingle("normal");
     setTimeout(() => {
-      if (router.isReady) {
-        const redirectPath = router.query.redirectPath as string;
-        router.push(redirectPath);
-      }
+      router.push(redirectPath);
     }, 2000);
-  }, [router]);
+  }, [status, router]);
 
   return (
-    <div className="flex items-baseline gap-2">
-      <p className="text-lg text-foreground">{redirectingText}</p>
-      <RedirectIndicator size={12} />
-    </div>
+    <>
+      {loggedIn && (
+        <div className="flex items-baseline gap-2">
+          <p className="text-lg text-foreground">{redirectingText}</p>
+          <RedirectIndicator size={12} />
+        </div>
+      )}
+      {notLoggedIn && <p>{loginErrorText}</p>}
+    </>
   );
 };
 

@@ -91,7 +91,7 @@
       "wishlist": "Logge dich ein für deine Wunschliste",
       "history": "Logge dich ein für deinen Verlauf"
     },
-    "redirecting": "Lade Einstellungen und leite weiter",
+    "redirecting": "Weiterleitung",
     "returnToSignIn": "Zurück zum Login",
     "registration": {
       "register": "Registrieren",
@@ -123,7 +123,10 @@
     "retrieveLocation": {
       "loading": "Ortung läuft...",
       "success": "Gefunden in",
-      "error": "Wir konnten dich nicht finden. Bitte wähle den Ort manuell oder versuche es später erneut."
+      "error": "Wir konnten dich nicht finden. Bitte wähle den Ort manuell aus oder versuche es später erneut."
+    },
+    "connect": {
+      "success": "Spotify erfolgreich verbunden"
     },
     "login": {
       "loading": "Einloggen...",

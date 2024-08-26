@@ -91,7 +91,7 @@
       "wishlist": "Log in to view your wishlist",
       "history": "Log in to view your history"
     },
-    "redirecting": "Restoring settings and redirecting",
+    "redirecting": "Redirecting",
     "returnToSignIn": "Return to sign in page",
     "registration": {
       "register": "Register",
@@ -124,6 +124,9 @@
       "loading": "Retrieving your location...",
       "success": "Found you in",
       "error": "We could not find you. Please choose the location manually or try again later!"
+    },
+    "connect": {
+      "success": "Spotify account successfully linked"
     },
     "login": {
       "loading": "Logging you in...",

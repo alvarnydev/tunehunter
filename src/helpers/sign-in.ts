@@ -1,5 +1,7 @@
 import { signIn } from "next-auth/react";
 
+type LoginType = "login" | "link";
+
 // Takes the URL and removes the locale (/de) and profile parameter (?profile) from it
 export const buildRedirectPath = () => {
   const url = new URL(window.location.href);
@@ -29,8 +31,12 @@ export const buildRedirectPath = () => {
   return redirectPath;
 };
 
-export const signInWithProvider = async (providerId: string, locale: string) => {
+export const signInWithProvider = async (
+  providerId: string,
+  locale: string,
+  type: LoginType = "login",
+) => {
   const redirectPath = buildRedirectPath();
-  const callbackUrl = `/${locale}/auth_callback/?redirectPath=${redirectPath}`; // Normally go to
-  await signIn(providerId, { callbackUrl: callbackUrl });
+  const callbackUrl = `/${locale}/auth_callback/?redirectPath=${redirectPath}${type && `&action=${type}`}`; // Normally go to
+  await signIn(providerId, { callbackUrl });
 };

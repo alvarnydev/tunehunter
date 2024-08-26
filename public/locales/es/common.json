@@ -91,7 +91,7 @@
       "wishlist": "Inicia sesión para ver tu Lista de deseos",
       "history": "Inicia sesión para ver tu Historial"
     },
-    "redirecting": "Restableciendo configuración y redirigiendo",
+    "redirecting": "Redirigiendo",
     "returnToSignIn": "Volver a iniciar sesión",
     "registration": {
       "register": "Registrarse",
@@ -124,6 +124,9 @@
       "loading": "Recuperando ubicación...",
       "success": "Encontrado en",
       "error": "No pudimos encontrarte. Por favor elige la ubicación manualmente o intenta de nuevo más tarde."
+    },
+    "connect": {
+      "success": "Cuente de Spotify conectada correctamente"
     },
     "login": {
       "loading": "Iniciando sesión...",
