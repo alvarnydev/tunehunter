@@ -1,10 +1,3 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { isRegion, Region, Regions } from "@/helpers/region";
 import useUserSettings from "@/hooks/useUserSettings";
 import { iso1A2Code } from "@rapideditor/country-coder"; // ESM import named
@@ -18,6 +11,7 @@ import { toast } from "sonner";
 import IconButton from "../IconButton";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Slider } from "../ui/slider";
 import { Switch } from "../ui/switch";
 
@@ -106,39 +100,38 @@ const SearchSettings: FC<IProps> = ({}) => {
         </motion.div>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="grid grid-cols-[auto_minmax(100px,_max-content)] gap-x-4 gap-y-3  ">
+        <div className="grid grid-cols-[auto_minmax(50px,_max-content)] gap-x-8 gap-y-3">
           {/* Region */}
           <div className="flex items-center gap-2">
             <Label htmlFor="region" className="flex items-center font-thin">
               {regionText}
             </Label>
-
-            <div className="w-auto">
-              <IconButton
-                variant="outline"
-                className="gap-1 text-xs"
-                size="xs"
-                icon="pin"
-                bordered="noBorder"
-                text={findMeText}
-                onClick={findUser}
-              />
+            <div className="flex h-10 items-center justify-end">
+              <Select onValueChange={changeRegion} value={region}>
+                <SelectTrigger className="h-9 w-20 border-none bg-primary text-primary-foreground">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent invert>
+                  {Regions.map((region) => (
+                    <SelectItem key={region} invert value={region.toLowerCase()}>
+                      {region}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
-          <div className="flex h-10 items-center justify-end">
-            <Select onValueChange={changeRegion} value={region}>
-              <SelectTrigger className="h-9 w-20" invert>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent invert>
-                {Regions.map((region) => (
-                  <SelectItem key={region} invert value={region.toLowerCase()}>
-                    {region}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <div className="flex justify-center">
+            <IconButton
+              variant="ghost"
+              size="icon"
+              iconSize="24px"
+              icon="pin"
+              bordered="noBorder"
+              onClick={findUser}
+            />
           </div>
+
           {/* Minimum length */}
           <Label htmlFor="minimumlength" className="flex items-center font-thin">
             <p>
@@ -160,10 +153,10 @@ const SearchSettings: FC<IProps> = ({}) => {
           {minimumLengthOption == true && (
             <AnimatePresence mode="wait">
               <motion.div
-                className="col-span-2 mx-auto flex w-2/3 cursor-pointer items-center justify-center"
-                initial={{ opacity: 0, marginTop: -12 }}
+                className="col-span-2 mx-auto flex w-2/3 cursor-pointer items-center justify-center py-2"
+                initial={{ opacity: 0, marginTop: -8 }}
                 animate={{ opacity: 1, marginTop: 0 }}
-                exit={{ opacity: 0, marginTop: -12 }}
+                exit={{ opacity: 0, marginTop: -8 }}
                 key="mnimumlengthslider"
               >
                 <Slider
