@@ -1,7 +1,3 @@
-Log in: 'pop' tabs
-
-Sentry
-
 Settings edit functionality: username, picture
 most listened: weekly, monthly, yearly, all time
 

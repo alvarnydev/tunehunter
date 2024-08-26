@@ -87,7 +87,7 @@
     },
     "prompts": {
       "login": "No has iniciado sesión",
-      "spotify": "No cuenta de Spotify conectada",
+      "spotify": "Conecta tu cuenta de Spotify para ver tus canciones recientes",
       "wishlist": "Inicia sesión para ver tu Lista de deseos",
       "history": "Inicia sesión para ver tu Historial"
     },

@@ -87,9 +87,9 @@
     },
     "prompts": {
       "login": "Du bist nicht eingeloggt",
-      "spotify": "Kein Spotify Account verbunden",
-      "wishlist": "Logge dich ein für deine Wunschliste",
-      "history": "Logge dich ein für deinen Verlauf"
+      "spotify": "Verbinde deinen Spotify-Account, um deine gehörten Lieder einzusehen",
+      "wishlist": "Log' dich ein, um deine Wunschliste einzusehen",
+      "history": "Log' dich ein, um deinen Verlauf einzusehen"
     },
     "redirecting": "Weiterleitung",
     "returnToSignIn": "Zurück zum Login",

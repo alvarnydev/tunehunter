@@ -86,8 +86,8 @@
       "Default": ""
     },
     "prompts": {
-      "login": "You're not logged in",
-      "spotify": "No Spotify account connected",
+      "login": "Login to view this content",
+      "spotify": "Connect your Spotify account to see your recently played songs",
       "wishlist": "Log in to view your wishlist",
       "history": "Log in to view your history"
     },

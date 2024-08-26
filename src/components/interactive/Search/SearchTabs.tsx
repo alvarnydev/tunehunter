@@ -26,6 +26,13 @@ const tabAccessMap: Record<Tab, AccessScopes> = {
   wishlist: "signed-in",
 };
 
+const tooltipContentMap: Record<Tab, string> = {
+  trending: "",
+  spotify: "auth.prompts.spotify",
+  history: "auth.prompts.history",
+  wishlist: "auth.prompts.wishlist",
+};
+
 const SearchTabs: FC<IProps> = ({}) => {
   const { t } = useTranslation("");
   const { data: userData, status: sessionStatus } = useSession();
@@ -40,18 +47,13 @@ const SearchTabs: FC<IProps> = ({}) => {
     },
   );
 
-  const tabName = (tab: Tab) => t(`search.tabs.${tab}.header`);
-  const loginPrompt = t("auth.prompts.login");
-  const connectSpotifyPrompt = t("auth.prompts.spotify");
+  const getTabName = (tab: Tab) => t(`search.tabs.${tab}.header`);
+  const getTooltipContent = (tab: Tab) => t(`auth.prompts.${tab}`);
 
   const isDisabledTab = (tab: Tab) => {
-    // Disabled if no spotify data
-    if (tabAccessMap[tab] === "signed-in-to-spotify") return !spotifyAccount?.data;
-    // Disabled if not logged in
-    if (tabAccessMap[tab] === "signed-in") return !loggedIn;
-
-    // Enabled otherwise
-    return false;
+    if (tabAccessMap[tab] === "signed-in-to-spotify") return !spotifyAccount?.data; // Disabled if no spotify data
+    if (tabAccessMap[tab] === "signed-in") return !loggedIn; // Disabled if not logged in
+    return false; // Enabled otherwise
   };
 
   // Restore tab if param is present
@@ -89,7 +91,7 @@ const SearchTabs: FC<IProps> = ({}) => {
           const TabElement = ({ disabled = false }) => (
             <p className="flex items-center gap-2">
               <CustomIcon icon={tab} variant={disabled ? "primary-muted" : "primary"} />
-              {tabName(tab)}
+              {getTabName(tab)}
             </p>
           );
 
@@ -99,7 +101,7 @@ const SearchTabs: FC<IProps> = ({}) => {
                 <TooltipTrigger className="cursor-not-allowed text-muted-foreground/30">
                   <TabElement disabled={true} />
                 </TooltipTrigger>
-                <TooltipContent>{loggedIn ? connectSpotifyPrompt : loginPrompt}</TooltipContent>
+                <TooltipContent>{getTooltipContent(tab)}</TooltipContent>
               </Tooltip>
             );
           }
