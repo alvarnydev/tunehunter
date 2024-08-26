@@ -9,7 +9,7 @@ const SearchTabs = dynamic(() => import("@/components/interactive/Search/SearchT
 
 export const Home: NextPage = () => {
   return (
-    <div className="-mt-2 flex w-full max-w-4xl flex-col items-center gap-4">
+    <div className="-mt-2 flex w-full max-w-4xl flex-col items-center gap-5">
       <SearchBar />
       <SearchTabs />
     </div>
