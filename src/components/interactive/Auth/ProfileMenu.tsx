@@ -165,7 +165,9 @@ const ProfileMenu: FC<IProps> = () => {
       <div className="grid w-full grid-cols-[repeat(6,max-content)] gap-x-12 gap-y-6">
         {/* User data */}
         <p className="col-span-2 flex items-center font-thin">{userMailText}</p>
-        <p className="col-span-3 overflow-x-clip text-ellipsis font-thin">{userMail}</p>
+        <p className="col-span-3 flex items-center overflow-x-clip text-ellipsis font-thin">
+          {userMail}
+        </p>
         <div className="col-span-1">
           <IconButton icon="edit" variant="ghostPrimary" size="icon" iconSize="20px" />
         </div>

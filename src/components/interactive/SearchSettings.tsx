@@ -1,4 +1,11 @@
-import { isRegion, Region, Regions } from "@/helpers/region";
+import {
+  countryNamesEnglish,
+  countryNamesGerman,
+  countryNamesSpanish,
+  isRegion,
+  Region,
+  Regions,
+} from "@/helpers/region";
 import useUserSettings from "@/hooks/useUserSettings";
 import { iso1A2Code } from "@rapideditor/country-coder"; // ESM import named
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -6,6 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Cog } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import { FC, useEffect } from "react";
 import { toast } from "sonner";
 import IconButton from "../IconButton";
@@ -18,6 +26,7 @@ import { Switch } from "../ui/switch";
 interface IProps {}
 
 const SearchSettings: FC<IProps> = ({}) => {
+  const router = useRouter();
   const [searchForClubMixesOnly, setSearchForClubMixesOnly] = useLocalStorage(
     "clubmixesonly",
     false,
@@ -28,7 +37,6 @@ const SearchSettings: FC<IProps> = ({}) => {
   );
   const [region, setRegion] = useLocalStorage("region", "de");
   const [minimumLengthSeconds, setMinimumLengthSeconds] = useLocalStorage("minimumlength", 120);
-  const [resultsView, setResultsView] = useLocalStorage("resultsview", "new-page"); // Or below
   const { t } = useTranslation("");
   const { status, data: userData } = useSession();
   const loggedIn = status === "authenticated";
@@ -65,6 +73,12 @@ const SearchSettings: FC<IProps> = ({}) => {
     setRegion(newRegion);
   };
 
+  const createRegionName = (region: string) => {
+    if (router.locale === "de") return countryNamesGerman[region];
+    if (router.locale === "es") return countryNamesSpanish[region];
+    return countryNamesEnglish[region];
+  };
+
   const findUser = () => {
     const userLocation = {
       longitude: 0,
@@ -81,7 +95,7 @@ const SearchSettings: FC<IProps> = ({}) => {
 
         if (countryCode) {
           changeRegion(countryCode.toLowerCase());
-          toast.success(`${locationRetrievalSuccessText} ${countryCode}`);
+          toast.success(`${locationRetrievalSuccessText} ${createRegionName(countryCode)}`);
         } else {
           toast.error(locationRetrievalErrorText, { dismissible: true, duration: Infinity });
         }
@@ -102,31 +116,39 @@ const SearchSettings: FC<IProps> = ({}) => {
       <PopoverContent>
         <div className="grid grid-cols-[auto_minmax(50px,_max-content)] gap-x-8 gap-y-3">
           {/* Region */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <Label htmlFor="region" className="flex items-center font-thin">
-              {regionText}
+              {regionText}:
             </Label>
-            <div className="flex h-10 items-center justify-end">
-              <Select onValueChange={changeRegion} value={region}>
-                <SelectTrigger className="h-9 w-20 border-none bg-primary text-primary-foreground">
+            <Select onValueChange={changeRegion} value={region}>
+              <SelectTrigger
+                id="region"
+                className="h-9 max-w-32 text-ellipsis border-none bg-primary px-2 text-base font-thin text-primary-foreground"
+              >
+                <motion.div
+                  key={region}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <SelectValue />
-                </SelectTrigger>
-                <SelectContent invert>
-                  {Regions.map((region) => (
-                    <SelectItem key={region} invert value={region.toLowerCase()}>
-                      {region}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                </motion.div>
+              </SelectTrigger>
+              <SelectContent invert>
+                {Regions.map((region) => (
+                  <SelectItem key={region} invert value={region.toLowerCase()}>
+                    {createRegionName(region)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
-          <div className="flex justify-center">
+          <div className="flex h-10 items-center justify-center">
             <IconButton
               variant="ghost"
               size="icon"
-              iconSize="24px"
               icon="pin"
+              iconSize="24px"
               bordered="noBorder"
               onClick={findUser}
             />
@@ -181,31 +203,6 @@ const SearchSettings: FC<IProps> = ({}) => {
               onCheckedChange={setSearchForClubMixesOnly}
             />
           </div>
-
-          {/* Results view */}
-          {/* <Label htmlFor="resultsview" className="flex items-center font-thin">
-            {resultsViewText}
-          </Label>
-          <div className="flex h-10 items-end justify-center">
-            <RadioGroup defaultValue="new-page" onValueChange={setResultsView} value={resultsView}>
-              <div className="flex items-center space-x-2 ">
-                <RadioGroupItem
-                  value="new-page"
-                  id="new-pageoption"
-                  onChange={() => setResultsView("new-page")}
-                />
-                <Label htmlFor="new-pageoption" className="cursor-pointer">
-                  {newPageText}
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="below" id="belowoption" />
-                <Label htmlFor="belowoption" className="cursor-pointer">
-                  {belowText}
-                </Label>
-              </div>
-            </RadioGroup>
-          </div> */}
         </div>
       </PopoverContent>
     </Popover>
