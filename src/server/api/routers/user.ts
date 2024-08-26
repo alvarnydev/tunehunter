@@ -56,6 +56,18 @@ export const userRouter = createTRPCRouter({
     return { success: "accountCreated" };
   }),
 
+  editUserMail: protectedProcedure
+    .input(z.object({ id: z.string(), email: z.string().email() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.update(users).set({ email: input.email }).where(eq(users.id, input.id));
+    }),
+
+  editUserName: protectedProcedure
+    .input(z.object({ id: z.string(), name: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.update(users).set({ name: input.name }).where(eq(users.id, input.id));
+    }),
+
   deleteUserAndAccountsByUserId: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(async ({ ctx, input }) => {

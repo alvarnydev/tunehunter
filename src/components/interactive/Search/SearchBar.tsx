@@ -1,6 +1,5 @@
 import { LoadingIndicator } from "@/components/Indicators";
 import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { AnimatePresence, motion } from "framer-motion";
 import { debounce } from "lodash";
@@ -111,12 +110,7 @@ const SearchBar: FC<IProps> = ({}) => {
           )}
         </span>
         <div className="absolute right-2 top-1/2 flex -translate-x-1/2 -translate-y-[13px] items-center justify-center">
-          <Tooltip>
-            <TooltipTrigger>
-              <SearchSettings />
-            </TooltipTrigger>
-            <TooltipContent>{settingsTooltip}</TooltipContent>
-          </Tooltip>
+          <SearchSettings />
         </div>
       </form>
     </div>

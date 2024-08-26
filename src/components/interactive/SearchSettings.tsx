@@ -46,10 +46,7 @@ const SearchSettings: FC<IProps> = ({}) => {
 
   const regionText = t("search.settings.region");
   const minimumLengthText = t("search.settings.setMinimumLength");
-  const resultsViewText = t("search.settings.resultsView");
   const searchForClubMixesOnlyText = t("search.settings.searchForClubMixesOnly");
-  const newPageText = t("search.settings.newPage");
-  const belowText = t("search.settings.below");
 
   const minimumLengthDisplayMinutes = Math.floor(minimumLengthSeconds / 60)
     .toString()
@@ -103,8 +100,10 @@ const SearchSettings: FC<IProps> = ({}) => {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Cog />
+      <PopoverTrigger>
+        <motion.div whileHover={{ rotateZ: 30 }} whileTap={{ scale: 0.9 }}>
+          <Cog />
+        </motion.div>
       </PopoverTrigger>
       <PopoverContent>
         <div className="grid grid-cols-[auto_minmax(100px,_max-content)] gap-x-4 gap-y-3  ">

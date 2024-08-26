@@ -25,6 +25,8 @@ const ProfileMenu: FC<IProps> = () => {
 
   const deleteAccount = api.user.deleteUserAndAccountsByUserId.useMutation();
   const unlinkSpotifyAccount = api.user.unlinkSpotifyAccount.useMutation();
+  const editUserName = api.user.editUserName.useMutation();
+  const editUserMail = api.user.editUserMail.useMutation();
   const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
     { userId: userData?.user.id! },
     {
@@ -152,7 +154,7 @@ const ProfileMenu: FC<IProps> = () => {
   return (
     <AuthCard size="default">
       {/* User */}
-      <div className="flex flex-row items-center gap-4 pt-2">
+      <div className="flex flex-row items-center gap-4 pb-2 pt-2">
         <Avatar>
           {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
           {!userImg && <AvatarImage src="/favicons/android-chrome-192x192.png" alt={userImgAlt} />}
@@ -160,62 +162,75 @@ const ProfileMenu: FC<IProps> = () => {
         {userName && <p>{userName}</p>}
       </div>
 
-      {/* User data */}
-      <div className="grid w-full grid-cols-2 gap-4">
-        <p className="flex items-center font-thin">{userMailText}</p>
-        <p className="overflow-x-clip text-ellipsis font-thin">{userMail}</p>
-        <p className="flex items-center font-thin">{spotifyText}</p>
+      <div className="grid w-full grid-cols-[repeat(6,max-content)] gap-x-12 gap-y-6">
+        {/* User data */}
+        <p className="col-span-2 flex items-center font-thin">{userMailText}</p>
+        <p className="col-span-3 overflow-x-clip text-ellipsis font-thin">{userMail}</p>
+        <div className="col-span-1">
+          <IconButton icon="edit" variant="ghostPrimary" size="icon" iconSize="20px" />
+        </div>
+
+        <p className="col-span-2 flex items-center font-thin">{spotifyText}</p>
         {spotifyAccount?.data && (
-          <div className="flex items-center justify-between gap-2">
-            <p className="font-thin text-success">{spotifyConnectedText}</p>
-            <div className="flex gap-2">
-              <a
-                href={`https://open.spotify.com/user/${spotifyAccount.data.providerAccountId}`}
-                target="_blank"
-              >
-                <IconButton icon="external" variant="ghostSuccess" size="icon" iconSize="22px" />
-              </a>
-              <ConfirmationPrompt
-                dialogAction={handleUnlinkSpotify}
-                dialogText={unlinkSpotifyPromptText}
-                dialogTitle={unlinkSpotifyPromptTitle}
-              >
-                <IconButton icon="x" variant="ghostDestructive" size="icon" iconSize="22px" />
-              </ConfirmationPrompt>
-            </div>
-          </div>
+          <>
+            <a
+              href={`https://open.spotify.com/user/${spotifyAccount.data.providerAccountId}`}
+              target="_blank"
+              className="col-span-3"
+            >
+              <IconButton
+                className="p-0 text-success"
+                icon="external"
+                iconPosition="right"
+                variant="link"
+                text={spotifyConnectedText}
+                size="sm"
+              />
+            </a>
+            <ConfirmationPrompt
+              dialogAction={handleUnlinkSpotify}
+              dialogText={unlinkSpotifyPromptText}
+              dialogTitle={unlinkSpotifyPromptTitle}
+            >
+              <IconButton icon="x" variant="ghostPrimary" size="icon" iconSize="20px" />
+            </ConfirmationPrompt>
+          </>
         )}
         {!spotifyAccount?.data && (
-          <IconButton
-            icon={"spotify"}
-            variant="outlinePrimary"
-            text={spotifyConnectPrompt}
-            size="sm"
-            onClick={handleLinkSpotify}
-          />
+          <div className="col-span-4">
+            <IconButton
+              icon={"spotify"}
+              variant="outlinePrimary"
+              text={spotifyConnectPrompt}
+              size="sm"
+              onClick={handleLinkSpotify}
+            />
+          </div>
         )}
-      </div>
 
-      {/* Actions */}
-      <div className="mb-[1px] mt-[2px]" />
-      <div className="grid w-full grid-cols-2 gap-4">
-        <p className="flex items-center font-thin">{haveFeedbackText}</p>
-        <a href="mailto:hello@tunehunter.app?subject=Feedback">
+        {/* Actions */}
+        <div className="col-span-6">
+          <Separator />
+        </div>
+        <p className="col-span-2 flex items-center font-thin">{haveFeedbackText}</p>
+        <a href="mailto:hello@tunehunter.app?subject=Feedback" className="col-span-4">
           <IconButton text={writeUsPrompt} variant="outlinePrimary" size="sm" icon="mail" />
         </a>
 
-        <p className="flex items-center font-thin">{wantToGoText}</p>
-        <ConfirmationPrompt
-          dialogAction={handleDeleteAccount}
-          dialogText={deleteAccountPromptText}
-          dialogTitle={deleteAccountPromptTitle}
-        >
-          <IconButton text={deleteAccountText} variant="ghostDestructive" size="sm" icon="x" />
-        </ConfirmationPrompt>
+        <p className="col-span-2 flex items-center font-thin">{wantToGoText}</p>
+        <div className="col-span-4">
+          <ConfirmationPrompt
+            dialogAction={handleDeleteAccount}
+            dialogText={deleteAccountPromptText}
+            dialogTitle={deleteAccountPromptTitle}
+          >
+            <IconButton text={deleteAccountText} variant="outlineDestructive" size="sm" icon="x" />
+          </ConfirmationPrompt>
+        </div>
       </div>
 
       {/* Log out */}
-      <Separator borderColor="border-background" />
+      <Separator borderColor="" />
       <div className="w-fit">
         <IconButton
           onClick={handleSignOut}

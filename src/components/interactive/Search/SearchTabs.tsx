@@ -86,10 +86,10 @@ const SearchTabs: FC<IProps> = ({}) => {
 
   return (
     <>
-      <div className="flex min-w-0 flex-wrap justify-center gap-6">
+      <div className="flex min-w-0 flex-wrap justify-center gap-4">
         {tabs.map((tab) => {
           const TabElement = ({ disabled = false }) => (
-            <p className="flex items-center gap-2">
+            <p className="flex items-center gap-2 px-1 pb-1">
               <CustomIcon icon={tab} variant={disabled ? "primary-muted" : "primary"} />
               {getTabName(tab)}
             </p>
@@ -112,12 +112,9 @@ const SearchTabs: FC<IProps> = ({}) => {
               onClick={() => setTab(tab)}
               disabled={isDisabledTab(tab)}
               className={cn(
-                "whitespace-nowrap  text-foreground transition-all enabled:hover:text-foreground",
-                searchTab === tab ? "font-bold" : "",
+                "whitespace-nowrap border-b-2 text-foreground transition-all enabled:hover:border-primary/50",
+                searchTab === tab ? "!border-primary" : "border-transparent",
               )}
-              initial={{}}
-              animate={{}}
-              transition={{}}
             >
               <TabElement />
             </motion.button>

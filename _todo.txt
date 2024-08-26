@@ -1,5 +1,4 @@
 Settings edit functionality: username, picture
-most listened: weekly, monthly, yearly, all time
 
 iTunes api search debounce
 Results styles & functionality

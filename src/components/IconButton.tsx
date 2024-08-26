@@ -32,7 +32,7 @@ const buttonToIconVariantMap: Record<CustomButtonVariant, CustomIconVariant> = {
   ghost: "ghost-foreground",
   ghostReduced: "ghost-foreground",
   ghostDestructive: "ghost-destructive-foreground",
-  ghostPrimary: "ghost-primary-foreground",
+  ghostPrimary: "primary",
   ghostAccent: "accent-foreground",
   ghostSuccess: "success-foreground",
   outline: "outline-foreground",
