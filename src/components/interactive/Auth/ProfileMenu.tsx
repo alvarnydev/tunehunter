@@ -5,12 +5,13 @@ import { signInWithProvider } from "@/helpers/sign-in";
 import { wait } from "@/helpers/wait";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { api } from "@/utils/api";
+import { motion } from "framer-motion";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { useEffect, type FC } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
-import { Avatar, AvatarImage } from "../../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
 import ConfirmationPrompt from "../Prompts/ConfirmationPrompt";
 import AuthCard from "./AuthCard";
@@ -154,11 +155,21 @@ const ProfileMenu: FC<IProps> = () => {
   return (
     <AuthCard size="default">
       {/* User */}
-      <div className="flex flex-row items-center gap-4 pb-2 pt-2">
-        <Avatar>
-          {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
-          {!userImg && <AvatarImage src="/favicons/android-chrome-192x192.png" alt={userImgAlt} />}
-        </Avatar>
+      <div className="relative flex flex-row items-center gap-4 pb-2 pt-2">
+        <div className="relative">
+          <motion.div
+            className="absolute inset-0 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-foreground bg-black bg-opacity-50"
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <IconButton icon="edit" className="h-full w-full" size="icon" iconSize="20px" />
+          </motion.div>
+          <Avatar className="relative z-10 border border-foreground">
+            {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
+            {!userImg && <AvatarFallback>{userName?.slice(0, 2)}</AvatarFallback>}
+          </Avatar>
+        </div>
         {userName && <p>{userName}</p>}
       </div>
 

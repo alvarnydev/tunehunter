@@ -60,8 +60,8 @@ const IconButton: FC<IProps> = ({
     <Button
       className={cn(
         "group flex w-full gap-2 font-light uppercase tracking-widest opacity-100 transition-all disabled:opacity-50",
-        className,
         size === "icon" && `h-8 w-8`,
+        className,
       )}
       variant={variant ?? "default"}
       size={size ?? "default"}
