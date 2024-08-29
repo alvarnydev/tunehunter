@@ -173,10 +173,10 @@ const ProfileMenu: FC<IProps> = () => {
         {userName && <p>{userName}</p>}
       </div>
 
-      <div className="grid w-full grid-cols-[repeat(6,max-content)] gap-x-12 gap-y-6">
+      <div className="grid w-full grid-cols-[repeat(5,max-content)] gap-x-8 gap-y-6">
         {/* User data */}
         <p className="col-span-2 flex items-center font-thin">{userMailText}</p>
-        <p className="col-span-3 flex items-center overflow-x-clip text-ellipsis font-thin">
+        <p className="col-span-2 flex items-center overflow-x-clip text-ellipsis font-thin">
           {userMail}
         </p>
         <div className="col-span-1">
@@ -189,7 +189,7 @@ const ProfileMenu: FC<IProps> = () => {
             <a
               href={`https://open.spotify.com/user/${spotifyAccount.data.providerAccountId}`}
               target="_blank"
-              className="col-span-3"
+              className="col-span-2"
             >
               <IconButton
                 className="p-0 text-success"
@@ -210,7 +210,7 @@ const ProfileMenu: FC<IProps> = () => {
           </>
         )}
         {!spotifyAccount?.data && (
-          <div className="col-span-4">
+          <div className="col-span-3">
             <IconButton
               icon={"spotify"}
               variant="outlinePrimary"
@@ -222,16 +222,16 @@ const ProfileMenu: FC<IProps> = () => {
         )}
 
         {/* Actions */}
-        <div className="col-span-6">
+        <div className="col-span-5">
           <Separator />
         </div>
         <p className="col-span-2 flex items-center font-thin">{haveFeedbackText}</p>
-        <a href="mailto:hello@tunehunter.app?subject=Feedback" className="col-span-4">
+        <a href="mailto:hello@tunehunter.app?subject=Feedback" className="col-span-3">
           <IconButton text={writeUsPrompt} variant="outlinePrimary" size="sm" icon="mail" />
         </a>
 
         <p className="col-span-2 flex items-center font-thin">{wantToGoText}</p>
-        <div className="col-span-4">
+        <div className="col-span-3">
           <ConfirmationPrompt
             dialogAction={handleDeleteAccount}
             dialogText={deleteAccountPromptText}
@@ -243,8 +243,7 @@ const ProfileMenu: FC<IProps> = () => {
       </div>
 
       {/* Log out */}
-      <Separator borderColor="" />
-      <div className="w-fit">
+      <div className="mt-4 w-fit">
         <IconButton
           onClick={handleSignOut}
           text={logOutText}
