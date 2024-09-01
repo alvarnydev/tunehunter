@@ -31,7 +31,7 @@
       "dialogDescription": "Por favor ingresa tu nuevo correo y confírmalo. Luego te enviaremos un código de verificación.",
       "newMail": "Nuevo correo:",
       "confirmMail": "Confirmar correo:",
-      "codePrompt": "Por favor ingresa el código de verificación que te enviamos por correo.",
+      "codePrompt": "Por favor ingresa el código de verificación que te enviamos.",
       "code": "Código:"
     }
   },
@@ -139,6 +139,7 @@
       "success": "Cuente de Spotify conectada correctamente!"
     },
     "edit": {
+      "invalidCode": "¡El código no coincide! Por favor revisa tu entrada.",
       "username": {
         "loading": "Actualizando nombre de usuario...",
         "success": "Nombre de usuario actualizado correctamente!",

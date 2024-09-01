@@ -31,7 +31,7 @@
       "dialogDescription": "Please enter your new mail address and confirm it. We will then send you a verification code.",
       "newMail": "New mail:",
       "confirmMail": "Confirm mail:",
-      "codePrompt": "Please enter the verification code we sent you via mail.",
+      "codePrompt": "Please enter the verification code we sent you.",
       "code": "Code:"
     }
   },
@@ -139,6 +139,7 @@
       "success": "Spotify account successfully linked!"
     },
     "edit": {
+      "invalidCode": "The code does not match! Please check your input.",
       "username": {
         "loading": "Updating username...",
         "success": "Username successfully updated!",

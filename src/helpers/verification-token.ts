@@ -28,7 +28,7 @@ const useVerificationToken = () => {
   };
 
   return {
-    generateVerificationToken: createAndSendVerificationToken,
+    createAndSendVerificationToken,
     verifyVerificationToken,
   };
 };

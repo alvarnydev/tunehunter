@@ -39,7 +39,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const { handleChangeMail } = useProfileFunctions();
-  const { generateVerificationToken, verifyVerificationToken } = useVerificationToken();
+  const { createAndSendVerificationToken, verifyVerificationToken } = useVerificationToken();
   const utils = api.useUtils();
 
   const dialogTitleText = t("profile.changeMail.dialogTitle");
@@ -53,9 +53,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
   const continueText = t("general.continue");
   const cancelText = t("general.cancel");
   const mailAlreadyExistsText = t("toast.edit.mail.alreadyExists");
-  const mailSendLoadingText = t("toast.mail.loading");
-  const mailSendErrorText = t("toast.mail.error");
-  const mailSendSuccessText = t("toast.mail.successVerification");
+  const invalidCodeText = t("toast.edit.invalidCode");
 
   const handleDialogCancel = () => {
     setEmail("");
@@ -75,16 +73,9 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
         return;
       }
 
-      const tokenPromise = generateVerificationToken(email);
-
-      toast.promise(tokenPromise, {
-        loading: mailSendLoadingText,
-        success: () => {
-          setCodeSent(true);
-          return mailSendSuccessText;
-        },
-        error: mailSendErrorText,
-      });
+      toast.dismiss();
+      createAndSendVerificationToken(email);
+      setCodeSent(true);
 
       return;
     }
@@ -92,7 +83,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
     // Check code
     const codeMatchesHash = await verifyVerificationToken(email, confirmationCode);
     if (!codeMatchesHash) {
-      toast.error("Invalid code!", { dismissible: true, duration: Infinity });
+      toast.error(invalidCodeText, { dismissible: true, duration: Infinity });
       return;
     }
 

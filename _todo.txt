@@ -1,4 +1,4 @@
-Settings edit functionality: username, picture (s3 bucket)
+Settings edit functionality: picture (s3 bucket)
 TOTP sign in
 
 iTunes api search debounce

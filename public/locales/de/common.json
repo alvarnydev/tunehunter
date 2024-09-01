@@ -31,7 +31,7 @@
       "dialogDescription": "Bitte gib deine neue E-Mail-Adresse ein und bestätige sie. Wir senden dir dann einen Bestätigungscode per Mail.",
       "newMail": "Neue E-Mail:",
       "confirmMail": "E-Mail bestätigen:",
-      "codePrompt": "Bitte gib den Bestätigungscode ein, den wir dir per Mail gesendet haben.",
+      "codePrompt": "Bitte gib den Bestätigungscode ein, den wir dir gesendet haben.",
       "code": "Code:"
     }
   },
@@ -139,6 +139,7 @@
       "success": "Spotify erfolgreich verbunden!"
     },
     "edit": {
+      "invalidCode": "Der Code stimmt nicht überein! Bitte überprüfe deine Eingabe.",
       "username": {
         "loading": "Nutzername wird geändert...",
         "success": "Nutzername erfolgreich geändert!",
