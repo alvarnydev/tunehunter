@@ -9,24 +9,21 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import useProfileFunctions from "@/hooks/useProfileFunctions";
+import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { MouseEventHandler, ReactNode } from "react";
+import { ReactNode } from "react";
 
-interface ConfirmationPromptProps {
+interface ChangeAvatarDialogProps {
   children: ReactNode;
-  dialogTitle: string;
-  dialogText: string;
-  dialogAction: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ConfirmationPrompt = ({
-  dialogTitle,
-  dialogText,
-  dialogAction,
-  children,
-}: ConfirmationPromptProps) => {
+const ChangeAvatarDialog = ({ children }: ChangeAvatarDialogProps) => {
   const { t } = useTranslation("");
-  const continueText = t("general.continue");
+  const { data: userData } = useSession();
+  const { handleChangeAvatar } = useProfileFunctions();
+
+  const confirmText = t("general.confirm");
   const cancelText = t("general.cancel");
 
   return (
@@ -34,16 +31,16 @@ const ConfirmationPrompt = ({
       <AlertDialogTrigger className="w-full">{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{dialogTitle}</AlertDialogTitle>
-          <AlertDialogDescription>{dialogText}</AlertDialogDescription>
+          <AlertDialogTitle>dialogTitle</AlertDialogTitle>
+          <AlertDialogDescription>dialogText</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-          <AlertDialogAction onClick={dialogAction}>{continueText}</AlertDialogAction>
+          <AlertDialogAction onClick={handleChangeAvatar}>{confirmText}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );
 };
 
-export default ConfirmationPrompt;
+export default ChangeAvatarDialog;

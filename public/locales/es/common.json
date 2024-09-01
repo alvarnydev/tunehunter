@@ -5,7 +5,9 @@
     "userName": "Nombre de usuario",
     "mail": "Correo",
     "continue": "Continuar",
-    "search": "Buscar"
+    "search": "Buscar",
+    "submit": "Enviar",
+    "confirm": "Confirmar"
   },
   "tooltip": {
     "settings": "Configuración",
@@ -23,6 +25,14 @@
       "button": "Eliminar cuenta",
       "promptTitle": "¿Estás seguro/a?",
       "promptText": "Esta acción no se puede deshacer. Esto eliminará permanentemente tu cuenta y todos los datos relacionados."
+    },
+    "changeMail": {
+      "dialogTitle": "Cambiar correo",
+      "dialogDescription": "Por favor ingresa tu nuevo correo y confírmalo. Luego te enviaremos un código de verificación.",
+      "newMail": "Nuevo correo:",
+      "confirmMail": "Confirmar correo:",
+      "codePrompt": "Por favor ingresa el código de verificación que te enviamos por correo:",
+      "code": "Código:"
     }
   },
   "search": {

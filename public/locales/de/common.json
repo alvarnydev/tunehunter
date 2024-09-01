@@ -5,7 +5,9 @@
     "mail": "E-Mail",
     "userName": "Nutzername",
     "continue": "Weiter",
-    "search": "Suchen"
+    "search": "Suchen",
+    "submit": "Absenden",
+    "confirm": "Bestätigen"
   },
   "tooltip": {
     "settings": "Einstellungen",
@@ -23,6 +25,14 @@
       "button": "Account löschen",
       "promptTitle": "Bist du dir sicher?",
       "promptText": "Diese Aktion kann nicht rückgängig gemacht werden. Dies löscht deinen Account sowie alle dazugehörigen Daten endgültig."
+    },
+    "changeMail": {
+      "dialogTitle": "E-Mail ändern",
+      "dialogDescription": "Bitte gib deine neue E-Mail-Adresse ein und bestätige sie. Wir senden dir dann einen Bestätigungscode per Mail.",
+      "newMail": "Neue E-Mail:",
+      "confirmMail": "E-Mail bestätigen:",
+      "codePrompt": "Bitte gib den Bestätigungscode ein, den wir dir per Mail geschickt haben:",
+      "code": "Code:"
     }
   },
   "search": {

@@ -1,3 +1,4 @@
+import { fadeInUp } from "@/helpers/animations";
 import {
   countryNamesEnglish,
   countryNamesGerman,
@@ -128,12 +129,7 @@ const SearchSettings: FC<IProps> = ({}) => {
                 id="region"
                 className="h-9 max-w-32 text-ellipsis border-none bg-primary px-2 text-base font-thin text-primary-foreground"
               >
-                <motion.div
-                  key={region}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
+                <motion.div key={region} {...fadeInUp}>
                   <SelectValue />
                 </motion.div>
               </SelectTrigger>

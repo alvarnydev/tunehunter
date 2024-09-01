@@ -5,7 +5,9 @@
     "userName": "User name",
     "mail": "Mail",
     "continue": "Continue",
-    "search": "Search"
+    "search": "Search",
+    "submit": "Submit",
+    "confirm": "Confirm"
   },
   "tooltip": {
     "settings": "Settings",
@@ -23,6 +25,14 @@
       "button": "Delete account",
       "promptTitle": "Are you absolutely sure?",
       "promptText": "This action cannot be undone. This will permanently delete your account and all related data."
+    },
+    "changeMail": {
+      "dialogTitle": "Change mail",
+      "dialogDescription": "Please enter your new mail address and confirm it. We will then send you a verification code.",
+      "newMail": "New mail:",
+      "confirmMail": "Confirm mail:",
+      "codePrompt": "Please enter the verification code we sent you via mail:",
+      "code": "Code:"
     }
   },
   "search": {
