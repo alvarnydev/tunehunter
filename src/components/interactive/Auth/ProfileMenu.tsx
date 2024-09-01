@@ -1,18 +1,19 @@
 import { Separator } from "@/components/my-ui/separator";
+import { Input } from "@/components/ui/input";
 import { isNextAuthError } from "@/helpers/nextauth-errors";
 import { playJingle } from "@/helpers/play-jingle";
 import { signInWithProvider } from "@/helpers/sign-in";
+import { ErrorFormat } from "@/helpers/trpc-errors";
 import { wait } from "@/helpers/wait";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { api } from "@/utils/api";
 import { motion } from "framer-motion";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { useEffect, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { Button } from "../../ui/button";
 import ConfirmationPrompt from "../Prompts/ConfirmationPrompt";
 import AuthCard from "./AuthCard";
 
@@ -21,12 +22,21 @@ interface IProps {}
 const ProfileMenu: FC<IProps> = () => {
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
-  const { data: userData } = useSession();
-  const utils = api.useUtils();
 
+  // DB Data
+  const utils = api.useUtils();
+  const { data: userData, update } = useSession();
+  const userName = userData?.user.name;
+  const userMail = userData?.user.email;
+  const userImg = userData?.user.image;
+  const userImgAlt = `Avatar image of ${userName}`;
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [email, setEmail] = useState(userMail);
+
+  // DB Queries & Mutations
   const deleteAccount = api.user.deleteUserAndAccountsByUserId.useMutation();
   const unlinkSpotifyAccount = api.user.unlinkSpotifyAccount.useMutation();
-  const editUserName = api.user.editUserName.useMutation();
   const editUserMail = api.user.editUserMail.useMutation();
   const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
     { userId: userData?.user.id! },
@@ -47,7 +57,7 @@ const ProfileMenu: FC<IProps> = () => {
     }
   }, [router.isReady]);
 
-  const signOutText = t("auth.signOut");
+  // Translations
   const logoutLoadingText = t("toast.logout.loading");
   const logoutSuccessText = t("toast.logout.success");
   const logoutErrorText = t("toast.logout.error");
@@ -59,7 +69,8 @@ const ProfileMenu: FC<IProps> = () => {
   const unlinkSpotifyPromptText = t("search.settings.unlink.text");
   const unlinkSpotifyLoadingText = t("toast.unlinkSpotify.loading");
   const unlinkSpotifySuccessText = t("toast.unlinkSpotify.success");
-  const unlinkSpotifyErrorText = t("toast.unlinkSpotify.error");
+  const unlinkSpotifyErrorText = (errorMessage: string) =>
+    t("toast.unlinkSpotify.error", { error: errorMessage });
   const getNextAuthErrorText = (errorString: string) => t(`auth.errors.${errorString}`);
   const haveFeedbackText = t("profile.haveFeedback");
   const writeUsPrompt = t("profile.writeUs");
@@ -68,9 +79,45 @@ const ProfileMenu: FC<IProps> = () => {
   const deleteAccountText = t("profile.deleteAccount.button");
   const deleteAccountPromptTitle = t("profile.deleteAccount.promptTitle");
   const deleteAccountPromptText = t("profile.deleteAccount.promptText");
-  const deleteLoadingText = t("toast.deleteAccount.loading");
-  const deleteSuccessText = t("toast.deleteAccount.success");
-  const deleteErrorText = t("toast.deleteAccount.error");
+  const deleteAccountLoadingText = t("toast.deleteAccount.loading");
+  const deleteAccountSuccessText = t("toast.deleteAccount.success");
+  const deleteAccountErrorText = (errorMessage: string) =>
+    t("toast.deleteAccount.error", { error: errorMessage });
+  const editUserMailSuccessText = t("toast.edit.mail.success");
+  const editUserMailErrorText = (errorMessage: string) =>
+    t("toast.edit.mail.error", { error: errorMessage });
+
+  // Functionality
+  const handleSaveMailChangeClick = async () => {
+    if (!userData) {
+      throw new Error("User must be logged in to request mail change.");
+    }
+    if (!email) {
+      toast.error("Please enter a valid email address!");
+      return;
+    }
+
+    // Display error text, change colors for input, i18 strings
+    editUserMail.mutate(
+      { id: userData.user.id, email },
+      {
+        onSuccess: () => {
+          setIsEditing(false);
+          update();
+          toast.success(editUserMailSuccessText);
+        },
+        onError: (opts) => {
+          const error: ErrorFormat = JSON.parse(opts.message)[0];
+          const errorMessage = error.message;
+
+          toast.error(editUserMailErrorText(errorMessage), {
+            dismissible: true,
+            duration: Infinity,
+          });
+        },
+      },
+    );
+  };
 
   const handleSignOut = async () => {
     router.push("/");
@@ -94,7 +141,7 @@ const ProfileMenu: FC<IProps> = () => {
       throw new Error("User must be logged in to request account deletion.");
     }
 
-    const loadingToast = toast.loading(deleteLoadingText);
+    const loadingToast = toast.loading(deleteAccountLoadingText);
     deleteAccount.mutate(
       { userId: userData.user.id },
       {
@@ -102,10 +149,17 @@ const ProfileMenu: FC<IProps> = () => {
           signOut({ redirect: false });
           router.push("/");
           playJingle("reverse");
-          toast.success(deleteSuccessText, { id: loadingToast });
+          toast.success(deleteAccountSuccessText, { id: loadingToast });
         },
-        onError: () => {
-          toast.error(deleteErrorText, { id: loadingToast, dismissible: true, duration: Infinity });
+        onError: (opts) => {
+          const error: ErrorFormat = JSON.parse(opts.message)[0];
+          const errorMessage = error.message;
+
+          toast.error(deleteAccountErrorText(errorMessage), {
+            id: loadingToast,
+            dismissible: true,
+            duration: Infinity,
+          });
         },
       },
     );
@@ -125,8 +179,11 @@ const ProfileMenu: FC<IProps> = () => {
             .invalidate()
             .then(() => toast.success(unlinkSpotifySuccessText, { id: loadingToast }));
         },
-        onError: () => {
-          toast.error(unlinkSpotifyErrorText, {
+        onError: (opts) => {
+          const error: ErrorFormat = JSON.parse(opts.message)[0];
+          const errorMessage = error.message;
+
+          toast.error(unlinkSpotifyErrorText(errorMessage), {
             id: loadingToast,
             dismissible: true,
             duration: Infinity,
@@ -140,18 +197,6 @@ const ProfileMenu: FC<IProps> = () => {
     await signInWithProvider("spotify", router.locale ?? "", "link");
   };
 
-  if (!userData)
-    return (
-      <Button onClick={handleSignOut} className="px-8 py-6 font-thin uppercase tracking-widest">
-        <p>{signOutText}</p>
-      </Button>
-    );
-
-  const userName = userData.user.name;
-  const userMail = userData.user.email;
-  const userImg = userData.user.image;
-  const userImgAlt = `Avatar image of ${userName}`;
-
   return (
     <AuthCard size="default">
       {/* User */}
@@ -163,7 +208,7 @@ const ProfileMenu: FC<IProps> = () => {
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <IconButton icon="edit" className="h-full w-full" size="icon" iconSize="20px" />
+            <IconButton icon="upload" className="h-full w-full" size="icon" iconSize="20px" />
           </motion.div>
           <Avatar className="relative z-10 border border-foreground">
             {userImg && <AvatarImage src={userImg} alt={userImgAlt} />}
@@ -176,12 +221,39 @@ const ProfileMenu: FC<IProps> = () => {
       <div className="grid w-full grid-cols-[repeat(5,max-content)] gap-x-8 gap-y-6">
         {/* User data */}
         <p className="col-span-2 flex items-center font-thin">{userMailText}</p>
-        <p className="col-span-2 flex items-center overflow-x-clip text-ellipsis font-thin">
-          {userMail}
-        </p>
-        <div className="col-span-1">
-          <IconButton icon="edit" variant="ghostPrimary" size="icon" iconSize="20px" />
-        </div>
+        {isEditing ? (
+          <>
+            <Input
+              type="email"
+              value={email ?? ""}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(key) => key.key === "Enter" && handleSaveMailChangeClick()}
+              className="col-span-2 overflow-x-clip text-ellipsis bg-foreground py-0 text-base font-thin text-background"
+            />
+            <IconButton
+              icon="save"
+              variant="ghostPrimary"
+              size="icon"
+              iconSize="20px"
+              onClick={handleSaveMailChangeClick}
+            />
+          </>
+        ) : (
+          <>
+            <p className="col-span-2 flex items-center overflow-x-clip text-ellipsis font-thin">
+              {userMail}
+            </p>
+            <div className="col-span-1">
+              <IconButton
+                icon="edit"
+                variant="ghostPrimary"
+                size="icon"
+                iconSize="20px"
+                onClick={() => setIsEditing(true)}
+              />
+            </div>
+          </>
+        )}
 
         <p className="col-span-2 flex items-center font-thin">{spotifyText}</p>
         {spotifyAccount?.data && (

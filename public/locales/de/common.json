@@ -98,7 +98,7 @@
       "registerPrompt": "Hast du noch keinen Account?",
       "process": {
         "accountCreated": "Account erfolgreich erstellt",
-        "generalError": "Etwas ist schiefgelaufen und wir konnten deinen Account nicht erstellen, sorry! Bitte versuche es später erneut.",
+        "generalError": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Account nicht erstellen, sorry! Bitte versuche es später erneut.",
         "invalidFields": "Bitte überprüfe deine Eingabe",
         "accountAlreadyExists": "Ein Account mit dieser E-Mail existiert bereits",
         "usernameAlreadyExists": "Dieser Nutzername ist bereits vergeben"
@@ -128,6 +128,23 @@
     "connect": {
       "success": "Spotify erfolgreich verbunden"
     },
+    "edit": {
+      "username": {
+        "loading": "Nutzername wird geändert...",
+        "success": "Nutzername erfolgreich geändert",
+        "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Nutzernamen nicht ändern, sorry! Bitte versuche es später erneut."
+      },
+      "mail": {
+        "loading": "E-Mail wird geändert...",
+        "success": "E-Mail erfolgreich geändert",
+        "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deine E-Mail nicht ändern, sorry! Bitte versuche es später erneut."
+      },
+      "profilePicture": {
+        "loading": "Profilbild wird geändert...",
+        "success": "Profilbild erfolgreich geändert",
+        "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten dein Profilbild nicht ändern, sorry! Bitte versuche es später erneut."
+      }
+    },
     "login": {
       "loading": "Einloggen...",
       "success": "Erfolgreich eingeloggt",
@@ -145,12 +162,12 @@
     },
     "deleteAccount": {
       "loading": "Account löschen...",
-      "error": "Etwas ist schiefgelaufen und wir konnten deinen Account nicht löschen, sorry! Bitte versuche es später erneut.",
+      "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Account nicht löschen, sorry! Bitte versuche es später erneut.",
       "success": "Account erfolgreich gelöscht! Mach's gut 👋"
     },
     "unlinkSpotify": {
       "loading": "Verbindung zu deinem Spotify-Account wird entfernt...",
-      "error": "Etwas ist schiefgelaufen und wir konnten die Verbindung zu deinem Spotify-Account nicht trennen, sorry! Bitte versuche es später.",
+      "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten die Verbindung zu deinem Spotify-Account nicht trennen, sorry! Bitte versuche es später.",
       "success": "Verbindung zu deinem Spotify-Account wurde erfolgreich entfernt"
     }
   },

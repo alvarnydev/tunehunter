@@ -1,4 +1,4 @@
-Settings edit functionality: username, picture
+Settings edit functionality: username, picture (s3 bucket)
 
 iTunes api search debounce
 Results styles & functionality

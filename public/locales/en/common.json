@@ -98,7 +98,7 @@
       "registerPrompt": "Don't have an account yet?",
       "process": {
         "accountCreated": "Account successfully created",
-        "generalError": "Something went wrong and were unable to create an account for you, sorry! Please try again later.",
+        "generalError": "Something went wrong (Server response: '{{error}}') and were unable to create an account for you, sorry! Please try again later.",
         "invalidFields": "Please check your input",
         "accountAlreadyExists": "An account with this mail already exists",
         "usernameAlreadyExists": "This username is already in use"
@@ -128,6 +128,23 @@
     "connect": {
       "success": "Spotify account successfully linked"
     },
+    "edit": {
+      "username": {
+        "loading": "Updating username...",
+        "success": "Username successfully updated",
+        "error": "Something went wrong (Server response: '{{error}}') and we could not update your username, sorry! Please try again later."
+      },
+      "mail": {
+        "loading": "Updating mail...",
+        "success": "Mail successfully updated",
+        "error": "Something went wrong (Server response: '{{error}}') and we could not update your mail, sorry! Please try again later."
+      },
+      "profilePicture": {
+        "loading": "Updating profile picture...",
+        "success": "Profile picture successfully updated",
+        "error": "Something went wrong (Server response: '{{error}}') and we could not update your profile picture, sorry! Please try again later."
+      }
+    },
     "login": {
       "loading": "Logging you in...",
       "success": "Successfully logged in",
@@ -145,12 +162,12 @@
     },
     "deleteAccount": {
       "loading": "Deleting account...",
-      "error": "Something went wrong and we could not delete your account, sorry! Please try again later.",
+      "error": "Something went wrong (Server response: '{{error}}') and we could not delete your account, sorry! Please try again later.",
       "success": "Account successfully deleted! All the best 👋"
     },
     "unlinkSpotify": {
       "loading": "Unlinking Spotify account...",
-      "error": "Something went wrong and we could not unlink your Spotify account, sorry! Please try again later.",
+      "error": "Something went wrong (Server response: '{{error}}') and we could not unlink your Spotify account, sorry! Please try again later.",
       "success": "Spotify account successfully unlinked"
     }
   },

@@ -98,7 +98,7 @@
       "registerPrompt": "Todavía no tienes cuenta?",
       "process": {
         "accountCreated": "Cuenta creada correctamente",
-        "generalError": "Algo salió mal y no pudimos crear tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
+        "generalError": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos crear tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
         "invalidFields": "Por favor revisa tu entrada",
         "accountAlreadyExists": "Ya existe una cuenta con este correo",
         "usernameAlreadyExists": "Este nombre de usuario ya está en uso"
@@ -128,6 +128,23 @@
     "connect": {
       "success": "Cuente de Spotify conectada correctamente"
     },
+    "edit": {
+      "username": {
+        "loading": "Actualizando nombre de usuario...",
+        "success": "Nombre de usuario actualizado correctamente",
+        "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu nombre de usuario, lo siento! Por favor intenta de nuevo más tarde."
+      },
+      "mail": {
+        "loading": "Actualizando correo...",
+        "success": "Correo actualizado correctamente",
+        "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu correo, lo siento! Por favor intenta de nuevo más tarde."
+      },
+      "profilePicture": {
+        "loading": "Actualizando foto de perfil...",
+        "success": "Foto de perfil actualizada correctamente",
+        "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu foto de perfil, lo siento! Por favor intenta de nuevo más tarde."
+      }
+    },
     "login": {
       "loading": "Iniciando sesión...",
       "success": "Sesión iniciada correctamente",
@@ -145,12 +162,12 @@
     },
     "deleteAccount": {
       "loading": "Eliminando cuenta...",
-      "error": "Algo salió mal y no pudimos eliminar tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
+      "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos eliminar tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
       "success": "Cuenta eliminada correctamente! Cuidate 👋"
     },
     "unlinkSpotify": {
       "loading": "Desvinculando Spotify...",
-      "error": "Algo salió mal y no pudimos desvincular tu cuenta de Spotify, lo siento! Por favor intenta de nuevo más tarde.",
+      "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos desvincular tu cuenta de Spotify, lo siento! Por favor intenta de nuevo más tarde.",
       "success": "Cuenta de Spotify desvinculada correctamente"
     }
   },
