@@ -104,11 +104,22 @@ const ProfileMenu: FC<IProps> = () => {
         onSuccess: () => {
           setIsEditing(false);
           update();
+          toast.dismiss();
           toast.success(editUserMailSuccessText);
         },
         onError: (opts) => {
-          const error: ErrorFormat = JSON.parse(opts.message)[0];
-          const errorMessage = error.message;
+          let errorMessage = "";
+
+          // Internally thrown error
+          try {
+            const errors = JSON.parse(opts.message);
+            if (Array.isArray(errors)) {
+              errorMessage = (errors[0] as ErrorFormat).message;
+            }
+          } catch {
+            // Custom errors
+            errorMessage = opts.message;
+          }
 
           toast.error(editUserMailErrorText(errorMessage), {
             dismissible: true,

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { RegisterSchema } from "@/schemas";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 import { accounts, users } from "@/server/db/schema";
+import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 
 export const userRouter = createTRPCRouter({
@@ -59,12 +60,24 @@ export const userRouter = createTRPCRouter({
   editUserMail: protectedProcedure
     .input(z.object({ id: z.string(), email: z.string().email() }))
     .mutation(async ({ ctx, input }) => {
+      const mailInUse = await ctx.db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.email, input.email),
+      });
+      if (mailInUse) throw new TRPCError({ code: "CONFLICT", message: "Mail already in use" });
+
       await ctx.db.update(users).set({ email: input.email }).where(eq(users.id, input.id));
     }),
 
   editUserName: protectedProcedure
     .input(z.object({ id: z.string(), name: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      const usernameInUse = await ctx.db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.name, input.name),
+      });
+
+      if (usernameInUse)
+        throw new TRPCError({ code: "CONFLICT", message: "Username already in use" });
+
       await ctx.db.update(users).set({ name: input.name }).where(eq(users.id, input.id));
     }),
 
