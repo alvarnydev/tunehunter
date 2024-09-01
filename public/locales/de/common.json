@@ -31,7 +31,7 @@
       "dialogDescription": "Bitte gib deine neue E-Mail-Adresse ein und bestätige sie. Wir senden dir dann einen Bestätigungscode per Mail.",
       "newMail": "Neue E-Mail:",
       "confirmMail": "E-Mail bestätigen:",
-      "codePrompt": "Bitte gib den Bestätigungscode ein, den wir dir per Mail geschickt haben:",
+      "codePrompt": "Bitte gib den Bestätigungscode ein, den wir dir per Mail gesendet haben.",
       "code": "Code:"
     }
   },
@@ -136,38 +136,41 @@
       "error": "Wir konnten dich nicht finden. Bitte wähle den Ort manuell aus oder versuche es später erneut."
     },
     "connect": {
-      "success": "Spotify erfolgreich verbunden"
+      "success": "Spotify erfolgreich verbunden!"
     },
     "edit": {
       "username": {
         "loading": "Nutzername wird geändert...",
-        "success": "Nutzername erfolgreich geändert",
-        "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Nutzernamen nicht ändern, sorry! Bitte versuche es später erneut."
+        "success": "Nutzername erfolgreich geändert!",
+        "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Nutzernamen nicht ändern, sorry! Bitte versuche es später erneut.",
+        "alreadyExists": "Dieser Nutzername ist bereits vergeben."
       },
       "mail": {
         "loading": "E-Mail wird geändert...",
-        "success": "E-Mail erfolgreich geändert",
-        "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deine E-Mail nicht ändern, sorry! Bitte versuche es später erneut."
+        "success": "E-Mail erfolgreich geändert!",
+        "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deine E-Mail nicht ändern, sorry! Bitte versuche es später erneut.",
+        "alreadyExists": "Diese E-Mail ist bereits vergeben."
       },
       "profilePicture": {
         "loading": "Profilbild wird geändert...",
-        "success": "Profilbild erfolgreich geändert",
+        "success": "Profilbild erfolgreich geändert!",
         "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten dein Profilbild nicht ändern, sorry! Bitte versuche es später erneut."
       }
     },
+    "mail": {
+      "loading": "Wir versuchen dir eine E-Mail zu senden...",
+      "successLogin": "Eine E-Mail mit dem Login-Link wurde versendet!",
+      "successVerification": "Eine E-Mail mit dem Bestätigungscode wurde versendet!",
+      "error": "Wir konnten keine E-Mail an die angegebene Adresse senden. Bitte überprüfe deine Eingabe oder versuche es später erneut."
+    },
     "login": {
       "loading": "Einloggen...",
-      "success": "Erfolgreich eingeloggt",
-      "error": "Etwas ist schiefgelaufen und wir konnten dich nicht einloggen, sorry! Bitte versuche es später erneut.",
-      "mail": {
-        "loading": "Wir versuchen dir eine E-Mail zu senden...",
-        "success": "Eine E-Mail mit dem Login-Link wurde versendet",
-        "error": "Wir konnten keine E-Mail an die angegebene Adresse senden. Bitte überprüfe deine Eingabe oder versuche es später erneut."
-      }
+      "success": "Erfolgreich eingeloggt!",
+      "error": "Etwas ist schiefgelaufen und wir konnten dich nicht einloggen, sorry! Bitte versuche es später erneut."
     },
     "logout": {
       "loading": "Ausloggen...",
-      "success": "Erfolgreich ausgeloggt",
+      "success": "Erfolgreich ausgeloggt!",
       "error": "Etwas ist schiefgelaufen und wir konnten dich nicht ausloggen, sorry! Bitte versuche es später erneut."
     },
     "deleteAccount": {
@@ -178,7 +181,7 @@
     "unlinkSpotify": {
       "loading": "Verbindung zu deinem Spotify-Account wird entfernt...",
       "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten die Verbindung zu deinem Spotify-Account nicht trennen, sorry! Bitte versuche es später.",
-      "success": "Verbindung zu deinem Spotify-Account wurde erfolgreich entfernt"
+      "success": "Verbindung zu deinem Spotify-Account wurde erfolgreich entfernt!"
     }
   },
   "lang": {

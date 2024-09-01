@@ -1,8 +1,10 @@
+import bcrypt from "bcrypt";
 import { z } from "zod";
 
+import { sendVerificationCodeEmail } from "@/helpers/mail";
 import { RegisterSchema } from "@/schemas";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
-import { accounts, users } from "@/server/db/schema";
+import { accounts, users, verificationTokens } from "@/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 
@@ -37,6 +39,14 @@ export const userRouter = createTRPCRouter({
       };
     }),
 
+  getVerificationTokenByEmail: publicProcedure
+    .input(z.object({ email: z.string().email() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.db.query.verificationTokens.findFirst({
+        where: (tokens, { eq }) => eq(tokens.identifier, input.email),
+      });
+    }),
+
   // ********* Mutations *********
   createAccount: publicProcedure.input(RegisterSchema).mutation(async ({ ctx, input }) => {
     const validatedFields = RegisterSchema.safeParse(input);
@@ -56,6 +66,40 @@ export const userRouter = createTRPCRouter({
     await ctx.db.insert(users).values({ name: input.name, email: input.email });
     return { success: "accountCreated" };
   }),
+
+  storeAndSendVerificationToken: publicProcedure
+    .input(z.object({ email: z.string().email(), token: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await sendVerificationCodeEmail(input.email, input.token);
+      const hashedToken = await bcrypt.hash(input.token, 10);
+      await ctx.db.insert(verificationTokens).values({
+        identifier: input.email,
+        token: hashedToken,
+        expires: new Date(Date.now() + 10 * 60 * 1000),
+      });
+    }),
+
+  verifyVerificationToken: publicProcedure
+    .input(z.object({ email: z.string().email(), token: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const tokenData = await ctx.db.query.verificationTokens.findFirst({
+        where: (tokens, { eq }) => eq(tokens.identifier, input.email),
+      });
+      if (!tokenData) return { error: "tokenNotFound" };
+
+      const isValid = await bcrypt.compare(input.token, tokenData.token);
+      if (!isValid) return { error: "invalidToken" };
+
+      if (tokenData.expires < new Date()) return { error: "expiredToken" };
+
+      return { success: "validToken" };
+    }),
+
+  deleteVerificationTokenByEmail: publicProcedure
+    .input(z.object({ email: z.string().email() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.delete(verificationTokens).where(eq(verificationTokens.identifier, input.email));
+    }),
 
   editUserMail: protectedProcedure
     .input(z.object({ id: z.string(), email: z.string().email() }))

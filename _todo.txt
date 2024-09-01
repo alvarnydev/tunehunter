@@ -18,3 +18,8 @@ Add cypress tests
 
 ----- Qs
 ! and enabled pattern in useQuery (to figure out a way to conditionally query for user settings)
+
+----- Infra
+Host: Vercel
+DB: NeonDB
+Mail: Resend

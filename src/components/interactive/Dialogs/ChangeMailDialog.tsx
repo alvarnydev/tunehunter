@@ -18,10 +18,13 @@ import {
 } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
 import { fadeInUp } from "@/helpers/animations";
+import useVerificationToken from "@/helpers/verification-token";
 import useProfileFunctions from "@/hooks/useProfileFunctions";
+import { api } from "@/utils/api";
 import { motion } from "framer-motion";
 import { useTranslation } from "next-i18next";
 import { ReactNode, useState } from "react";
+import { toast } from "sonner";
 
 interface ChangeMailDialogProps {
   children: ReactNode;
@@ -36,6 +39,8 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const { handleChangeMail } = useProfileFunctions();
+  const { generateVerificationToken, verifyVerificationToken } = useVerificationToken();
+  const utils = api.useUtils();
 
   const dialogTitleText = t("profile.changeMail.dialogTitle");
   const dialogDescriptionText = t("profile.changeMail.dialogDescription");
@@ -47,6 +52,10 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
   const confirmText = t("general.confirm");
   const continueText = t("general.continue");
   const cancelText = t("general.cancel");
+  const mailAlreadyExistsText = t("toast.edit.mail.alreadyExists");
+  const mailSendLoadingText = t("toast.mail.loading");
+  const mailSendErrorText = t("toast.mail.error");
+  const mailSendSuccessText = t("toast.mail.successVerification");
 
   const handleDialogCancel = () => {
     setEmail("");
@@ -56,17 +65,40 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
     setOpen(false);
   };
 
-  const handleDialogClick = () => {
-    setCodeSent(true);
-    // Send code
-    // if (!codeSent) {
-    //   setCodeSent(true);
-    // }
-    // // Check code
-    // else {
-    //   // if() return;
-    //   // handleChangeMail(email)
-    // }
+  const handleDialogClick = async () => {
+    // Send code per mail
+    if (!codeSent) {
+      // Check if mail is already in use
+      const account = await utils.user.getUserByEmail.fetch({ email });
+      if (account) {
+        toast.error(mailAlreadyExistsText, { dismissible: true, duration: Infinity });
+        return;
+      }
+
+      const tokenPromise = generateVerificationToken(email);
+
+      toast.promise(tokenPromise, {
+        loading: mailSendLoadingText,
+        success: () => {
+          setCodeSent(true);
+          return mailSendSuccessText;
+        },
+        error: mailSendErrorText,
+      });
+
+      return;
+    }
+
+    // Check code
+    const codeMatchesHash = await verifyVerificationToken(email, confirmationCode);
+    if (!codeMatchesHash) {
+      toast.error("Invalid code!", { dismissible: true, duration: Infinity });
+      return;
+    }
+
+    // Success -> change mail
+    toast.dismiss();
+    handleChangeMail(email);
   };
 
   return (
@@ -88,6 +120,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
               className="col-span-2 border-foreground"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={codeSent}
             />
             <Label htmlFor="email" className="flex items-center">
               {confirmMailText}
@@ -98,6 +131,8 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
               className="col-span-2 border-foreground"
               value={confirmEmail}
               onChange={(e) => setConfirmEmail(e.target.value)}
+              onKeyDown={(key) => key.key === "Enter" && handleDialogClick()}
+              disabled={codeSent}
             />
           </motion.div>
           {codeSent && (
@@ -112,6 +147,9 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
                     maxLength={6}
                     value={confirmationCode}
                     onChange={(value) => setConfirmationCode(value)}
+                    onKeyDown={(key) =>
+                      confirmationCode.length == 6 && key.key === "Enter" && handleDialogClick()
+                    }
                   >
                     <InputOTPGroup>
                       <InputOTPSlot index={0} className="border-foreground" />

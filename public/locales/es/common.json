@@ -31,7 +31,7 @@
       "dialogDescription": "Por favor ingresa tu nuevo correo y confírmalo. Luego te enviaremos un código de verificación.",
       "newMail": "Nuevo correo:",
       "confirmMail": "Confirmar correo:",
-      "codePrompt": "Por favor ingresa el código de verificación que te enviamos por correo:",
+      "codePrompt": "Por favor ingresa el código de verificación que te enviamos por correo.",
       "code": "Código:"
     }
   },
@@ -136,38 +136,41 @@
       "error": "No pudimos encontrarte. Por favor elige la ubicación manualmente o intenta de nuevo más tarde."
     },
     "connect": {
-      "success": "Cuente de Spotify conectada correctamente"
+      "success": "Cuente de Spotify conectada correctamente!"
     },
     "edit": {
       "username": {
         "loading": "Actualizando nombre de usuario...",
-        "success": "Nombre de usuario actualizado correctamente",
-        "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu nombre de usuario, lo siento! Por favor intenta de nuevo más tarde."
+        "success": "Nombre de usuario actualizado correctamente!",
+        "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu nombre de usuario, lo siento! Por favor intenta de nuevo más tarde.",
+        "alreadyExists": "Este nombre de usuario ya está en uso!"
       },
       "mail": {
         "loading": "Actualizando correo...",
-        "success": "Correo actualizado correctamente",
-        "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu correo, lo siento! Por favor intenta de nuevo más tarde."
+        "success": "Correo actualizado correctamente!",
+        "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu correo, lo siento! Por favor intenta de nuevo más tarde.",
+        "alreadyExists": "Este correo ya está en uso!"
       },
       "profilePicture": {
         "loading": "Actualizando foto de perfil...",
-        "success": "Foto de perfil actualizada correctamente",
+        "success": "Foto de perfil actualizada correctamente!",
         "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu foto de perfil, lo siento! Por favor intenta de nuevo más tarde."
       }
     },
+    "mail": {
+      "loading": "Intentando enviarte un correo...",
+      "successLink": "Un correo con un enlace de inicio de sesión fue enviado a tu correo!",
+      "successVerification": "Un correo con el código de verificación fue enviado a tu correo!",
+      "error": "No pudimos enviar un correo a la dirección especificada. Por favor revisa la dirección o intenta de nuevo más tarde."
+    },
     "login": {
       "loading": "Iniciando sesión...",
-      "success": "Sesión iniciada correctamente",
-      "error": "Algo salió mal y no pudimos iniciar sesión, lo siento! Por favor intenta de nuevo más tarde.",
-      "mail": {
-        "loading": "Intentando enviarte un correo...",
-        "success": "Un correo con un enlace de inicio de sesión fue enviado a tu correo",
-        "error": "No pudimos enviar un correo a la dirección especificada. Por favor revisa la dirección o intenta de nuevo más tarde."
-      }
+      "success": "Sesión iniciada correctamente!",
+      "error": "Algo salió mal y no pudimos iniciar sesión, lo siento! Por favor intenta de nuevo más tarde."
     },
     "logout": {
       "loading": "Cerrando sesión...",
-      "success": "Sesión cerrada correctamente",
+      "success": "Sesión cerrada correctamente!",
       "error": "Algo salió mal y no pudimos cerrar sesión, lo siento! Por favor intenta de nuevo más tarde."
     },
     "deleteAccount": {
@@ -178,7 +181,7 @@
     "unlinkSpotify": {
       "loading": "Desvinculando Spotify...",
       "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos desvincular tu cuenta de Spotify, lo siento! Por favor intenta de nuevo más tarde.",
-      "success": "Cuenta de Spotify desvinculada correctamente"
+      "success": "Cuenta de Spotify desvinculada correctamente!"
     }
   },
   "lang": {

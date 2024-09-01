@@ -80,20 +80,18 @@ export const authOptions: NextAuthOptions = {
     },
   },
   adapter: DrizzleAdapter(db, pgTable) as Adapter,
-  /**
-   * @see https://next-auth.js.org/providers/github
-   */
-  // pages: {
-  //   error: "/?profile=error",
-  //   newUser: "/?profile=register",
-  //   signIn: "/?profile=login",
-  //   signOut: "?profile=open",
-  // },
   providers: [
     EmailProvider({
-      server: env.EMAIL_SERVER,
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
       from: env.EMAIL_FROM,
-      maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
+      maxAge: 10 * 60, // Links and codes are valid for 10 minutes
     }),
     SpotifyProvider({
       clientId: env.SPOTIFY_CLIENT_ID,
