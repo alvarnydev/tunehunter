@@ -26,8 +26,6 @@ const ConfirmationDialog = ({
   children,
 }: ConfirmationPromptProps) => {
   const { t } = useTranslation("");
-  const continueText = t("general.continue");
-  const cancelText = t("general.cancel");
 
   return (
     <AlertDialog>
@@ -38,8 +36,8 @@ const ConfirmationDialog = ({
           <AlertDialogDescription>{dialogText}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-          <AlertDialogAction onClick={dialogAction}>{continueText}</AlertDialogAction>
+          <AlertDialogCancel>{t("general.cancel")}</AlertDialogCancel>
+          <AlertDialogAction onClick={dialogAction}>{t("general.continue")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

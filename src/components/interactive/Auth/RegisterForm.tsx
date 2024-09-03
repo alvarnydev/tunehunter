@@ -45,13 +45,6 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
     },
   });
 
-  const continueText = t("general.continue");
-  const registerText = t("auth.registration.register");
-  const returnText = t("auth.returnToSignIn");
-  const registerPrompt = t("auth.registration.registerPrompt");
-  const usernameText = t("general.userName");
-  const mailText = t("general.mail");
-
   useEffect(() => {
     form.setValue("email", email);
     setError("");
@@ -81,9 +74,9 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
   };
 
   return (
-    <AuthCard label={registerPrompt} size="small">
+    <AuthCard label={t("auth.registration.registerPrompt")} size="small">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-11">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-6">
           <div className="flex flex-col space-y-6">
             {/* TODO: Add avatar */}
             <FormField
@@ -91,7 +84,7 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-base font-normal">{mailText}</FormLabel>
+                  <FormLabel className="text-base font-normal">{t("general.mail")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -110,7 +103,7 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-base font-normal">{usernameText}</FormLabel>
+                  <FormLabel className="text-base font-normal">{t("general.userName")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -136,14 +129,14 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
               <div className="flex flex-col items-center gap-2">
                 <IconButton
                   type="submit"
-                  text={registerText}
+                  text={t("auth.registration.register")}
                   disabled={isPending}
                   icon="signUp"
                   size="lg"
                   variant="primary"
                 />
                 <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
-                  {returnText}
+                  {t("auth.returnToSignIn")}
                 </Button>
               </div>
             </>
@@ -152,7 +145,7 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
       </Form>
       {!!accountCreated && (
         <IconButton
-          text={continueText}
+          text={t("general.continue")}
           onClick={() => setMenuState(MenuState.MagicLinkSent)}
           className="-mt-2 w-full"
           variant="primary"

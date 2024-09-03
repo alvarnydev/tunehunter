@@ -111,7 +111,7 @@
         "generalError": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos crear tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
         "invalidFields": "Por favor revisa tu entrada",
         "accountAlreadyExists": "Ya existe una cuenta con este correo",
-        "usernameAlreadyExists": "Este nombre de usuario ya está en uso"
+        "usernameAlreadyExists": "Ya existe una cuenta con este nombre de usuario"
       }
     },
     "signIn": {
@@ -144,13 +144,13 @@
         "loading": "Actualizando nombre de usuario...",
         "success": "Nombre de usuario actualizado correctamente!",
         "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu nombre de usuario, lo siento! Por favor intenta de nuevo más tarde.",
-        "alreadyExists": "Este nombre de usuario ya está en uso!"
+        "alreadyExists": "Ya existe una cuenta con este nombre de usuario!"
       },
       "mail": {
         "loading": "Actualizando correo...",
         "success": "Correo actualizado correctamente!",
         "error": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos actualizar tu correo, lo siento! Por favor intenta de nuevo más tarde.",
-        "alreadyExists": "Este correo ya está en uso!"
+        "alreadyExists": "Ya existe una cuenta con este correo!"
       },
       "profilePicture": {
         "loading": "Actualizando foto de perfil...",

@@ -40,13 +40,8 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   }
 
   const OAuthProviders = [providers.spotify];
-  const orText = t("general.or");
-  const signInWithMailText = t("auth.signIn.withEmail");
-  const signInWithProviderText = (provider: string) => t("auth.signIn.withProvider", { provider });
-
-  const mailSendLoadingText = t("toast.mail.loading");
-  const mailSendErrorText = t("toast.mail.error");
-  const mailSendSuccessText = t("toast.mail.successLogin");
+  const getSignInWithProviderText = (provider: string) =>
+    t("auth.signIn.withProvider", { provider });
 
   const handleSignInWithEmail = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -75,12 +70,12 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
         });
     });
     toast.promise(mailSentPromise, {
-      loading: mailSendLoadingText,
+      loading: t("toast.mail.loading"),
       success: () => {
         setMenuState(MenuState.MagicLinkSent);
-        return mailSendSuccessText;
+        return t("toast.mail.successLogin");
       },
-      error: mailSendErrorText,
+      error: t("toast.mail.error"),
     });
   };
 
@@ -96,21 +91,21 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
         />
         <IconButton
           type="submit"
-          text={signInWithMailText}
+          text={t("auth.signIn.withEmail")}
           disabled={!email}
           icon="mail"
           size="lg"
         />
       </form>
       <Separator borderColor="border-foreground">
-        <p className="px-2 text-xs uppercase">{orText}</p>
+        <p className="px-2 text-xs uppercase">{t("general.or")}</p>
       </Separator>
       {OAuthProviders &&
         Object.values(OAuthProviders).map((provider, index) => (
           <div key={provider?.id ?? index}>
             <IconButton
               icon={isCustomIcon(provider.id) ? provider.id : "fallback"}
-              text={signInWithProviderText(provider.name)}
+              text={getSignInWithProviderText(provider.name)}
               size="lg"
               onClick={() => provider?.id && signInWithProvider(provider.id, router.locale ?? "")}
             />

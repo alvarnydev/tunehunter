@@ -10,8 +10,6 @@ const SpotifyTableRow: React.FC<{
 }> = ({ track, currentlyPlaying }) => {
   const { t } = useTranslation();
 
-  const searchText = t("general.search");
-
   const startSearch = () => {
     console.log("searching...");
   };
@@ -42,7 +40,7 @@ const SpotifyTableRow: React.FC<{
         <span>{track.name}</span>
       </td>
       <td className="text-right">
-        <IconButton variant="primary" text={searchText} size="sm" />
+        <IconButton variant="primary" text={t("general.search")} size="sm" />
       </td>
     </tr>
   );

@@ -1,17 +1,21 @@
+---- CORE
+Edit mail: use form errors and fields rather than toasts
+Sign in with spotify: account with the mail already exists (OAuthAccountNotLinked)
+E-mail templates
 Settings edit functionality: picture (s3 bucket)
-TOTP sign in
 
 iTunes api search debounce
 Results styles & functionality
 
-Supporter & Stripe
+---- THEN
 SENTRY & Upstash
+
 Add rate limiting to search with: 
 - const { success } = ratelimit.limit(user.id);
 
+Supporter & Stripe
 
 
-next
 ----- MAYBE
 Add cypress tests
 

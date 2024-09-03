@@ -13,11 +13,8 @@ const HistoryTable = ({}) => {
     enabled: loggedIn,
   });
 
-  const promptText = t("auth.prompts.history");
-  const noHistoryYet = t("search.tabs.history.empty");
-
   if (!loggedIn) {
-    return <LoginPromptMockTable promptText={promptText} icon="userBold" />;
+    return <LoginPromptMockTable promptText={t("auth.prompts.history")} icon="userBold" />;
   }
   if (isLoading) {
     return (
@@ -29,7 +26,7 @@ const HistoryTable = ({}) => {
   if (historyEntries?.length == 0) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p>{noHistoryYet}</p>
+        <p>{t("search.tabs.history.empty")}</p>
       </div>
     );
   }

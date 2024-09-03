@@ -8,7 +8,6 @@ const SearchTableRow: React.FC<{
 }> = ({ track }) => {
   const { t } = useTranslation();
 
-  const searchText = t("general.search");
   const artists = track.artists.split(",");
 
   return (
@@ -32,7 +31,7 @@ const SearchTableRow: React.FC<{
         <span>{track.title}</span>
       </td>
       <td className="text-right">
-        <IconButton variant="primary" text={searchText} size="sm" />
+        <IconButton variant="primary" text={t("general.search")} size="sm" />
       </td>
     </tr>
   );

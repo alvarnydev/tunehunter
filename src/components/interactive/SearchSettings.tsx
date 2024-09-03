@@ -48,18 +48,10 @@ const SearchSettings: FC<IProps> = ({}) => {
   } = useUserSettings(userData?.user.id);
   const userSettings = getUserSettings();
 
-  const regionText = t("search.settings.region");
-  const minimumLengthText = t("search.settings.setMinimumLength");
-  const searchForClubMixesOnlyText = t("search.settings.searchForClubMixesOnly");
-
   const minimumLengthDisplayMinutes = Math.floor(minimumLengthSeconds / 60)
     .toString()
     .padStart(2, "0");
   const minimumLengthDisplaySeconds = (minimumLengthSeconds % 60).toString().padStart(2, "0");
-  const findMeText = t("search.settings.locateMe");
-  const locationRetrievalErrorText = t("toast.retrieveLocation.error");
-  const locationRetrievalSuccessText = t("toast.retrieveLocation.success");
-
   const sortedRegions = sortRegions(Regions, router.locale || "en");
 
   // Set region from DB
@@ -99,13 +91,13 @@ const SearchSettings: FC<IProps> = ({}) => {
 
         if (countryCode) {
           changeRegion(countryCode.toLowerCase());
-          toast.success(`${locationRetrievalSuccessText} ${createRegionName(countryCode)}`);
+          toast.success(`${t("toast.retrieveLocation.success")} ${createRegionName(countryCode)}`);
         } else {
-          toast.error(locationRetrievalErrorText, { dismissible: true, duration: Infinity });
+          toast.error(t("toast.retrieveLocation.error"), { dismissible: true, duration: Infinity });
         }
       },
       () => {
-        toast.error(locationRetrievalErrorText, { dismissible: true, duration: Infinity });
+        toast.error(t("toast.retrieveLocation.error"), { dismissible: true, duration: Infinity });
       },
     );
   };
@@ -122,7 +114,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           {/* Region */}
           <div className="flex items-center">
             <Label htmlFor="region" className="flex items-center font-thin">
-              {regionText}:
+              {t("search.settings.region")}:
             </Label>
             <Select onValueChange={changeRegion} value={region}>
               <SelectTrigger
@@ -156,7 +148,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           {/* Minimum length */}
           <Label htmlFor="minimumlength" className="flex items-center font-thin">
             <p>
-              {minimumLengthText}{" "}
+              {t("search.settings.setMinimumLength")}{" "}
               {minimumLengthOption && (
                 <span className="font-normal">
                   ({minimumLengthDisplayMinutes}:{minimumLengthDisplaySeconds})
@@ -193,7 +185,7 @@ const SearchSettings: FC<IProps> = ({}) => {
 
           {/* Club Mixes only */}
           <Label htmlFor="clubmixesonly" className="flex items-center font-thin">
-            {searchForClubMixesOnlyText}
+            {t("search.settings.searchForClubMixesOnly")}
           </Label>
           <div className="flex h-10 items-center justify-end">
             <Switch

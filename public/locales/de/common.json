@@ -110,7 +110,7 @@
         "accountCreated": "Account erfolgreich erstellt",
         "generalError": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Account nicht erstellen, sorry! Bitte versuche es später erneut.",
         "invalidFields": "Bitte überprüfe deine Eingabe",
-        "accountAlreadyExists": "Ein Account mit dieser E-Mail existiert bereits",
+        "accountAlreadyExists": "Diese E-Mail Adresse ist bereits vergeben",
         "usernameAlreadyExists": "Dieser Nutzername ist bereits vergeben"
       }
     },
@@ -150,7 +150,7 @@
         "loading": "E-Mail wird geändert...",
         "success": "E-Mail erfolgreich geändert!",
         "error": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deine E-Mail nicht ändern, sorry! Bitte versuche es später erneut.",
-        "alreadyExists": "Diese E-Mail ist bereits vergeben."
+        "alreadyExists": "Diese E-Mail Adresse ist bereits vergeben."
       },
       "profilePicture": {
         "loading": "Profilbild wird geändert...",

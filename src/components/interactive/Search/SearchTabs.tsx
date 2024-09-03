@@ -26,13 +26,6 @@ const tabAccessMap: Record<Tab, AccessScopes> = {
   wishlist: "signed-in",
 };
 
-const tooltipContentMap: Record<Tab, string> = {
-  trending: "",
-  spotify: "auth.prompts.spotify",
-  history: "auth.prompts.history",
-  wishlist: "auth.prompts.wishlist",
-};
-
 const SearchTabs: FC<IProps> = ({}) => {
   const { t } = useTranslation("");
   const { data: userData, status: sessionStatus } = useSession();

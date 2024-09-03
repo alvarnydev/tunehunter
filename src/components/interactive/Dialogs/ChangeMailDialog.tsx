@@ -42,19 +42,6 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
   const { createAndSendVerificationToken, verifyVerificationToken } = useVerificationToken();
   const utils = api.useUtils();
 
-  const dialogTitleText = t("profile.changeMail.dialogTitle");
-  const dialogDescriptionText = t("profile.changeMail.dialogDescription");
-  const newMailText = t("profile.changeMail.newMail");
-  const confirmMailText = t("profile.changeMail.confirmMail");
-  const codePromptText = t("profile.changeMail.codePrompt");
-  const codeText = t("profile.changeMail.code");
-
-  const confirmText = t("general.confirm");
-  const continueText = t("general.continue");
-  const cancelText = t("general.cancel");
-  const mailAlreadyExistsText = t("toast.edit.mail.alreadyExists");
-  const invalidCodeText = t("toast.edit.invalidCode");
-
   const handleDialogCancel = () => {
     setEmail("");
     setConfirmEmail("");
@@ -69,7 +56,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
       // Check if mail is already in use
       const account = await utils.user.getUserByEmail.fetch({ email });
       if (account) {
-        toast.error(mailAlreadyExistsText, { dismissible: true, duration: Infinity });
+        toast.error(t("toast.edit.mail.alreadyExists"), { dismissible: true, duration: Infinity });
         return;
       }
 
@@ -83,7 +70,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
     // Check code
     const codeMatchesHash = await verifyVerificationToken(email, confirmationCode);
     if (!codeMatchesHash) {
-      toast.error(invalidCodeText, { dismissible: true, duration: Infinity });
+      toast.error(t("toast.edit.invalidCode"), { dismissible: true, duration: Infinity });
       return;
     }
 
@@ -97,13 +84,15 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
       <AlertDialogTrigger className="w-full">{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{dialogTitleText}</AlertDialogTitle>
-          <AlertDialogDescription>{dialogDescriptionText}</AlertDialogDescription>
+          <AlertDialogTitle>{t("profile.changeMail.dialogTitle")}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {t("profile.changeMail.dialogDescription")}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <motion.div className="flex flex-col gap-8">
           <motion.div className="m-auto grid w-[90%] grid-cols-3 gap-y-4" {...fadeInUp}>
             <Label htmlFor="email" className="col-span-1 flex items-center">
-              {newMailText}
+              {t("profile.changeMail.newMail")}
             </Label>
             <Input
               id="email"
@@ -114,7 +103,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
               disabled={codeSent}
             />
             <Label htmlFor="email" className="flex items-center">
-              {confirmMailText}
+              {t("profile.changeMail.confirmMail")}
             </Label>
             <Input
               id="email"
@@ -128,10 +117,10 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
           </motion.div>
           {codeSent && (
             <motion.div className="my-2 flex flex-col gap-6" {...fadeInUp}>
-              <p>{codePromptText}</p>
+              <p>{t("profile.changeMail.codePrompt")}</p>
               <div className="m-auto grid w-[90%] grid-cols-3 gap-y-4">
                 <Label htmlFor="email" className="col-span-1 flex items-center">
-                  {codeText}
+                  {t("profile.changeMail.code")}
                 </Label>
                 <div className="col-span-2">
                   <InputOTP
@@ -160,7 +149,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
           )}
         </motion.div>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={handleDialogCancel}>{cancelText}</AlertDialogCancel>
+          <AlertDialogCancel onClick={handleDialogCancel}>{t("general.cancel")}</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDialogClick}
             disabled={
@@ -168,7 +157,7 @@ const ChangeMailDialog = ({ children, open, setOpen }: ChangeMailDialogProps) =>
               (codeSent && confirmationCode.length !== 6)
             }
           >
-            {codeSent ? confirmText : continueText}
+            {codeSent ? t("general.confirm") : t("general.continue")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

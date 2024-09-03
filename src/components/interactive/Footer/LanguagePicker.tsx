@@ -20,7 +20,7 @@ const LanguagePicker = ({ preferredLanguage, updatePreferredLanguage }: Language
   const loggedIn = status === "authenticated";
 
   const placeholderValue = isSmallDevice ? "EN" : t(`lang.${router.locale}`);
-  const languageText = (locale: string) =>
+  const getLanguageText = (locale: string) =>
     isSmallDevice ? locale.toUpperCase() : t(`lang.${locale}`);
 
   const changeLanguage = async (newLocale: Locale) => {
@@ -48,7 +48,7 @@ const LanguagePicker = ({ preferredLanguage, updatePreferredLanguage }: Language
       <SelectContent>
         {Locales.map((locale) => (
           <SelectItem key={locale} value={locale}>
-            {languageText(locale)}
+            {getLanguageText(locale)}
           </SelectItem>
         ))}
       </SelectContent>

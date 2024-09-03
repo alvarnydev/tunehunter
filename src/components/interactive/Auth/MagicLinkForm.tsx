@@ -13,18 +13,19 @@ interface IProps {
 const MagicLinkForm: FC<IProps> = ({ email, setMenuState }) => {
   const { t } = useTranslation("");
 
-  const magicLinkInfoText = t("auth.magicLink.sent", { email });
-  const openMailsText = t("auth.magicLink.openMails");
-  const returnText = t("auth.returnToSignIn");
-
   return (
-    <AuthCard label={magicLinkInfoText} size="small">
+    <AuthCard label={t("auth.magicLink.sent", { email })} size="small">
       <div className="flex w-full flex-col items-center gap-2">
         <a href="mailto:" className="w-full">
-          <IconButton text={openMailsText} icon="mailOpen" size="lg" variant="primary" />
+          <IconButton
+            text={t("auth.magicLink.openMails")}
+            icon="mailOpen"
+            size="lg"
+            variant="primary"
+          />
         </a>
         <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
-          {returnText}
+          {t("auth.returnToSignIn")}
         </Button>
       </div>
     </AuthCard>

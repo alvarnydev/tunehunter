@@ -6,7 +6,7 @@ import { api } from "@/utils/api";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { useEffect, useState, type FC } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -15,9 +15,7 @@ import ChangeMailDialog from "../Dialogs/ChangeMailDialog";
 import ConfirmationDialog from "../Dialogs/ConfirmationDialog";
 import AuthCard from "./AuthCard";
 
-interface IProps {}
-
-const ProfileMenu: FC<IProps> = () => {
+const ProfileMenu = () => {
   const router = useRouterWithHelpers();
   const { t } = useTranslation("");
   const [changeMailDialogOpen, setChangeMailDialogOpen] = useState(false);
@@ -49,28 +47,14 @@ const ProfileMenu: FC<IProps> = () => {
     }
   }, [router.isReady]);
 
-  // Translations
-  const userMailText = t("general.mail");
-  const spotifyText = "Spotify";
-  const spotifyConnectedText = t("search.settings.spotifyConnected");
-  const spotifyConnectPrompt = t("search.spotify.connectPromptSm");
-  const unlinkSpotifyPromptTitle = t("search.settings.unlink.title");
-  const unlinkSpotifyPromptText = t("search.settings.unlink.text");
   const getNextAuthErrorText = (errorString: string) => t(`auth.errors.${errorString}`);
-  const haveFeedbackText = t("profile.haveFeedback");
-  const writeUsPrompt = t("profile.writeUs");
-  const wantToGoText = t("profile.wantToGo");
-  const logOutText = t("profile.logout");
-  const deleteAccountText = t("profile.deleteAccount.button");
-  const deleteAccountPromptTitle = t("profile.deleteAccount.promptTitle");
-  const deleteAccountPromptText = t("profile.deleteAccount.promptText");
 
   if (!userData) {
     return (
       <div className="mt-4 w-fit">
         <IconButton
           onClick={handleSignOut}
-          text={logOutText}
+          text={t("profile.logout")}
           variant="primary"
           size="lg"
           icon="signOut"
@@ -104,7 +88,7 @@ const ProfileMenu: FC<IProps> = () => {
 
       {/* User data */}
       <div className="grid w-full grid-cols-[repeat(5,max-content)] gap-x-8 gap-y-6">
-        <p className="col-span-2 flex items-center font-thin">{userMailText}</p>
+        <p className="col-span-2 flex items-center font-thin">{t("general.mail")}</p>
 
         <p className="col-span-2 flex items-center overflow-x-clip text-ellipsis font-thin">
           {userMail}
@@ -121,7 +105,7 @@ const ProfileMenu: FC<IProps> = () => {
           </ChangeMailDialog>
         </div>
 
-        <p className="col-span-2 flex items-center font-thin">{spotifyText}</p>
+        <p className="col-span-2 flex items-center font-thin">Spotify</p>
         {spotifyAccount?.data && (
           <>
             <a
@@ -134,14 +118,14 @@ const ProfileMenu: FC<IProps> = () => {
                 icon="external"
                 iconPosition="right"
                 variant="link"
-                text={spotifyConnectedText}
+                text={t("search.settings.spotifyConnected")}
                 size="sm"
               />
             </a>
             <ConfirmationDialog
               dialogAction={() => handleUnlinkSpotify(userData.user.id)}
-              dialogText={unlinkSpotifyPromptText}
-              dialogTitle={unlinkSpotifyPromptTitle}
+              dialogText={t("search.settings.unlink.text")}
+              dialogTitle={t("search.settings.unlink.title")}
             >
               <IconButton icon="x" variant="ghostPrimary" size="icon" iconSize="20px" />
             </ConfirmationDialog>
@@ -152,7 +136,7 @@ const ProfileMenu: FC<IProps> = () => {
             <IconButton
               icon={"spotify"}
               variant="outlinePrimary"
-              text={spotifyConnectPrompt}
+              text={t("search.spotify.connectPromptSm")}
               size="sm"
               onClick={handleLinkSpotify}
             />
@@ -163,19 +147,24 @@ const ProfileMenu: FC<IProps> = () => {
         <div className="col-span-5">
           <Separator />
         </div>
-        <p className="col-span-2 flex items-center font-thin">{haveFeedbackText}</p>
+        <p className="col-span-2 flex items-center font-thin">{t("profile.haveFeedback")}</p>
         <a href="mailto:hello@tunehunter.app?subject=Feedback" className="col-span-3">
-          <IconButton text={writeUsPrompt} variant="outlinePrimary" size="sm" icon="mail" />
+          <IconButton text={t("profile.writeUs")} variant="outlinePrimary" size="sm" icon="mail" />
         </a>
 
-        <p className="col-span-2 flex items-center font-thin">{wantToGoText}</p>
+        <p className="col-span-2 flex items-center font-thin">{t("profile.wantToGo")}</p>
         <div className="col-span-3">
           <ConfirmationDialog
             dialogAction={() => handleDeleteAccount(userData.user.id)}
-            dialogText={deleteAccountPromptText}
-            dialogTitle={deleteAccountPromptTitle}
+            dialogText={t("profile.deleteAccount.promptText")}
+            dialogTitle={t("profile.deleteAccount.promptTitle")}
           >
-            <IconButton text={deleteAccountText} variant="outlineDestructive" size="sm" icon="x" />
+            <IconButton
+              text={t("profile.deleteAccount.button")}
+              variant="outlineDestructive"
+              size="sm"
+              icon="x"
+            />
           </ConfirmationDialog>
         </div>
       </div>
@@ -184,7 +173,7 @@ const ProfileMenu: FC<IProps> = () => {
       <div className="mt-4 w-fit">
         <IconButton
           onClick={handleSignOut}
-          text={logOutText}
+          text={t("profile.deleteAccount.button")}
           variant="primary"
           size="lg"
           icon="signOut"

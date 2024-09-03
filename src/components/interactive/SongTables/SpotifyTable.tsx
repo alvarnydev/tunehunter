@@ -19,6 +19,7 @@ const SpotifyTable = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const { data: userData, status } = useSession();
+  const loggedIn = status === "authenticated";
   const { data: spotifyAccount, isLoading: spotifyAccountDataLoading } =
     api.account.getSpotifyAccountById.useQuery(
       { userId: userData?.user.id! },
@@ -30,12 +31,6 @@ const SpotifyTable = () => {
   const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
     spotifyAccount?.data?.access_token || "",
   );
-
-  const loggedIn = status === "authenticated";
-  const recentlyPlayedEmpty = t("search.spotify.recentlyPlayed.empty");
-  const topTracksEmpty = t("search.spotify.topTracks.empty");
-  const queueEmpty = t("search.spotify.queue.empty");
-  const spotifyConnectPrompt = t("search.spotify.connectPrompt");
 
   // Waiting for either account data or spotify data
   if ((loggedIn && spotifyAccountDataLoading) || (spotifyAccount && spotifyDataLoading)) {
@@ -50,7 +45,7 @@ const SpotifyTable = () => {
     <>
       {!loggedIn || !spotifyAccount || !spotifyData ? (
         <LoginPromptMockTable
-          promptText={spotifyConnectPrompt}
+          promptText={t("search.spotify.connectPrompt")}
           icon="spotify"
           onClickFunc={() => signInWithProvider("spotify", router.locale ?? "")}
         />
@@ -91,7 +86,9 @@ const SpotifyTable = () => {
                       <>
                         {spotifyData.recentlyPlayed?.items.length == 0 ? (
                           <div className="flex h-full items-center justify-center">
-                            <p className="text-center">{recentlyPlayedEmpty}</p>
+                            <p className="text-center">
+                              {t("search.spotify.recentlyPlayed.empty")}
+                            </p>
                           </div>
                         ) : (
                           <>
@@ -116,7 +113,7 @@ const SpotifyTable = () => {
                       <>
                         {spotifyData.topTracks?.items.length == 0 ? (
                           <div className="flex h-full items-center justify-center">
-                            <p className="text-center">{topTracksEmpty}</p>
+                            <p className="text-center">{t("search.spotify.topTracks.empty")}</p>
                           </div>
                         ) : (
                           <>
@@ -131,7 +128,7 @@ const SpotifyTable = () => {
                       <>
                         {spotifyData.queue?.queue.length == 0 ? (
                           <div className="absolute-center flex items-center justify-center">
-                            <p className="text-center">{queueEmpty}</p>
+                            <p className="text-center">{t("search.spotify.queue.empty")}</p>
                           </div>
                         ) : (
                           <>

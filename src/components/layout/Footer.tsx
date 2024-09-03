@@ -1,23 +1,17 @@
 import useUserSettings from "@/hooks/useUserSettings";
 import { useSession } from "next-auth/react";
-import { useTranslation } from "next-i18next";
 import { Suspense } from "react";
 import LanguagePicker from "../interactive/Footer/LanguagePicker";
 import ProfileButton from "../interactive/Footer/ProfileButton";
 import { ThemeToggle } from "../interactive/Footer/ThemeToggle";
 
 const Footer = () => {
-  const { t } = useTranslation("");
   const { data: sessionData } = useSession();
   const {
     getUserSettings,
     userSettingsUpdaters: { updatePreferredTheme, updatePreferredLanguage },
   } = useUserSettings(sessionData?.user.id);
   const userSettings = getUserSettings();
-
-  const themeTooltip = t("tooltip.theme");
-  const profileTooltip = t("tooltip.profile");
-  const languageTooltip = t("tooltip.language");
 
   return (
     <Suspense>

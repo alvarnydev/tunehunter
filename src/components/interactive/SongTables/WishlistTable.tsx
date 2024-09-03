@@ -13,11 +13,8 @@ const WishlistTable = ({}) => {
     enabled: loggedIn,
   });
 
-  const promptText = t("auth.prompts.wishlist");
-  const noWishlistYet = t("search.tabs.wishlist.empty");
-
   if (!loggedIn) {
-    return <LoginPromptMockTable promptText={promptText} icon="userBold" />;
+    return <LoginPromptMockTable promptText={t("auth.prompts.wishlist")} icon="userBold" />;
   }
   if (isLoading) {
     return (
@@ -29,7 +26,7 @@ const WishlistTable = ({}) => {
   if (wishlistEntries?.length == 0) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p>{noWishlistYet}</p>
+        <p>{t("search.tabs.wishlist.empty")}</p>
       </div>
     );
   }

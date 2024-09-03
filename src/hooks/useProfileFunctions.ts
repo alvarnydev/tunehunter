@@ -18,19 +18,11 @@ const useProfileFunctions = () => {
   const unlinkSpotifyAccount = api.user.unlinkSpotifyAccount.useMutation();
   const editUserMail = api.user.editUserMail.useMutation();
 
-  const unlinkSpotifyErrorText = (errorMessage: string) =>
+  const getUnlinkSpotifyErrorText = (errorMessage: string) =>
     t("toast.unlinkSpotify.error", { error: errorMessage });
-  const logoutLoadingText = t("toast.logout.loading");
-  const logoutSuccessText = t("toast.logout.success");
-  const logoutErrorText = t("toast.logout.error");
-  const unlinkSpotifyLoadingText = t("toast.unlinkSpotify.loading");
-  const unlinkSpotifySuccessText = t("toast.unlinkSpotify.success");
-  const deleteAccountLoadingText = t("toast.deleteAccount.loading");
-  const deleteAccountSuccessText = t("toast.deleteAccount.success");
-  const deleteAccountErrorText = (errorMessage: string) =>
+  const getDeleteAccountErrorText = (errorMessage: string) =>
     t("toast.deleteAccount.error", { error: errorMessage });
-  const editUserMailSuccessText = t("toast.edit.mail.success");
-  const editUserMailErrorText = (errorMessage: string) =>
+  const getEditUserMailErrorText = (errorMessage: string) =>
     t("toast.edit.mail.error", { error: errorMessage });
 
   const handleChangeMail = async (newEmail: string) => {
@@ -49,7 +41,7 @@ const useProfileFunctions = () => {
         onSuccess: () => {
           update();
           toast.dismiss();
-          toast.success(editUserMailSuccessText);
+          toast.success(t("toast.edit.mail.success"));
         },
         onError: (opts) => {
           let errorMessage = "";
@@ -65,7 +57,7 @@ const useProfileFunctions = () => {
             errorMessage = opts.message;
           }
 
-          toast.error(editUserMailErrorText(errorMessage), {
+          toast.error(getEditUserMailErrorText(errorMessage), {
             dismissible: true,
             duration: Infinity,
           });
@@ -84,11 +76,11 @@ const useProfileFunctions = () => {
     toast.promise(
       wait(500).then(() => signOut({ redirect: false })),
       {
-        loading: logoutLoadingText,
+        loading: t("toast.logout.loading"),
         success: () => {
-          return logoutSuccessText;
+          return t("toast.logout.success");
         },
-        error: logoutErrorText,
+        error: t("toast.logout.error"),
       },
     );
   };
@@ -98,7 +90,7 @@ const useProfileFunctions = () => {
       throw new Error("User must be logged in to request account deletion.");
     }
 
-    const loadingToast = toast.loading(deleteAccountLoadingText);
+    const loadingToast = toast.loading(t("toast.deleteAccount.loading"));
     deleteAccount.mutate(
       { userId },
       {
@@ -106,13 +98,13 @@ const useProfileFunctions = () => {
           signOut({ redirect: false });
           router.push("/");
           playJingle("reverse");
-          toast.success(deleteAccountSuccessText, { id: loadingToast });
+          toast.success(t("toast.deleteAccount.success"), { id: loadingToast });
         },
         onError: (opts) => {
           const error: ErrorFormat = JSON.parse(opts.message)[0];
           const errorMessage = error.message;
 
-          toast.error(deleteAccountErrorText(errorMessage), {
+          toast.error(getDeleteAccountErrorText(errorMessage), {
             id: loadingToast,
             dismissible: true,
             duration: Infinity,
@@ -123,20 +115,20 @@ const useProfileFunctions = () => {
   };
 
   const handleUnlinkSpotify = async (userId: string) => {
-    const loadingToast = toast.loading(unlinkSpotifyLoadingText);
+    const loadingToast = toast.loading(t("toast.unlinkSpotify.loading"));
     unlinkSpotifyAccount.mutate(
       { userId },
       {
         onSuccess: () => {
           utils.account.getSpotifyAccountById
             .invalidate()
-            .then(() => toast.success(unlinkSpotifySuccessText, { id: loadingToast }));
+            .then(() => toast.success(t("toast.unlinkSpotify.success"), { id: loadingToast }));
         },
         onError: (opts) => {
           const error: ErrorFormat = JSON.parse(opts.message)[0];
           const errorMessage = error.message;
 
-          toast.error(unlinkSpotifyErrorText(errorMessage), {
+          toast.error(getUnlinkSpotifyErrorText(errorMessage), {
             id: loadingToast,
             dismissible: true,
             duration: Infinity,

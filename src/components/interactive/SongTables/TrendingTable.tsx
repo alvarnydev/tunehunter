@@ -13,8 +13,6 @@ const TrendingTable = ({ setSearchTab }: TrendingTableProps) => {
   const { data: trendingEntries, isLoading } = api.song.getTrending.useQuery();
   const { t } = useTranslation();
 
-  const nothingTrendingYet = t("search.tabs.trending.empty");
-
   if (isLoading) {
     return (
       <div className="flex h-full justify-center">
@@ -25,7 +23,7 @@ const TrendingTable = ({ setSearchTab }: TrendingTableProps) => {
   if (trendingEntries?.length == 0) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p>{nothingTrendingYet}</p>
+        <p>{t("search.tabs.trending.empty")}</p>
       </div>
     );
   }

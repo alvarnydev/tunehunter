@@ -18,11 +18,6 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
   const loggedIn = status === "authenticated";
   const notLoggedIn = status === "unauthenticated";
 
-  const redirectingText = t("auth.redirecting");
-  const connectSuccessText = t("toast.connect.success");
-  const loginSuccessText = t("toast.login.success");
-  const loginErrorText = t("toast.login.error");
-
   useEffect(() => {
     if (!loggedIn || !router.isReady) {
       return;
@@ -33,9 +28,9 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
 
     // Toast
     if (actionParam === "link") {
-      toast.success(connectSuccessText, { duration: 1800 });
+      toast.success(t("toast.connect.success"), { duration: 1800 });
     } else {
-      toast.success(loginSuccessText, { duration: 1800 });
+      toast.success(t("toast.login.success"), { duration: 1800 });
     }
 
     // Redirect
@@ -49,11 +44,11 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
     <>
       {loggedIn && (
         <div className="flex items-baseline gap-2">
-          <p className="text-lg text-foreground">{redirectingText}</p>
+          <p className="text-lg text-foreground">{t("auth.redirecting")}</p>
           <RedirectIndicator size={12} />
         </div>
       )}
-      {notLoggedIn && <p>{loginErrorText}</p>}
+      {notLoggedIn && <p>{t("toast.login.error")}</p>}
     </>
   );
 };

@@ -23,9 +23,6 @@ const ChangeAvatarDialog = ({ children }: ChangeAvatarDialogProps) => {
   const { data: userData } = useSession();
   const { handleChangeAvatar } = useProfileFunctions();
 
-  const confirmText = t("general.confirm");
-  const cancelText = t("general.cancel");
-
   return (
     <AlertDialog>
       <AlertDialogTrigger className="w-full">{children}</AlertDialogTrigger>
@@ -35,8 +32,8 @@ const ChangeAvatarDialog = ({ children }: ChangeAvatarDialogProps) => {
           <AlertDialogDescription>dialogText</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-          <AlertDialogAction onClick={handleChangeAvatar}>{confirmText}</AlertDialogAction>
+          <AlertDialogCancel>{t("general.cancel")}</AlertDialogCancel>
+          <AlertDialogAction onClick={handleChangeAvatar}>{t("general.confirm")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

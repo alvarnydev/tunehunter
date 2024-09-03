@@ -27,7 +27,7 @@
       "promptText": "This action cannot be undone. This will permanently delete your account and all related data."
     },
     "changeMail": {
-      "dialogTitle": "Change mail",
+      "dialogTitle": "Change your mail",
       "dialogDescription": "Please enter your new mail address and confirm it. We will then send you a verification code.",
       "newMail": "New mail:",
       "confirmMail": "Confirm mail:",
@@ -111,7 +111,7 @@
         "generalError": "Something went wrong (Server response: '{{error}}') and were unable to create an account for you, sorry! Please try again later.",
         "invalidFields": "Please check your input",
         "accountAlreadyExists": "An account with this mail already exists",
-        "usernameAlreadyExists": "This username is already in use"
+        "usernameAlreadyExists": "An account with this username already exists"
       }
     },
     "signIn": {
@@ -144,13 +144,13 @@
         "loading": "Updating username...",
         "success": "Username successfully updated!",
         "error": "Something went wrong (Server response: '{{error}}') and we could not update your username, sorry! Please try again later.",
-        "alreadyExists": "This username is already in use!"
+        "alreadyExists": "An account with this username already exists!"
       },
       "mail": {
         "loading": "Updating mail...",
         "success": "Mail successfully updated!",
         "error": "Something went wrong (Server response: '{{error}}') and we could not update your mail, sorry! Please try again later.",
-        "alreadyExists": "This mail is already in use!"
+        "alreadyExists": "An account with this mail already exists!"
       },
       "profilePicture": {
         "loading": "Updating profile picture...",
