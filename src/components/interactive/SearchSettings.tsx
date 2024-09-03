@@ -75,7 +75,7 @@ const SearchSettings: FC<IProps> = ({}) => {
     return countryNamesEnglish[region];
   };
 
-  const findUser = () => {
+  const setRegionByLocation = () => {
     const userLocation = {
       longitude: 0,
       latitude: 0,
@@ -119,7 +119,7 @@ const SearchSettings: FC<IProps> = ({}) => {
             <Select onValueChange={changeRegion} value={region}>
               <SelectTrigger
                 id="region"
-                className="h-9 max-w-32 text-ellipsis border-none bg-primary px-2 text-base font-thin text-primary-foreground"
+                className="h-9 max-w-32 text-ellipsis border-none bg-primary px-2 text-base font-thin text-primary-foreground focus:ring-0 focus:ring-offset-0"
               >
                 <motion.div key={region} {...fadeInUp}>
                   <SelectValue />
@@ -141,7 +141,7 @@ const SearchSettings: FC<IProps> = ({}) => {
               icon="pin"
               iconSize="24px"
               bordered="noBorder"
-              onClick={findUser}
+              onClick={setRegionByLocation}
             />
           </div>
 

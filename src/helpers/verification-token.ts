@@ -22,7 +22,6 @@ const useVerificationToken = () => {
 
   const verifyVerificationToken = async (email: string, token: string) => {
     const isValidToken = await utils.user.verifyVerificationToken.fetch({ email, token });
-    console.log("isValidToken", isValidToken);
     if (isValidToken.error) return false;
     return true;
   };

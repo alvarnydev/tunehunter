@@ -173,7 +173,7 @@ const ProfileMenu = () => {
       <div className="mt-4 w-fit">
         <IconButton
           onClick={handleSignOut}
-          text={t("profile.deleteAccount.button")}
+          text={t("profile.logout")}
           variant="primary"
           size="lg"
           icon="signOut"
