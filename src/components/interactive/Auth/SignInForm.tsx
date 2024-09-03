@@ -1,4 +1,5 @@
 import { Separator } from "@/components/my-ui/separator";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { isCustomIcon } from "@/helpers/custom-icons";
 import { signInWithProvider } from "@/helpers/sign-in";
@@ -111,6 +112,13 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
             />
           </div>
         ))}
+      <Button
+        variant="link"
+        className="border-0 font-thin uppercase text-foreground"
+        onClick={() => setMenuState(MenuState.Register)}
+      >
+        Don't have an account yet?
+      </Button>
     </div>
   );
 };

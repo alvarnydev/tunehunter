@@ -97,9 +97,9 @@
     },
     "prompts": {
       "login": "Du bist nicht eingeloggt",
-      "spotify": "Verbinde deinen Spotify-Account, um deine gehörten Lieder einzusehen",
-      "wishlist": "Log' dich ein, um deine Wunschliste einzusehen",
-      "history": "Log' dich ein, um deinen Verlauf einzusehen"
+      "spotify": "Verbinde deinen Spotify-Account, um deine gehörten Lieder einzusehen.",
+      "wishlist": "Log' dich ein, um deine Wunschliste einzusehen.",
+      "history": "Log' dich ein, um deinen Verlauf einzusehen."
     },
     "redirecting": "Weiterleitung",
     "returnToSignIn": "Zurück zum Login",
@@ -109,9 +109,9 @@
       "process": {
         "accountCreated": "Account erfolgreich erstellt",
         "generalError": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Account nicht erstellen, sorry! Bitte versuche es später erneut.",
-        "invalidFields": "Bitte überprüfe deine Eingabe",
-        "accountAlreadyExists": "Diese E-Mail Adresse ist bereits vergeben",
-        "usernameAlreadyExists": "Dieser Nutzername ist bereits vergeben"
+        "invalidFields": "Bitte überprüfe deine Eingabe!",
+        "accountAlreadyExists": "Diese E-Mail Adresse ist bereits vergeben!",
+        "usernameAlreadyExists": "Dieser Nutzername ist bereits vergeben!"
       }
     },
     "signIn": {

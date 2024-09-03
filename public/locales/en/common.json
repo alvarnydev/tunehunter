@@ -96,10 +96,10 @@
       "Default": ""
     },
     "prompts": {
-      "login": "Login to view this content",
-      "spotify": "Connect your Spotify account to see your recently played songs",
-      "wishlist": "Log in to view your wishlist",
-      "history": "Log in to view your history"
+      "login": "Login to view this content.",
+      "spotify": "Connect your Spotify account to see your recently played songs.",
+      "wishlist": "Log in to view your wishlist.",
+      "history": "Log in to view your history."
     },
     "redirecting": "Redirecting",
     "returnToSignIn": "Return to sign in page",
@@ -109,9 +109,9 @@
       "process": {
         "accountCreated": "Account successfully created",
         "generalError": "Something went wrong (Server response: '{{error}}') and were unable to create an account for you, sorry! Please try again later.",
-        "invalidFields": "Please check your input",
-        "accountAlreadyExists": "An account with this mail already exists",
-        "usernameAlreadyExists": "An account with this username already exists"
+        "invalidFields": "Please check your input!",
+        "accountAlreadyExists": "An account with this mail already exists!",
+        "usernameAlreadyExists": "An account with this username already exists!"
       }
     },
     "signIn": {

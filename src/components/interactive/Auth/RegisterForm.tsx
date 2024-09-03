@@ -90,7 +90,6 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
                       {...field}
                       placeholder="john.doe@example.com"
                       type="email"
-                      disabled
                       className="border-2 border-primary text-base placeholder:text-muted-foreground focus-visible:ring-primary"
                     />
                   </FormControl>

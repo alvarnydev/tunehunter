@@ -97,9 +97,9 @@
     },
     "prompts": {
       "login": "No has iniciado sesión",
-      "spotify": "Conecta tu cuenta de Spotify para ver tus canciones recientes",
-      "wishlist": "Inicia sesión para ver tu Lista de deseos",
-      "history": "Inicia sesión para ver tu Historial"
+      "spotify": "Conecta tu cuenta de Spotify para ver tus canciones recientes.",
+      "wishlist": "Inicia sesión para ver tu Lista de deseos.",
+      "history": "Inicia sesión para ver tu Historial."
     },
     "redirecting": "Redirigiendo",
     "returnToSignIn": "Volver a iniciar sesión",
@@ -109,9 +109,9 @@
       "process": {
         "accountCreated": "Cuenta creada correctamente",
         "generalError": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos crear tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
-        "invalidFields": "Por favor revisa tu entrada",
-        "accountAlreadyExists": "Ya existe una cuenta con este correo",
-        "usernameAlreadyExists": "Ya existe una cuenta con este nombre de usuario"
+        "invalidFields": "Por favor revisa tu entrada!",
+        "accountAlreadyExists": "Ya existe una cuenta con este correo!",
+        "usernameAlreadyExists": "Ya existe una cuenta con este nombre de usuario!"
       }
     },
     "signIn": {
