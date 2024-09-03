@@ -3,11 +3,12 @@ import { type ReactNode } from "react";
 
 interface AuthCardProps {
   children: ReactNode;
-  label?: string;
+  title?: string;
+  description?: string;
   size?: "small" | "default" | "big";
 }
 
-const AuthCard = ({ label, children, size = "default" }: AuthCardProps) => {
+const AuthCard = ({ title, description, children, size = "default" }: AuthCardProps) => {
   return (
     <div
       className={cn(
@@ -17,7 +18,8 @@ const AuthCard = ({ label, children, size = "default" }: AuthCardProps) => {
         size === "big" && "max-w-4xl",
       )}
     >
-      {label && <p className="text-center">{label}</p>}
+      {title && <h1 className="mb-2 text-lg">{title}</h1>}
+      {description && <p className="text-center">{description}</p>}
       {children}
     </div>
   );

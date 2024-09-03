@@ -114,10 +114,10 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
         ))}
       <Button
         variant="link"
-        className="border-0 font-thin uppercase text-foreground"
+        className="-mt-1 border-0 font-thin uppercase text-foreground"
         onClick={() => setMenuState(MenuState.Register)}
       >
-        Don't have an account yet?
+        {t("auth.signIn.registerPrompt")}
       </Button>
     </div>
   );

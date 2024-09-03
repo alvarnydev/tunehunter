@@ -2,6 +2,7 @@
 Edit mail: use form errors and fields rather than toasts
 Sign in with spotify: account with the mail already exists (OAuthAccountNotLinked)
 E-mail templates
+
 Settings edit functionality: picture (s3 bucket)
 
 iTunes api search debounce

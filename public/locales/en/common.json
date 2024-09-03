@@ -105,7 +105,8 @@
     "returnToSignIn": "Return to sign in page",
     "registration": {
       "register": "Register",
-      "registerPrompt": "Don't have an account yet?",
+      "registration": "Registration",
+      "registerPrompt": "Don't have an account?",
       "process": {
         "accountCreated": "Account successfully created",
         "generalError": "Something went wrong (Server response: '{{error}}') and were unable to create an account for you, sorry! Please try again later.",
@@ -117,7 +118,8 @@
     "signIn": {
       "signIn": "Sign in",
       "withEmail": "Sign in with E-Mail",
-      "withProvider": "Sign in with {{provider}}"
+      "withProvider": "Sign in with {{provider}}",
+      "registerPrompt": "Don't have an account?"
     },
     "signOut": "Log out",
     "magicLink": {

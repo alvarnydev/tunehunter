@@ -14,7 +14,7 @@ const MagicLinkForm: FC<IProps> = ({ email, setMenuState }) => {
   const { t } = useTranslation("");
 
   return (
-    <AuthCard label={t("auth.magicLink.sent", { email })} size="small">
+    <AuthCard description={t("auth.magicLink.sent", { email })} size="small">
       <div className="flex w-full flex-col items-center gap-2">
         <a href="mailto:" className="w-full">
           <IconButton

@@ -105,7 +105,8 @@
     "returnToSignIn": "Zurück zum Login",
     "registration": {
       "register": "Registrieren",
-      "registerPrompt": "Hast du noch keinen Account?",
+      "registration": "Registrierung",
+      "registerPrompt": "Hast du keinen Account?",
       "process": {
         "accountCreated": "Account erfolgreich erstellt",
         "generalError": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Account nicht erstellen, sorry! Bitte versuche es später erneut.",
@@ -117,7 +118,8 @@
     "signIn": {
       "signIn": "Einloggen",
       "withEmail": "Mit E-Mail einloggen",
-      "withProvider": "Mit {{provider}} einloggen"
+      "withProvider": "Mit {{provider}} einloggen",
+      "registerPrompt": "Hast du keinen Account?"
     },
     "signOut": "Ausloggen",
     "magicLink": {

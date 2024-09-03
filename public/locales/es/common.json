@@ -105,7 +105,8 @@
     "returnToSignIn": "Volver a iniciar sesión",
     "registration": {
       "register": "Registrarse",
-      "registerPrompt": "Todavía no tienes cuenta?",
+      "registration": "Registro",
+      "registerPrompt": "No tienes cuenta?",
       "process": {
         "accountCreated": "Cuenta creada correctamente",
         "generalError": "Algo salió mal (Respuesta del servidor: '{{error}}') y no pudimos crear tu cuenta, lo siento! Por favor intenta de nuevo más tarde.",
@@ -117,7 +118,8 @@
     "signIn": {
       "signIn": "Iniciar sesión",
       "withEmail": "Iniciar sesión con correo",
-      "withProvider": "Iniciar sesión con {{provider}}"
+      "withProvider": "Iniciar sesión con {{provider}}",
+      "registerPrompt": "No tienes cuenta?"
     },
     "signOut": "Cerrar sesión",
     "magicLink": {
