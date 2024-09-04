@@ -108,7 +108,7 @@
       "registration": "Registration",
       "registerPrompt": "Don't have an account?",
       "process": {
-        "accountCreated": "Account successfully created",
+        "accountCreated": "Account successfully created!",
         "generalError": "Something went wrong (Server response: '{{error}}') and were unable to create an account for you, sorry! Please try again later.",
         "invalidFields": "Please check your input!",
         "accountAlreadyExists": "An account with this mail already exists!",

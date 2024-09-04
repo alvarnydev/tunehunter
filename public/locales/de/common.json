@@ -108,7 +108,7 @@
       "registration": "Registrierung",
       "registerPrompt": "Hast du keinen Account?",
       "process": {
-        "accountCreated": "Account erfolgreich erstellt",
+        "accountCreated": "Account erfolgreich erstellt!",
         "generalError": "Etwas ist schiefgelaufen (Antwort des Servers: '{{error}}') und wir konnten deinen Account nicht erstellen, sorry! Bitte versuche es später erneut.",
         "invalidFields": "Bitte überprüfe deine Eingabe!",
         "accountAlreadyExists": "Diese E-Mail Adresse ist bereits vergeben!",

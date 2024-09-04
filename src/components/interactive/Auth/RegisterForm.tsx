@@ -121,35 +121,30 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
           <FormSuccess message={success} />
 
           {!accountCreated && (
-            <>
-              {/* <div className="pt-4">
-                <Separator borderColor="border-foreground" />
-              </div> */}
-              <div className="flex flex-col items-center gap-2">
-                <IconButton
-                  type="submit"
-                  text={t("auth.registration.register")}
-                  disabled={isPending}
-                  icon="signUp"
-                  size="lg"
-                  variant="primary"
-                />
-                <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
-                  {t("auth.returnToSignIn")}
-                </Button>
-              </div>
-            </>
+            <div className="flex flex-col items-center gap-2">
+              <IconButton
+                type="submit"
+                text={t("auth.registration.register")}
+                disabled={isPending}
+                icon="signUp"
+                size="default"
+                variant="primary"
+              />
+              <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
+                {t("auth.returnToSignIn")}
+              </Button>
+            </div>
+          )}
+          {!!accountCreated && (
+            <IconButton
+              text={t("general.continue")}
+              onClick={() => setMenuState(MenuState.MagicLinkSent)}
+              className="-mt-2 w-full"
+              variant="primary"
+            />
           )}
         </form>
       </Form>
-      {!!accountCreated && (
-        <IconButton
-          text={t("general.continue")}
-          onClick={() => setMenuState(MenuState.MagicLinkSent)}
-          className="-mt-2 w-full"
-          variant="primary"
-        />
-      )}
     </AuthCard>
   );
 };
