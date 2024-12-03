@@ -18,7 +18,7 @@ const AuthCard = ({ title, description, children, size = "default" }: AuthCardPr
         size === "big" && "max-w-4xl",
       )}
     >
-      {title && <h1 className="mb-2 text-lg">{title}</h1>}
+      {title && <h1 className="mb-1 text-lg">{title}</h1>}
       {description && <p className="text-center">{description}</p>}
       {children}
     </div>

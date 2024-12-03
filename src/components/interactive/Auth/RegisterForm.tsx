@@ -76,7 +76,7 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
   return (
     <AuthCard title={t("auth.registration.registration")} size="small">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-8">
           <div className="flex flex-col space-y-6">
             {/* TODO: Add avatar */}
             <FormField
@@ -116,33 +116,34 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
                 </FormItem>
               )}
             />
+            <FormError message={error} />
+            <FormSuccess message={success} />
           </div>
-          <FormError message={error} />
-          <FormSuccess message={success} />
 
-          {!accountCreated && (
-            <div className="flex flex-col items-center gap-2">
+          <div className="m-auto w-4/5">
+            {!accountCreated && (
+              <div className="flex flex-col items-center gap-2">
+                <IconButton
+                  type="submit"
+                  text={t("auth.registration.register")}
+                  disabled={isPending}
+                  icon="signUp"
+                  size="default"
+                  variant="primary"
+                />
+                <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
+                  {t("auth.returnToSignIn")}
+                </Button>
+              </div>
+            )}
+            {!!accountCreated && (
               <IconButton
-                type="submit"
-                text={t("auth.registration.register")}
-                disabled={isPending}
-                icon="signUp"
-                size="default"
+                text={t("general.continue")}
+                onClick={() => setMenuState(MenuState.MagicLinkSent)}
                 variant="primary"
               />
-              <Button variant="link" onClick={() => setMenuState(MenuState.SignIn)}>
-                {t("auth.returnToSignIn")}
-              </Button>
-            </div>
-          )}
-          {!!accountCreated && (
-            <IconButton
-              text={t("general.continue")}
-              onClick={() => setMenuState(MenuState.MagicLinkSent)}
-              className="-mt-2 w-full"
-              variant="primary"
-            />
-          )}
+            )}
+          </div>
         </form>
       </Form>
     </AuthCard>

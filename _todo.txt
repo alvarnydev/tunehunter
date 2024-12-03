@@ -1,15 +1,26 @@
 ---- CORE
-Edit mail: use form errors and fields rather than toasts
+
+--> Edit mail: use form errors and fields rather than toasts
+
 Sign in with spotify: account with the mail already exists (OAuthAccountNotLinked)
 E-mail templates
 
 Settings edit functionality: picture (s3 bucket)
+Add cypress tests
 
 iTunes api search debounce
 Results styles & functionality
 
+
+
+
+
+
+
+
 ---- THEN
 SENTRY & Upstash
+Remove i18n
 
 Add rate limiting to search with: 
 - const { success } = ratelimit.limit(user.id);
@@ -17,8 +28,8 @@ Add rate limiting to search with:
 Supporter & Stripe
 
 
------ MAYBE
-Add cypress tests
+
+
 
 
 ----- Qs

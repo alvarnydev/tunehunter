@@ -2,6 +2,7 @@
   "general": {
     "or": "or",
     "cancel": "Cancel",
+    "back": "Back",
     "userName": "User name",
     "mail": "Mail",
     "continue": "Continue",
@@ -32,7 +33,7 @@
       "newMail": "New mail:",
       "confirmMail": "Confirm mail:",
       "codePrompt": "Please enter the verification code we sent you.",
-      "code": "Code:"
+      "verificationCode": "Verification code:"
     }
   },
   "search": {
@@ -141,7 +142,9 @@
       "success": "Spotify account successfully linked!"
     },
     "edit": {
-      "invalidCode": "The code does not match! Please check your input.",
+      "tokenSent": "We sent you a verification code! Please check your mail.",
+      "tokenInvalid": "The code does not match! Please check your input.",
+      "tokenValid": "Code successfully verified!",
       "username": {
         "loading": "Updating username...",
         "success": "Username successfully updated!",

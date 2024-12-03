@@ -1,6 +1,7 @@
 {
   "general": {
     "or": "o",
+    "back": "Volver",
     "cancel": "Cancelar",
     "userName": "Nombre de usuario",
     "mail": "Correo",
@@ -32,7 +33,7 @@
       "newMail": "Nuevo correo:",
       "confirmMail": "Confirmar correo:",
       "codePrompt": "Por favor ingresa el código de verificación que te enviamos.",
-      "code": "Código:"
+      "verificationCode": "Código de verificación:"
     }
   },
   "search": {

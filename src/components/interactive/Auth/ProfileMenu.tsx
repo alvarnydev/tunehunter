@@ -10,9 +10,9 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import IconButton from "../../IconButton";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import ChangeAvatarDialog from "../Dialogs/ChangeAvatarDialog";
-import ChangeMailDialog from "../Dialogs/ChangeMailDialog";
-import ConfirmationDialog from "../Dialogs/ConfirmationDialog";
+import ChangeAvatarModal from "../Modals/ChangeAvatarModal";
+import ChangeMailModal from "../Modals/ChangeMailModal";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 import AuthCard from "./AuthCard";
 
 const ProfileMenu = () => {
@@ -67,7 +67,7 @@ const ProfileMenu = () => {
     <AuthCard size="default">
       {/* User */}
       <div className="relative flex flex-row items-center gap-4 pb-2 pt-2">
-        <ChangeAvatarDialog>
+        <ChangeAvatarModal>
           <div className="relative">
             <motion.div
               className="absolute inset-0 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-foreground bg-black bg-opacity-50"
@@ -82,7 +82,7 @@ const ProfileMenu = () => {
               {!userImg && <AvatarFallback>{userName?.slice(0, 2)}</AvatarFallback>}
             </Avatar>
           </div>
-        </ChangeAvatarDialog>
+        </ChangeAvatarModal>
         {userName && <p>{userName}</p>}
       </div>
 
@@ -94,7 +94,7 @@ const ProfileMenu = () => {
           {userMail}
         </p>
         <div className="col-span-1">
-          <ChangeMailDialog open={changeMailDialogOpen} setOpen={setChangeMailDialogOpen}>
+          <ChangeMailModal open={changeMailDialogOpen} setOpen={setChangeMailDialogOpen}>
             <IconButton
               icon="edit"
               variant="ghostPrimary"
@@ -102,7 +102,7 @@ const ProfileMenu = () => {
               iconSize="20px"
               onClick={() => setChangeMailDialogOpen(true)}
             />
-          </ChangeMailDialog>
+          </ChangeMailModal>
         </div>
 
         <p className="col-span-2 flex items-center font-thin">Spotify</p>
@@ -122,13 +122,13 @@ const ProfileMenu = () => {
                 size="sm"
               />
             </a>
-            <ConfirmationDialog
+            <ConfirmationModal
               dialogAction={() => handleUnlinkSpotify(userData.user.id)}
               dialogText={t("search.settings.unlink.text")}
               dialogTitle={t("search.settings.unlink.title")}
             >
               <IconButton icon="x" variant="ghostPrimary" size="icon" iconSize="20px" />
-            </ConfirmationDialog>
+            </ConfirmationModal>
           </>
         )}
         {!spotifyAccount?.data && (
@@ -154,7 +154,7 @@ const ProfileMenu = () => {
 
         <p className="col-span-2 flex items-center font-thin">{t("profile.wantToGo")}</p>
         <div className="col-span-3">
-          <ConfirmationDialog
+          <ConfirmationModal
             dialogAction={() => handleDeleteAccount(userData.user.id)}
             dialogText={t("profile.deleteAccount.promptText")}
             dialogTitle={t("profile.deleteAccount.promptTitle")}
@@ -165,7 +165,7 @@ const ProfileMenu = () => {
               size="sm"
               icon="x"
             />
-          </ConfirmationDialog>
+          </ConfirmationModal>
         </div>
       </div>
 

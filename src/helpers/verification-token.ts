@@ -1,4 +1,6 @@
+import { ConfirmMailSchema, VerificationCodeSchema } from "@/schemas";
 import { api } from "@/utils/api";
+import { z } from "zod";
 import { generateRandomNumbers } from "./random-generators";
 
 const useVerificationToken = () => {
@@ -10,20 +12,44 @@ const useVerificationToken = () => {
     const numbers = generateRandomNumbers(6);
     const verificationToken = `${numbers}`;
 
-    // Check if token already exists and delete it
-    const existingTokenData = await utils.user.getVerificationTokenByEmail.fetch({ email });
-    if (existingTokenData?.token) {
-      deleteVerificationToken.mutate({ email });
-    }
+    try {
+      // Check if token already exists and delete it
+      const existingTokenData = await utils.user.getVerificationTokenByEmail.fetch({ email });
+      if (existingTokenData?.token) {
+        deleteVerificationToken.mutate({ email });
+      }
 
-    // Create new token and hash it for DB
-    storeAndSendVerificationToken.mutate({ email, token: verificationToken });
+      // Create new token and hash it for DB
+      storeAndSendVerificationToken.mutate({ email, token: verificationToken });
+
+      return { success: "tokenSent" };
+    } catch (error) {
+      return { error: "generalError" };
+    }
   };
 
-  const verifyVerificationToken = async (email: string, token: string) => {
-    const isValidToken = await utils.user.verifyVerificationToken.fetch({ email, token });
-    if (isValidToken.error) return false;
-    return true;
+  const verifyVerificationToken = async (
+    confirmMailValues: z.infer<typeof ConfirmMailSchema>,
+    verificationCodeValues: z.infer<typeof VerificationCodeSchema>,
+  ) => {
+    const validatedMailFields = ConfirmMailSchema.safeParse(confirmMailValues);
+    const validatedCodeFields = VerificationCodeSchema.safeParse(verificationCodeValues);
+
+    if (!validatedMailFields.success || !validatedCodeFields.success) {
+      return { error: "fieldsInvalid" };
+    }
+
+    const isValidToken = await utils.user.verifyVerificationToken.fetch({
+      email: confirmMailValues.email,
+      token: verificationCodeValues.verificationCode,
+    });
+    if (isValidToken.error)
+      return {
+        error: "tokenInvalid",
+      };
+    return {
+      success: "tokenValid",
+    };
   };
 
   return {
