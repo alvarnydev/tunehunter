@@ -2,7 +2,6 @@ import { RedirectIndicator } from "@/components/Indicators";
 import { useSpotifyContext } from "@/contexts/SpotifyContext";
 import { playJingle } from "@/helpers/play-jingle";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
-import useSpotifyData from "@/hooks/useSpotifyData";
 import { api } from "@/utils/api";
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
@@ -16,8 +15,7 @@ const AuthCallbackPage: NextPage = ({}) => {
   const router = useRouterWithHelpers();
   const { t } = useTranslation();
   const { data: userData, status } = useSession();
-  const { spotifyData: globalSpotifyData, setSpotifyData: setGlobalSpotifyData } =
-    useSpotifyContext();
+  const { spotifyData } = useSpotifyContext();
   const [error, setError] = useState<string | null>(null);
   const loggedIn = status === "authenticated";
 
@@ -30,7 +28,6 @@ const AuthCallbackPage: NextPage = ({}) => {
       },
     );
   const accessToken = spotifyAccountData?.data?.access_token;
-  const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(accessToken || "");
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -44,25 +41,15 @@ const AuthCallbackPage: NextPage = ({}) => {
       );
       return;
     }
-    if (!spotifyDataLoading && !spotifyData) {
-      setError("We could not load Spotify data for your account. Please try again later.");
-      return;
-    }
 
-    // Remove errors, set global spotify data and trigger re-render
     setError(null);
-    if (!globalSpotifyData) {
-      setGlobalSpotifyData(spotifyData!);
-      return;
-    }
-
     const redirectPath = router.query.redirectPath as string;
     const actionParam = router.getParams("action");
 
     // Toast
     if (actionParam === "link") {
       toast.success(
-        t("toast.connect.success", { account: globalSpotifyData?.profileData?.display_name }),
+        t("toast.connect.success", { account: spotifyData?.profileData?.display_name }),
         { duration: 1800 },
       );
     } else {

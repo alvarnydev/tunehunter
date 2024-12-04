@@ -122,6 +122,9 @@ const useProfileFunctions = () => {
         onSuccess: () => {
           utils.account.getSpotifyAccountById
             .invalidate()
+            .then(() => {
+              if (router.getParams("search") == "spotify") router.setParams({ search: "" });
+            })
             .then(() => toast.success(t("toast.unlinkSpotify.success"), { id: loadingToast }));
         },
         onError: (opts) => {

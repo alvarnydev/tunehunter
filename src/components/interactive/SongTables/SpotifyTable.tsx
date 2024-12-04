@@ -1,8 +1,8 @@
+import IconButton from "@/components/IconButton";
 import { LoadingIndicator } from "@/components/Indicators";
 import { useSpotifyContext } from "@/contexts/SpotifyContext";
 import { signInWithProvider } from "@/helpers/sign-in";
 import { cn } from "@/lib/utils";
-import { api } from "@/utils/api";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
@@ -18,16 +18,10 @@ const SpotifyTable = () => {
   const [tab, setTab] = useState<SpotifyTableTab>("recentlyPlayed");
   const { t } = useTranslation();
   const router = useRouter();
-  const { data: userData, status } = useSession();
+  const { status } = useSession();
   const loggedIn = status === "authenticated";
-  const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
-    { userId: userData?.user.id! },
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!userData,
-    },
-  );
-  const { spotifyData, spotifyDataLoading } = useSpotifyContext();
+
+  const { spotifyData, refreshSpotifyData, spotifyDataLoading } = useSpotifyContext();
 
   if (loggedIn && spotifyDataLoading) {
     return (
@@ -37,9 +31,11 @@ const SpotifyTable = () => {
     );
   }
 
+  console.log("spotify data", spotifyData);
+
   return (
     <>
-      {!loggedIn || !spotifyAccount || !spotifyData ? (
+      {!loggedIn || !spotifyData ? (
         <LoginPromptMockTable
           promptText={t("search.spotify.connectPrompt")}
           icon="spotify"
@@ -61,6 +57,16 @@ const SpotifyTable = () => {
                 {t(`search.spotify.${spotifyTableTab}.header`)}
               </button>
             ))}
+          </div>
+          <div className="absolute right-8 top-3 z-10 cursor-pointer opacity-60">
+            <IconButton
+              icon="refresh"
+              size="icon"
+              iconSize="22px"
+              variant="ghostPrimary"
+              className="border-0"
+              onClick={refreshSpotifyData}
+            />
           </div>
           <div
             className={cn(
