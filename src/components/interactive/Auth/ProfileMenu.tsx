@@ -95,13 +95,15 @@ const ProfileMenu = () => {
         </p>
         <div className="col-span-1">
           <ChangeMailModal open={changeMailDialogOpen} setOpen={setChangeMailDialogOpen}>
-            <IconButton
-              icon="edit"
-              variant="ghostPrimary"
-              size="icon"
-              iconSize="20px"
-              onClick={() => setChangeMailDialogOpen(true)}
-            />
+            <div>
+              <IconButton
+                icon="edit"
+                variant="ghostPrimary"
+                size="icon"
+                iconSize="20px"
+                onClick={() => setChangeMailDialogOpen(true)}
+              />
+            </div>
           </ChangeMailModal>
         </div>
 
@@ -127,7 +129,9 @@ const ProfileMenu = () => {
               dialogText={t("search.settings.unlink.text")}
               dialogTitle={t("search.settings.unlink.title")}
             >
-              <IconButton icon="x" variant="ghostPrimary" size="icon" iconSize="20px" />
+              <div>
+                <IconButton icon="x" variant="ghostPrimary" size="icon" iconSize="20px" />
+              </div>
             </ConfirmationModal>
           </>
         )}
@@ -159,12 +163,14 @@ const ProfileMenu = () => {
             dialogText={t("profile.deleteAccount.promptText")}
             dialogTitle={t("profile.deleteAccount.promptTitle")}
           >
-            <IconButton
-              text={t("profile.deleteAccount.button")}
-              variant="outlineDestructive"
-              size="sm"
-              icon="x"
-            />
+            <div>
+              <IconButton
+                text={t("profile.deleteAccount.button")}
+                variant="outlineDestructive"
+                size="sm"
+                icon="x"
+              />
+            </div>
           </ConfirmationModal>
         </div>
       </div>

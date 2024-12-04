@@ -115,7 +115,9 @@ const ChangeMailModal = ({ children, open, setOpen }: ChangeMailDialogProps) => 
 
   return (
     <AlertDialog open={open}>
-      <AlertDialogTrigger className="w-full">{children}</AlertDialogTrigger>
+      <AlertDialogTrigger className="w-full" asChild>
+        {children}
+      </AlertDialogTrigger>
 
       <AlertDialogContent>
         {formStatus === "confirmMail" && (

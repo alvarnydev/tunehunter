@@ -29,7 +29,9 @@ const ConfirmationModal = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="w-full">{children}</AlertDialogTrigger>
+      <AlertDialogTrigger className="w-full" asChild>
+        {children}
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{dialogTitle}</AlertDialogTitle>

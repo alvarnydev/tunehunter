@@ -1,5 +1,5 @@
 import { RedirectIndicator } from "@/components/Indicators";
-import { useSpotify } from "@/contexts/SpotifyContext";
+import { useSpotifyContext } from "@/contexts/SpotifyContext";
 import { playJingle } from "@/helpers/play-jingle";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import useSpotifyData from "@/hooks/useSpotifyData";
@@ -16,7 +16,8 @@ const AuthCallbackPage: NextPage = ({}) => {
   const router = useRouterWithHelpers();
   const { t } = useTranslation();
   const { data: userData, status } = useSession();
-  const { spotifyData: globalSpotifyData, setSpotifyData: setGlobalSpotifyData } = useSpotify();
+  const { spotifyData: globalSpotifyData, setSpotifyData: setGlobalSpotifyData } =
+    useSpotifyContext();
   const [error, setError] = useState<string | null>(null);
   const loggedIn = status === "authenticated";
 
@@ -29,9 +30,7 @@ const AuthCallbackPage: NextPage = ({}) => {
       },
     );
   const accessToken = spotifyAccountData?.data?.access_token;
-  const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
-    spotifyAccountData?.data?.access_token || "",
-  );
+  const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(accessToken || "");
 
   useEffect(() => {
     if (!router.isReady) return;
