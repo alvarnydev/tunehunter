@@ -1,6 +1,5 @@
-import { LoadingIndicator } from "@/components/Indicators";
+import { useSpotify } from "@/contexts/SpotifyContext";
 import { signInWithProvider } from "@/helpers/sign-in";
-import useSpotifyData from "@/hooks/useSpotifyData";
 import { cn } from "@/lib/utils";
 import { api } from "@/utils/api";
 import { AnimatePresence, motion } from "framer-motion";
@@ -20,26 +19,14 @@ const SpotifyTable = () => {
   const router = useRouter();
   const { data: userData, status } = useSession();
   const loggedIn = status === "authenticated";
-  const { data: spotifyAccount, isLoading: spotifyAccountDataLoading } =
-    api.account.getSpotifyAccountById.useQuery(
-      { userId: userData?.user.id! },
-      {
-        refetchOnWindowFocus: false,
-        enabled: !!userData,
-      },
-    );
-  const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
-    spotifyAccount?.data?.access_token || "",
+  const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
+    { userId: userData?.user.id! },
+    {
+      refetchOnWindowFocus: false,
+      enabled: !!userData,
+    },
   );
-
-  // Waiting for either account data or spotify data
-  if ((loggedIn && spotifyAccountDataLoading) || (spotifyAccount && spotifyDataLoading)) {
-    return (
-      <div className="flex h-full justify-center">
-        <LoadingIndicator size={60} />
-      </div>
-    );
-  }
+  const { spotifyData } = useSpotify();
 
   return (
     <>
@@ -85,7 +72,7 @@ const SpotifyTable = () => {
                     {tab == "recentlyPlayed" && (
                       <>
                         {spotifyData.recentlyPlayed?.items.length == 0 ? (
-                          <div className="flex h-full items-center justify-center">
+                          <div className="absolute-center flex items-center justify-center">
                             <p className="text-center">
                               {t("search.spotify.recentlyPlayed.empty")}
                             </p>
@@ -112,7 +99,7 @@ const SpotifyTable = () => {
                     {tab == "topTracks" && (
                       <>
                         {spotifyData.topTracks?.items.length == 0 ? (
-                          <div className="flex h-full items-center justify-center">
+                          <div className="absolute-center flex items-center justify-center">
                             <p className="text-center">{t("search.spotify.topTracks.empty")}</p>
                           </div>
                         ) : (
@@ -126,7 +113,7 @@ const SpotifyTable = () => {
                     )}
                     {tab == "queue" && (
                       <>
-                        {spotifyData.queue?.queue.length == 0 ? (
+                        {!spotifyData.queue || spotifyData.queue?.queue.length == 0 ? (
                           <div className="absolute-center flex items-center justify-center">
                             <p className="text-center">{t("search.spotify.queue.empty")}</p>
                           </div>

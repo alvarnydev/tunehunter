@@ -82,15 +82,15 @@ const SearchTabs: FC<IProps> = ({}) => {
       <div className="flex min-w-0 flex-wrap justify-center gap-4">
         {tabs.map((tab) => {
           const TabElement = ({ disabled = false }) => (
-            <p className="flex items-center gap-2 px-1 pb-1">
+            <div className="flex items-center gap-2 px-1 pb-1">
               <CustomIcon icon={tab} variant={disabled ? "primary-muted" : "primary"} />
               {getTabName(tab)}
-            </p>
+            </div>
           );
 
           if (isDisabledTab(tab)) {
             return (
-              <Tooltip>
+              <Tooltip key={tab}>
                 <TooltipTrigger className="cursor-not-allowed text-muted-foreground/30">
                   <TabElement disabled={true} />
                 </TooltipTrigger>

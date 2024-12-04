@@ -1,25 +1,59 @@
 import { RedirectIndicator } from "@/components/Indicators";
+import { useSpotify } from "@/contexts/SpotifyContext";
 import { playJingle } from "@/helpers/play-jingle";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
+import useSpotifyData from "@/hooks/useSpotifyData";
+import { api } from "@/utils/api";
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import nextI18nConfig from "../../../next-i18next.config.mjs";
 
-interface IPageProps {}
-
-const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
+const AuthCallbackPage: NextPage = ({}) => {
   const router = useRouterWithHelpers();
   const { t } = useTranslation();
-  const { status } = useSession();
+  const { data: userData, status } = useSession();
+  const { spotifyData: globalSpotifyData, setSpotifyData: setGlobalSpotifyData } = useSpotify();
+  const [error, setError] = useState<string | null>(null);
   const loggedIn = status === "authenticated";
-  const notLoggedIn = status === "unauthenticated";
+
+  const { data: spotifyAccountData, isLoading: spotifyAccountDataLoading } =
+    api.account.getSpotifyAccountById.useQuery(
+      { userId: userData?.user.id! },
+      {
+        refetchOnWindowFocus: false,
+        enabled: !!userData,
+      },
+    );
+  const accessToken = spotifyAccountData?.data?.access_token;
+  const { spotifyData, isLoading: spotifyDataLoading } = useSpotifyData(
+    spotifyAccountData?.data?.access_token || "",
+  );
 
   useEffect(() => {
-    if (!loggedIn || !router.isReady) {
+    if (!router.isReady) return;
+    if (!loggedIn) {
+      setError("You're not logged in!");
+      return;
+    }
+    if (!spotifyAccountDataLoading && !accessToken) {
+      setError(
+        "We did not receive an API key from Spotify to query your data. Did you allow us to read your data?",
+      );
+      return;
+    }
+    if (!spotifyDataLoading && !spotifyData) {
+      setError("We could not load Spotify data for your account. Please try again later.");
+      return;
+    }
+
+    // Remove errors, set global spotify data and trigger re-render
+    setError(null);
+    if (!globalSpotifyData) {
+      setGlobalSpotifyData(spotifyData!);
       return;
     }
 
@@ -28,7 +62,10 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
 
     // Toast
     if (actionParam === "link") {
-      toast.success(t("toast.connect.success"), { duration: 1800 });
+      toast.success(
+        t("toast.connect.success", { account: globalSpotifyData?.profileData?.display_name }),
+        { duration: 1800 },
+      );
     } else {
       toast.success(t("toast.login.success"), { duration: 1800 });
     }
@@ -42,13 +79,13 @@ const AuthCallbackPage: NextPage<IPageProps> = ({}) => {
 
   return (
     <>
-      {loggedIn && (
+      {!error && (
         <div className="flex items-baseline gap-2">
           <p className="text-lg text-foreground">{t("auth.redirecting")}</p>
           <RedirectIndicator size={12} />
         </div>
       )}
-      {notLoggedIn && <p>{t("toast.login.error")}</p>}
+      {error && <p>{error}</p>}
     </>
   );
 };

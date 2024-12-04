@@ -139,7 +139,7 @@
       "error": "No pudimos encontrarte. Por favor elige la ubicación manualmente o intenta de nuevo más tarde."
     },
     "connect": {
-      "success": "Cuente de Spotify conectada correctamente!"
+      "success": "Cuenta de Spotify {{account}} conectada correctamente!"
     },
     "edit": {
       "invalidCode": "¡El código no coincide! Por favor revisa tu entrada.",

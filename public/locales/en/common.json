@@ -63,7 +63,7 @@
       "dataMissing": "We could not load your Spotify data. Please try again later.",
       "recentlyPlayed": {
         "header": "Recently Played",
-        "empty": "You haven't listed to any songs on Spotify recently."
+        "empty": "You haven't listened to any songs on Spotify recently."
       },
       "topTracks": {
         "header": "Most Played",
@@ -139,7 +139,7 @@
       "error": "We could not find you. Please choose the location manually or try again later!"
     },
     "connect": {
-      "success": "Spotify account successfully linked!"
+      "success": "Spotify account {{account}} successfully linked!"
     },
     "edit": {
       "tokenSent": "We sent you a verification code! Please check your mail.",

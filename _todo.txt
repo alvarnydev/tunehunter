@@ -1,12 +1,9 @@
 ---- CORE
 
---> Edit mail: use form errors and fields rather than toasts
-
 Sign in with spotify: account with the mail already exists (OAuthAccountNotLinked)
-E-mail templates
 
+E-mail templates
 Settings edit functionality: picture (s3 bucket)
-Add cypress tests
 
 iTunes api search debounce
 Results styles & functionality
@@ -16,20 +13,24 @@ Results styles & functionality
 
 
 
-
-
 ---- THEN
+Add (cypress) tests
 SENTRY & Upstash
-Remove i18n
 
 Add rate limiting to search with: 
 - const { success } = ratelimit.limit(user.id);
 
-Supporter & Stripe
+Pay functionality: Stripe 
+- Supporter
+- Extra features
 
 
 
-
+---- Fork
+Fit into eco-system
+- Remove i18n and replace with sidebar
+- Remove page-side login and replace with SSO
+- Keep settings
 
 
 ----- Qs

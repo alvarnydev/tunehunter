@@ -139,7 +139,7 @@
       "error": "Wir konnten dich nicht finden. Bitte wähle den Ort manuell aus oder versuche es später erneut."
     },
     "connect": {
-      "success": "Spotify erfolgreich verbunden!"
+      "success": "Spotify-Account {{account}} erfolgreich verbunden!"
     },
     "edit": {
       "invalidCode": "Der Code stimmt nicht überein! Bitte überprüfe deine Eingabe.",
