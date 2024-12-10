@@ -1,8 +1,7 @@
 import { Separator } from "@/components/my-ui/separator";
 import { useSpotifyContext } from "@/contexts/SpotifyContext";
-import { isNextAuthError } from "@/helpers/nextauth-errors";
+import useAuthError from "@/hooks/useAuthErrors";
 import useProfileFunctions from "@/hooks/useProfileFunctions";
-import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
 import { api } from "@/utils/api";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -17,18 +16,22 @@ import ConfirmationModal from "../Modals/ConfirmationModal";
 import AuthCard from "./AuthCard";
 
 const ProfileMenu = () => {
-  const router = useRouterWithHelpers();
   const { t } = useTranslation("");
   const [changeMailDialogOpen, setChangeMailDialogOpen] = useState(false);
   const { handleDeleteAccount, handleLinkSpotify, handleSignOut, handleUnlinkSpotify } =
     useProfileFunctions();
   const { spotifyData } = useSpotifyContext();
+  const linkError = useAuthError("link");
 
   const { data: userData } = useSession();
   const userName = userData?.user.name;
   const userMail = userData?.user.email;
   const userImg = userData?.user.image;
   const userImgAlt = `Avatar image of ${userName}`;
+
+  useEffect(() => {
+    if (linkError) toast.error(linkError, { dismissible: true, duration: Infinity });
+  }, [linkError]);
 
   const { data: spotifyAccount } = api.account.getSpotifyAccountById.useQuery(
     { userId: userData?.user.id! },
@@ -37,19 +40,6 @@ const ProfileMenu = () => {
       enabled: !!userData,
     },
   );
-
-  // Check for errors in URL
-  useEffect(() => {
-    const errorParams = router.getParams("error");
-    if (!errorParams) return;
-
-    if (isNextAuthError(errorParams)) {
-      const errorText = getNextAuthErrorText(errorParams);
-      toast.error(errorText, { dismissible: true, duration: Infinity });
-    }
-  }, [router.isReady]);
-
-  const getNextAuthErrorText = (errorString: string) => t(`auth.errors.${errorString}`);
 
   if (!userData) {
     return (
@@ -109,7 +99,7 @@ const ProfileMenu = () => {
           </ChangeMailModal>
         </div>
 
-        <p className="col-span-2 flex items-center font-thin">Spotify-Account</p>
+        <p className="col-span-2 flex items-center font-thin">{t("search.spotify.account")}</p>
         {spotifyAccount?.data && (
           <>
             <a

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { isCustomIcon } from "@/helpers/custom-icons";
 import { signInWithProvider } from "@/helpers/sign-in";
+import useAuthError from "@/hooks/useAuthErrors";
 import { type Providers } from "@/interfaces/providers";
 import { api } from "@/utils/api";
 import { getProviders, signIn } from "next-auth/react";
@@ -25,6 +26,7 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
   const router = useRouter();
   // const userQuery = api.user.getUser.useQuery({ email }, { enabled: true });
   const utils = api.useUtils();
+  const loginError = useAuthError("login");
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -35,6 +37,10 @@ const SignInForm: FC<IProps> = ({ email, setEmail, setMenuState }) => {
 
     fetchProviders();
   }, []);
+
+  useEffect(() => {
+    if (loginError) toast.error(loginError, { dismissible: true, duration: Infinity });
+  }, [loginError]);
 
   if (!providers) {
     return <></>;

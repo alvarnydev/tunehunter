@@ -1,11 +1,15 @@
 ---- CORE
 
-Sign in with spotify: account with the mail already exists (OAuthAccountNotLinked)
-E-mail templates
-Settings edit functionality: picture (s3 bucket)
-
 iTunes api search debounce
 Results styles & functionality
+
+Solidify auth:
+- E-mail templates
+- Email login with token
+
+Solidify settings:
+- Edit picture functionality (s3 bucket)
+- Edit user name functionality (double-click)
 
 
 

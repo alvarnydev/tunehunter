@@ -41,7 +41,7 @@
       "spotifyConnected": "Verbunden als {{accountName}}",
       "unlink": {
         "title": "Spotify-Verknüfung löschen?",
-        "text": "Bitte bestätige, dass du die Verbindung zu deinem Spotify-Account ({{accountName}}) löschen möchtest."
+        "text": "Bitte bestätige, dass du die Verbindung zu deinem Spotify-Account {{accountName}} löschen möchtest."
       },
       "region": "Region",
       "locateMe": "Finde mich",
@@ -58,6 +58,7 @@
       "wishlist": { "header": "Wunschliste", "empty": "Deine Wunschliste ist leer." }
     },
     "spotify": {
+      "account": "Spotify-Account",
       "connectPrompt": "Verbinde deinen Spotify-Account",
       "connectPromptSm": "Verbinde Spotify",
       "dataMissing": "Wir konnten deine Spotify Daten nicht laden. Bitte versuche es später erneut.",
@@ -90,7 +91,8 @@
       "OAuthCreateAccount": "",
       "EmailCreateAccount": "",
       "Callback": "",
-      "OAuthAccountNotLinked": "Der Spotify Account, mit dem du aktuell auf Spotify's Webplattform eingeloggt bist, ist bereits mit einem anderen Account auf unserer Plattform verbunden. Bitte trenne ihn zuerst oder versuche es mit einem anderen Account!",
+      "OAuthAccountNotLinked_link": "Der Spotify-Account, mit dem du aktuell auf Spotify's Webplattform eingeloggt bist, ist bereits auf unserer Plattform mit einem anderen Account verbunden. Bitte trenne ihn zuerst oder versuche es mit einem anderen Account!",
+      "OAuthAccountNotLinked_login": "Wir konnten dich mit dem Spotify-Account nicht einloggen, weil auf unserer Plattform bereits ein Account mit der Mailadresse existiert. Bitte logge dich stattdessen per E-Mail ein und verbinde den Spotify-Account danach!",
       "EmailSignin": "",
       "CredentialsSignin": "",
       "SessionRequired": "",

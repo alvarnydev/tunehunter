@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
     error: "/?profile=login", // &error=errorCode is added by Next Auth
   },
   callbacks: {
-    // We're using an adapter, so we're using the 'database' strategy and there is no JWT; instead there is a sessionToken cookie which is used to look up the session in the DB
+    // We're using an adapter, so we're using the 'database' strategy (which also enables us to use the Email SignIn method) and there is no JWT; instead there is a sessionToken cookie which is used to look up the session in the DB
     // If we had been using JWT, we could access the DB here, add stuff to the token and then retrieve that in the 'session' callback to propagate fields to the client
     // jwt: ({ token, account, user }) => {
     //   console.log("jwt", token, account, user);

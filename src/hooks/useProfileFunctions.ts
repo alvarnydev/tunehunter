@@ -66,7 +66,9 @@ const useProfileFunctions = () => {
     );
   };
 
-  const handleChangeAvatar = async () => {};
+  const handleChangeAvatar = async () => {
+    throw new Error("Not implemented yet");
+  };
 
   const handleSignOut = async () => {
     router.push("/");
@@ -83,6 +85,7 @@ const useProfileFunctions = () => {
         error: t("toast.logout.error"),
       },
     );
+    toast.dismiss();
   };
 
   const handleDeleteAccount = async (userId: string) => {
