@@ -76,7 +76,7 @@ const RegisterForm: FC<IProps> = ({ email, menuState, setMenuState }) => {
   return (
     <AuthCard title={t("auth.registration.registration")} size="small">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col space-y-12">
           <div className="flex flex-col space-y-6">
             {/* TODO: Add avatar */}
             <FormField

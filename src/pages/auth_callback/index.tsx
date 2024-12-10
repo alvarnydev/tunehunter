@@ -19,7 +19,7 @@ const AuthCallbackPage: NextPage = ({}) => {
   const [error, setError] = useState<string | null>(null);
   const loggedIn = status === "authenticated";
 
-  const { data: spotifyAccountData, isLoading: spotifyAccountDataLoading } =
+  const { data: spotifyAccountData, isLoading: isSpotifyAccountDataLoading } =
     api.account.getSpotifyAccountById.useQuery(
       { userId: userData?.user.id! },
       {
@@ -35,7 +35,11 @@ const AuthCallbackPage: NextPage = ({}) => {
       // setError("You're not logged in!");
       return;
     }
-    if (!spotifyAccountDataLoading && !accessToken) {
+    if (isSpotifyAccountDataLoading || !spotifyData) {
+      // setError("We're still loading your Spotify account data.");
+      return;
+    }
+    if (!accessToken) {
       // setError(
       //   "We did not receive an API key from Spotify to query your data. Did you allow us to read your data?",
       // );
@@ -60,7 +64,7 @@ const AuthCallbackPage: NextPage = ({}) => {
     setTimeout(() => {
       router.push(redirectPath);
     }, 2000);
-  }, [router]);
+  }, [router.isReady, loggedIn, isSpotifyAccountDataLoading, spotifyData, accessToken]);
 
   return (
     <>

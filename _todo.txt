@@ -12,6 +12,8 @@ Solidify settings:
 - Edit user name functionality (double-click)
 
 
+Add:
+- Trending/History/Wishlist functionality
 
 
 
