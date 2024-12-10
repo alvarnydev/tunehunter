@@ -1,4 +1,5 @@
 import { Separator } from "@/components/my-ui/separator";
+import { useSpotifyContext } from "@/contexts/SpotifyContext";
 import { isNextAuthError } from "@/helpers/nextauth-errors";
 import useProfileFunctions from "@/hooks/useProfileFunctions";
 import useRouterWithHelpers from "@/hooks/useRouterWithHelpers";
@@ -21,6 +22,7 @@ const ProfileMenu = () => {
   const [changeMailDialogOpen, setChangeMailDialogOpen] = useState(false);
   const { handleDeleteAccount, handleLinkSpotify, handleSignOut, handleUnlinkSpotify } =
     useProfileFunctions();
+  const { spotifyData } = useSpotifyContext();
 
   const { data: userData } = useSession();
   const userName = userData?.user.name;
@@ -107,7 +109,7 @@ const ProfileMenu = () => {
           </ChangeMailModal>
         </div>
 
-        <p className="col-span-2 flex items-center font-thin">Spotify</p>
+        <p className="col-span-2 flex items-center font-thin">Spotify-Account</p>
         {spotifyAccount?.data && (
           <>
             <a
@@ -120,13 +122,15 @@ const ProfileMenu = () => {
                 icon="external"
                 iconPosition="right"
                 variant="link"
-                text={t("search.settings.spotifyConnected")}
+                text={spotifyData?.profileData?.display_name}
                 size="sm"
               />
             </a>
             <ConfirmationModal
               dialogAction={() => handleUnlinkSpotify(userData.user.id)}
-              dialogText={t("search.settings.unlink.text")}
+              dialogText={t("search.settings.unlink.text", {
+                accountName: spotifyData?.profileData?.display_name,
+              })}
               dialogTitle={t("search.settings.unlink.title")}
             >
               <div>

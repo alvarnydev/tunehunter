@@ -32,17 +32,16 @@ const AuthCallbackPage: NextPage = ({}) => {
   useEffect(() => {
     if (!router.isReady) return;
     if (!loggedIn) {
-      setError("You're not logged in!");
+      // setError("You're not logged in!");
       return;
     }
     if (!spotifyAccountDataLoading && !accessToken) {
-      setError(
-        "We did not receive an API key from Spotify to query your data. Did you allow us to read your data?",
-      );
+      // setError(
+      //   "We did not receive an API key from Spotify to query your data. Did you allow us to read your data?",
+      // );
       return;
     }
 
-    setError(null);
     const redirectPath = router.query.redirectPath as string;
     const actionParam = router.getParams("action");
 
@@ -61,7 +60,7 @@ const AuthCallbackPage: NextPage = ({}) => {
     setTimeout(() => {
       router.push(redirectPath);
     }, 2000);
-  }, [status, router]);
+  }, [router]);
 
   return (
     <>

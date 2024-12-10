@@ -38,10 +38,10 @@
   },
   "search": {
     "settings": {
-      "spotifyConnected": "Conectado",
+      "spotifyConnected": "Conectado como {{accountName}}",
       "unlink": {
         "title": "¿Desvincular cuenta de Spotify?",
-        "text": "Por favor confirma que deseas desvincular tu cuenta de Spotify."
+        "text": "Por favor confirma que deseas desvincular tu cuenta de Spotify ({{accountName}})."
       },
       "region": "Región",
       "locateMe": "Búscame",

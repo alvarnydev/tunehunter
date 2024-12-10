@@ -38,10 +38,10 @@
   },
   "search": {
     "settings": {
-      "spotifyConnected": "Verbunden",
+      "spotifyConnected": "Verbunden als {{accountName}}",
       "unlink": {
         "title": "Spotify-Verknüfung löschen?",
-        "text": "Bitte bestätige, dass du die Verbindung zu deinem Spotify-Account löschen möchtest."
+        "text": "Bitte bestätige, dass du die Verbindung zu deinem Spotify-Account ({{accountName}}) löschen möchtest."
       },
       "region": "Region",
       "locateMe": "Finde mich",
