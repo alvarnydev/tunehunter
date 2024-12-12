@@ -1,4 +1,4 @@
-import { fadeFromAboveIO, growIn } from "@/helpers/animations";
+import { growIn, slideInAndOutFromAbove } from "@/helpers/animations";
 import useRegion from "@/hooks/useRegion";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "framer-motion";
@@ -68,7 +68,7 @@ const SearchSettings: FC<IProps> = ({}) => {
             {minimumLengthOption && (
               <motion.div
                 className="col-span-2 mx-auto flex w-4/5 cursor-pointer items-center justify-center gap-4 py-2"
-                {...fadeFromAboveIO}
+                {...slideInAndOutFromAbove}
                 key="mnimumlengthslider"
               >
                 <span className="font-normal">

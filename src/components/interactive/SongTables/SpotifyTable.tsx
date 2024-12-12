@@ -1,6 +1,7 @@
 import IconButton from "@/components/IconButton";
 import { LoadingIndicator } from "@/components/Indicators";
 import { useSpotifyContext } from "@/contexts/SpotifyContext";
+import { fadeInAndOut } from "@/helpers/animations";
 import { signInWithProvider } from "@/helpers/sign-in";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -75,30 +76,33 @@ const SpotifyTable = () => {
             )}
           >
             {tab == "topTracks" && spotifyData.topTracks?.items.length == 0 && (
-              <div className="absolute-center flex items-center justify-center">
+              <motion.div
+                {...fadeInAndOut}
+                className="absolute-center flex items-center justify-center"
+              >
                 <p className="text-center">{t("search.spotify.topTracks.empty")}</p>
-              </div>
+              </motion.div>
             )}
-            {tab == "queue" && spotifyData.queue?.queue.length == 0 && (
-              <div className="absolute-center flex items-center justify-center">
+            {tab == "queue" && (!spotifyData.queue || spotifyData.queue?.queue.length == 0) && (
+              <motion.div
+                {...fadeInAndOut}
+                className="absolute-center flex items-center justify-center"
+              >
                 <p className="text-center">{t("search.spotify.queue.empty")}</p>
-              </div>
+              </motion.div>
             )}
             {tab == "recentlyPlayed" && spotifyData.recentlyPlayed?.items.length == 0 && (
-              <div className="absolute-center flex items-center justify-center">
+              <motion.div
+                {...fadeInAndOut}
+                className="absolute-center flex items-center justify-center"
+              >
                 <p className="text-center">{t("search.spotify.recentlyPlayed.empty")}</p>
-              </div>
+              </motion.div>
             )}
             <table className="w-full">
               {spotifyData && (
                 <AnimatePresence mode="wait">
-                  <motion.tbody
-                    key={tab}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15, ease: "easeInOut" }}
-                  >
+                  <motion.tbody key={tab} {...fadeInAndOut}>
                     {tab == "queue" &&
                       spotifyData.queue?.queue.map((track, index) => (
                         <SpotifyTableRow key={`${track.id}/${index}`} track={track} />
