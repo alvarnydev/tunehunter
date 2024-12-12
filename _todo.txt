@@ -11,7 +11,6 @@ Solidify settings:
 - Edit picture functionality (s3 bucket)
 - Edit user name functionality (double-click)
 
-
 Add:
 - Trending/History/Wishlist functionality
 

@@ -38,6 +38,7 @@
   },
   "search": {
     "settings": {
+      "title": "Search Settings",
       "spotifyConnected": "Connected as {{accountName}}",
       "unlink": {
         "title": "Unlink Spotify account?",

@@ -47,7 +47,7 @@ const LanguagePicker = ({ preferredLanguage, updatePreferredLanguage }: Language
       </SelectTrigger>
       <SelectContent>
         {Locales.map((locale) => (
-          <SelectItem key={locale} value={locale}>
+          <SelectItem key={locale} value={locale} className="py-2">
             {getLanguageText(locale)}
           </SelectItem>
         ))}

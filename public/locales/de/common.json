@@ -38,6 +38,7 @@
   },
   "search": {
     "settings": {
+      "title": "Sucheinstellungen",
       "spotifyConnected": "Verbunden als {{accountName}}",
       "unlink": {
         "title": "Spotify-Verknüfung löschen?",

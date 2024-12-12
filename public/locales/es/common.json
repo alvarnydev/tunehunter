@@ -38,6 +38,7 @@
   },
   "search": {
     "settings": {
+      "title": "Configuración de búsqueda",
       "spotifyConnected": "Conectado como {{accountName}}",
       "unlink": {
         "title": "¿Desvincular cuenta de Spotify?",
