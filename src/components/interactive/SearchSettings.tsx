@@ -43,7 +43,7 @@ const SearchSettings: FC<IProps> = ({}) => {
           <Cog />
         </motion.div>
       </PopoverTrigger>
-      <PopoverContent className="relative flex flex-col gap-4 border-foreground/30 bg-background px-6 py-4 text-foreground">
+      <PopoverContent className="flex flex-col gap-4 px-6 py-4">
         {/* <div className="absolute inset-0 -z-10 bg-background opacity-80" /> */}
 
         <p className="text-center text-lg  text-foreground underline underline-offset-8">
@@ -106,7 +106,7 @@ const SearchSettings: FC<IProps> = ({}) => {
             <Select onValueChange={changeRegion} value={region}>
               <SelectTrigger
                 id="region"
-                className="h-9 max-w-44 justify-start gap-2 text-ellipsis border-none px-1 text-base text-foreground focus:ring-0 focus:ring-offset-0"
+                className="h-9 max-w-44 justify-start gap-2 text-ellipsis border-none bg-transparent px-1 text-base text-foreground focus:ring-0 focus:ring-offset-0"
               >
                 <motion.div
                   key={region}
