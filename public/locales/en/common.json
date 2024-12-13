@@ -138,8 +138,8 @@
   "toast": {
     "retrieveLocation": {
       "loading": "Retrieving your location...",
-      "success": "Found you in",
-      "error": "We could not find you. Please choose the location manually or try again later!"
+      "success": "You're probably located in {{country}}.",
+      "error": "We could not determine your location. Please choose it manually or try again later!"
     },
     "connect": {
       "success": "Spotify account {{account}} successfully linked!"

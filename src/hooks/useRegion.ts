@@ -67,7 +67,9 @@ const useRegion = () => {
 
         if (countryCode) {
           changeRegion(countryCode.toLowerCase());
-          toast.success(`${t("toast.retrieveLocation.success")} ${createRegionName(countryCode)}`);
+          toast.success(
+            t("toast.retrieveLocation.success", { country: createRegionName(countryCode) }),
+          );
         } else {
           toast.error(t("toast.retrieveLocation.error"), { dismissible: true, duration: Infinity });
         }
